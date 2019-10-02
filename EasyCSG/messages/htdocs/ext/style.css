@@ -1,0 +1,72 @@
+body {background-color: #d9d9d9;}
+
+#mainContainer
+{
+	width:				800px;
+	height:				auto;
+	background-color:	white;
+	border:				1px solid #cc99b2;
+	margin-left:		auto;
+	margin-right:		auto;
+	padding-top:		40px;
+	border-radius:		5px;
+	box-shadow:			2px 2px 2px black;
+}
+
+#errorContainer, #warningContainer, #infoContainer
+{
+	width:			750px;
+	min-height:		30px;
+	margin-left:	auto;
+	margin-right:	auto;
+	margin-bottom:	40px;
+}
+
+#errorContainer{border: 1px solid #E74C3C;}
+
+#warningContainer {border: 1px solid #F1C40F;}
+
+#infoContainer {border: 1px solid #1979ca;}
+
+.icon
+{
+	position:			relative;
+	top:				-15px;
+	left:				-15px;
+	background-color:	white;
+}
+
+#errorContainer a {color: #E74C3C;}
+
+#warningContainer a {color: #F1C40F;}
+
+#infoContainer a {color: #1979ca;}
+
+table
+{
+	width:			650px;
+	height:			auto;
+	border-spacing:	2px;
+	margin-left:	auto;
+	margin-right:	auto;
+	margin-bottom:	10px;
+	font-family:	arial,fantasy;
+	font-style:		normal;
+	font-size:		13px;
+	table-layout:	fixed;
+}
+
+.evenn {background-color: #F0F0F2;}
+
+.cell1
+{
+	width:			45px;
+	padding-left:	5px;
+}
+
+a
+{
+	text-decoration:	none;
+	margin-left:		20px;
+	display:			block;
+}

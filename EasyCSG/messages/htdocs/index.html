@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml">
+	<head>
+		<link rel = "stylesheet" href = "./ext/style.css" type = "text/css" media = "screen" />
+		<script src = "./ext/script.js" language = "javascript" type = "text/javascript"></script>
+
+		<title>EasyCSG</title>
+	</head>
+
+	<body>
+		<div id = "mainContainer">
+			<div id = "errorContainer">
+				<img class = "icon" alt = "Error icon" src = "./img/error32.png" />
+
+				<a id = "errorLink" href = "javascript:showHide('messagesE', 'errorLink');javascript:readXML('./xml/messages.xml', 'messagesE', 'error');">&#9660;</a>
+				<div id = "messagesE">
+				</div>
+			</div>
+
+			<div id = "warningContainer">
+				<img class = "icon" alt = "Warning icon" src = "./img/warning32.png" />
+
+				<a id = "warningLink" href = "javascript:showHide('messagesW', 'warningLink');javascript:readXML('./xml/messages.xml', 'messagesW', 'warning');">&#9660;</a>
+				<div id = "messagesW">
+				</div>
+			</div>
+
+			<div id = "infoContainer">
+				<img class = "icon" alt = "Info icon" src = "./img/info32.png"/>
+
+				<a id = "infoLink" href = "javascript:showHide('messagesI', 'infoLink');javascript:readXML('./xml/messages.xml', 'messagesI', 'info');">&#9660;</a>
+				<div id = "messagesI">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

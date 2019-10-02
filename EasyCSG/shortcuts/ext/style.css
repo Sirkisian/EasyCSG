@@ -1,0 +1,98 @@
+body {background-color: #d9d9d9;}
+
+#mainContainer
+{
+	width:				800px;
+	height:				auto;
+	background-color:	white;
+	border:				1px solid #cc99b2;
+	margin-left:		auto;
+	margin-right:		auto;
+	padding-top:		40px;
+	border-radius:		5px;
+	box-shadow:			2px 2px 2px black;
+}
+
+table
+{
+	width:			auto;
+	height:			auto;
+	margin-left:	auto;
+	margin-right:	auto;
+	margin-bottom:	50px;
+	font-family:	arial, fantasy;
+	font-style:		normal;
+	font-size:		18px;
+	table-layout:	fixed;
+}
+
+td {padding: 5px 15px 5px 15px;}
+
+table tr td div {display: inline-block;}
+
+.header
+{
+	background-color:	#F5F6F7;
+	padding:			15px 15px 15px 15px;
+	font-size:			20px;
+	font-weight:		700;
+}
+
+.key
+{
+	width:				45px;
+	height:				45px;
+	background:			url("../img/key.png") no-repeat center;
+	background-size:	50px 50px;
+	color:				white;
+}
+
+.ctrl
+{
+	width:				55px;
+	background-size:	60px 50px;
+}
+
+.shift
+{
+	width:				70px;
+	background-size:	75px 50px;
+}
+
+.letter
+{
+	position:	relative;
+	top:		5px;
+	left:		7px;
+}
+
+.ctrl div
+{
+	position:	relative;
+	top:		10px;
+	left:		10px;
+}
+
+.shift div
+{
+	position:	relative;
+	top:		10px;
+	left:		15px;
+}
+
+.plus
+{
+	position:	relative;
+	top:		10px;
+}
+
+img
+{
+	width:	45px;
+	height:	45px;
+	float:	right;
+}
+
+table tr td div img {margin-left: 5px;}
+
+table tr td > div {float: right;}
