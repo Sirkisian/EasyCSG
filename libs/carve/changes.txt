@@ -1,0 +1,36 @@
+--------------------
+2017.03.15
+-----
+polyline_iter.hpp:
+-removed
+"#include <iterator>" (2x)
+-add
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+-----
+mesh.cpp:
+-add
+#include <algorithm>
+#include <functional>
+-----
+mesh_impl.hpp:
+-add
+#include <algorithm>
+-----
+aabb_impl.hpp:
+-add
+#include <algorithm>
+-----
+stream.hpp
+-add
+#define int8_t int8_t_undef
+#define int16_t int16_t_undef
+#define int32_t int32_t_undef
+
+#define uint8_t uint8_t_undef
+#define uint16_t uint16_t_undef
+#define uint32_t uint32_t_undef
+-----
+djset.hpp
+-removed
+void collate(in_iter_t in, out_collection_t& out)

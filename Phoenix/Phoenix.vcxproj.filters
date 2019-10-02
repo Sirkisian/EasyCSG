@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\crossPlatform">
+      <UniqueIdentifier>{eca2914e-10b4-405e-85b9-aa5a21c02c13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\windowsPlatform">
+      <UniqueIdentifier>{ada7d4b7-c439-4b00-b875-f007a605becb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\crossPlatform">
+      <UniqueIdentifier>{24783c90-d233-4cce-89ff-c5a032e38a41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\windowsPlatform">
+      <UniqueIdentifier>{fc1e1937-5208-410e-94e8-3e5a75c97b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\windowsPlatform\ribbon">
+      <UniqueIdentifier>{9fb31a39-f859-4fa0-a35a-5712887047be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\windowsPlatform\ribbon\controls">
+      <UniqueIdentifier>{ec1277ba-e14a-46be-8858-679ade4b4aac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\windowsPlatform\ribbon">
+      <UniqueIdentifier>{fe7cc126-4e6e-48f1-b0c4-7629874af0ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\windowsPlatform\ribbon\controls">
+      <UniqueIdentifier>{97177b43-56e5-4549-938a-2d1b0cdd46fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\windowsPlatform\ribbon\controls\abstract">
+      <UniqueIdentifier>{1c9c87ea-af43-4274-993c-ab33f156c482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\windowsPlatform\ribbon\controls\abstract">
+      <UniqueIdentifier>{78d636ee-cbca-40f5-8406-1b1f86c7b417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\crossPlatform\graphic">
+      <UniqueIdentifier>{3a5310ee-5496-4388-a8fd-868e5e69f2e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\crossPlatform\graphic\objects">
+      <UniqueIdentifier>{a4e27df3-dcfc-4569-bec7-9e82c2580102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\crossPlatform\graphic\objects\abstract">
+      <UniqueIdentifier>{be769157-a7b7-4345-baf2-44157c926a4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\crossPlatform\graphic\shader">
+      <UniqueIdentifier>{e7e4d938-8b6d-4065-bf2b-0f3770790764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\crossPlatform\csg">
+      <UniqueIdentifier>{b7270ad8-352c-45d7-9fec-7e43b10c9e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\crossPlatform\csg">
+      <UniqueIdentifier>{befc4ca2-b2df-4c3c-8bc5-c574cc14d8a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\crossPlatform\graphic">
+      <UniqueIdentifier>{0aa3026c-640f-4004-84d0-042ae2fd46a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\crossPlatform\graphic\objects">
+      <UniqueIdentifier>{b0a898d8-95a0-4408-925e-01ed14340e43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\crossPlatform\graphic\objects\abstract">
+      <UniqueIdentifier>{741c2ac6-519a-41bb-81cb-4bf000f2f283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\crossPlatform\graphic\shader">
+      <UniqueIdentifier>{189c4c77-ae65-47cf-a1c7-8538c3b57ccd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="winmain.cpp">
+      <Filter>Source Files\windowsPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="windowsui.cpp">
+      <Filter>Source Files\windowsPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="ribbonapplication.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon</Filter>
+    </ClCompile>
+    <ClCompile Include="ribbon.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon</Filter>
+    </ClCompile>
+    <ClCompile Include="ribbonfunctions.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon</Filter>
+    </ClCompile>
+    <ClCompile Include="rbuttonhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="rspinnerhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="rtogglebuttonhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="rpropertyset.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="rdropdownbuttonhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="rcontrolhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls\abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="rgallerycontrolhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls\abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="rdropdowngalleryhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="rcomboboxhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicworld.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="axis.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="grid.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="transformation.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneobject.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects\abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicobject.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects\abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="ribboncontrolmanager.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicobjectg.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="rtogglecontrolhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls\abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="rcheckboxhandler.cpp">
+      <Filter>Source Files\windowsPlatform\ribbon\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="objectmanager.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="graphiclight.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderprogram.cpp">
+      <Filter>Source Files\crossPlatform\graphic\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="transformationaxis.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="regularexpression.cpp">
+      <Filter>Source Files\crossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files\crossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="dialog.cpp">
+      <Filter>Source Files\windowsPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="texturemanager.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="opencsgobject.cpp">
+      <Filter>Source Files\crossPlatform\csg</Filter>
+    </ClCompile>
+    <ClCompile Include="csgworld.cpp">
+      <Filter>Source Files\crossPlatform\csg</Filter>
+    </ClCompile>
+    <ClCompile Include="project.cpp">
+      <Filter>Source Files\crossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="fontmanager.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="drawnobject.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects\abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>Source Files\windowsPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="printscreen.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="graphicobjectc.cpp">
+      <Filter>Source Files\crossPlatform\graphic\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objectc.cpp">
+      <Filter>Source Files\crossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="carve.cpp">
+      <Filter>Source Files\crossPlatform\csg</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="winincludes.hpp">
+      <Filter>Header Files\windowsPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="windowsui.hpp">
+      <Filter>Header Files\windowsPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="ribbonapplication.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon</Filter>
+    </ClInclude>
+    <ClInclude Include="ribbon.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon</Filter>
+    </ClInclude>
+    <ClInclude Include="ribbonfunctions.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon</Filter>
+    </ClInclude>
+    <ClInclude Include="rbuttonhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="rspinnerhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="rtogglebuttonhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="rdropdownbuttonhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="rpropertyset.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="rcontrolhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="rgallerycontrolhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="rdropdowngalleryhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="rcomboboxhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicworld.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="axis.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="grid.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="macros.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="transformation.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="object.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneobject.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicobjectg.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicobject.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="ribboncontrolmanager.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rtogglecontrolhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="rcheckboxhandler.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="regularexpression.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="objectmanager.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="material.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="light.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="graphiclight.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderprogram.hpp">
+      <Filter>Header Files\crossPlatform\graphic\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="vertexshader.hpp">
+      <Filter>Header Files\crossPlatform\graphic\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="fragmentshader.hpp">
+      <Filter>Header Files\crossPlatform\graphic\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicfunctions.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="transformationaxis.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="input.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="dialog.hpp">
+      <Filter>Header Files\windowsPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="texturemanager.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="opencsgobject.hpp">
+      <Filter>Header Files\crossPlatform\csg</Filter>
+    </ClInclude>
+    <ClInclude Include="csgworld.hpp">
+      <Filter>Header Files\crossPlatform\csg</Filter>
+    </ClInclude>
+    <ClInclude Include="project.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="enumconverter.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="exceptionhandler.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="fontmanager.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="drawnobject.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.hpp">
+      <Filter>Header Files\windowsPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="printscreen.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="carve.hpp">
+      <Filter>Header Files\crossPlatform\csg</Filter>
+    </ClInclude>
+    <ClInclude Include="graphicobjectc.hpp">
+      <Filter>Header Files\crossPlatform\graphic\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objectc.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ribbon.xml">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ribboncontrolgroups.hpp">
+      <Filter>Header Files\windowsPlatform\ribbon</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ribbonxml.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\developer24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\place24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\post24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\info.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\question.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\warning.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\error.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

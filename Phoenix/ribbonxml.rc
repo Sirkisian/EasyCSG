@@ -1,0 +1,726 @@
+// ******************************************************************************
+// * This is an automatically generated file containing the ribbon resource for *
+// * your application.                                                          *
+// ******************************************************************************
+
+#include ".\ribbonxml.h"
+
+STRINGTABLE 
+BEGIN
+    cmdProjectTab_LabelTitle_RESID L"Project" /* LabelTitle cmdProjectTab_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdGraphicTab_LabelTitle_RESID L"Graphic" /* LabelTitle cmdGraphicTab_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdCsgTab_LabelTitle_RESID L"Csg" /* LabelTitle cmdCsgTab_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabaseTab_LabelTitle_RESID L"Database" /* LabelTitle cmdDatabaseTab_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdMenuNewProject_LabelTitle_RESID L"New" /* LabelTitle cmdMenuNewProject_LabelTitle_RESID: (null) */
+END
+
+cmdMenuNewProject_LargeImages_RESID    BITMAP    "icons\\newproject64.bmp" /* LargeImages cmdMenuNewProject_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdMenuOpenProject_LabelTitle_RESID L"Open" /* LabelTitle cmdMenuOpenProject_LabelTitle_RESID: (null) */
+END
+
+cmdMenuOpenProject_LargeImages_RESID    BITMAP    "icons\\openproject64.bmp" /* LargeImages cmdMenuOpenProject_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdMenuSaveAsProject_LabelTitle_RESID L"Save as" /* LabelTitle cmdMenuSaveAsProject_LabelTitle_RESID: (null) */
+END
+
+cmdMenuSaveAsProject_LargeImages_RESID    BITMAP    "icons\\saveas64.bmp" /* LargeImages cmdMenuSaveAsProject_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdMenuSaveProject_LabelTitle_RESID L"Save" /* LabelTitle cmdMenuSaveProject_LabelTitle_RESID: (null) */
+END
+
+cmdMenuSaveProject_LargeImages_RESID    BITMAP    "icons\\save64.bmp" /* LargeImages cmdMenuSaveProject_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdMenuExit_LabelTitle_RESID L"Exit" /* LabelTitle cmdMenuExit_LabelTitle_RESID: (null) */
+END
+
+cmdMenuExit_LargeImages_RESID    BITMAP    "icons\\exit64.bmp" /* LargeImages cmdMenuExit_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdProject_LabelTitle_RESID L"Project" /* LabelTitle cmdProject_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdNewProject_LabelTitle_RESID L"New" /* LabelTitle cmdNewProject_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdNewProject_TooltipTitle_RESID L"New project [Ctrl + N]" /* TooltipTitle cmdNewProject_TooltipTitle_RESID: (null) */
+END
+
+cmdNewProject_LargeImages_RESID    BITMAP    "icons\\newproject64.bmp" /* LargeImages cmdNewProject_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdOpenProject_LabelTitle_RESID L"Open" /* LabelTitle cmdOpenProject_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdOpenProject_TooltipTitle_RESID L"Open project [Ctrl + O]" /* TooltipTitle cmdOpenProject_TooltipTitle_RESID: (null) */
+END
+
+cmdOpenProject_SmallImages_RESID    BITMAP    "icons\\openproject24.bmp" /* SmallImages cmdOpenProject_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdSaveAsProject_LabelTitle_RESID L"Save as" /* LabelTitle cmdSaveAsProject_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSaveAsProject_TooltipTitle_RESID L"Save project as" /* TooltipTitle cmdSaveAsProject_TooltipTitle_RESID: (null) */
+END
+
+cmdSaveAsProject_SmallImages_RESID    BITMAP    "icons\\saveas24.bmp" /* SmallImages cmdSaveAsProject_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdSaveProject_LabelTitle_RESID L"Save" /* LabelTitle cmdSaveProject_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSaveProject_TooltipTitle_RESID L"Save project [Ctrl + S]" /* TooltipTitle cmdSaveProject_TooltipTitle_RESID: (null) */
+END
+
+cmdSaveProject_SmallImages_RESID    BITMAP    "icons\\save24.bmp" /* SmallImages cmdSaveProject_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdShortcuts_LabelTitle_RESID L"" /* LabelTitle cmdShortcuts_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdShowShortcuts_LabelTitle_RESID L"Shortcuts" /* LabelTitle cmdShowShortcuts_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdShowShortcuts_TooltipTitle_RESID L"Show shortcuts" /* TooltipTitle cmdShowShortcuts_TooltipTitle_RESID: (null) */
+END
+
+cmdShowShortcuts_LargeImages_RESID    BITMAP    "icons\\keyboard64.bmp" /* LargeImages cmdShowShortcuts_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdLogFile_LabelTitle_RESID L"" /* LabelTitle cmdLogFile_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdShowLogFile_LabelTitle_RESID L"Logfile" /* LabelTitle cmdShowLogFile_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdShowLogFile_TooltipTitle_RESID L"Show logfile" /* TooltipTitle cmdShowLogFile_TooltipTitle_RESID: (null) */
+END
+
+cmdShowLogFile_LargeImages_RESID    BITMAP    "icons\\log64.bmp" /* LargeImages cmdShowLogFile_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdObject_LabelTitle_RESID L"Object" /* LabelTitle cmdObject_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectType_LabelTitle_RESID L"Primitives" /* LabelTitle cmdObjectType_LabelTitle_RESID: (null) */
+END
+
+cmdObjectType_LargeImages_RESID    BITMAP    "icons\\primitive64.bmp" /* LargeImages cmdObjectType_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmd3Dcube_LabelTitle_RESID L"Cube" /* LabelTitle cmd3Dcube_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dcube_TooltipTitle_RESID L"Object cube" /* TooltipTitle cmd3Dcube_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dcube_TooltipDescription_RESID L"Values [1;2;3]\n\n1-length\n2-height\n3-depth\n\nDefault values are 1, 1, 1." /* TooltipDescription cmd3Dcube_TooltipDescription_RESID: (null) */
+END
+
+cmd3Dcube_LargeImages_RESID    BITMAP    "icons\\cube64.bmp" /* LargeImages cmd3Dcube_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmd3Dsphere_LabelTitle_RESID L"Sphere" /* LabelTitle cmd3Dsphere_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dsphere_TooltipTitle_RESID L"Object sphere" /* TooltipTitle cmd3Dsphere_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dsphere_TooltipDescription_RESID L"Values [1;2;3]\n\n1-radius\n2-number of horizontals\n3-number of verticals\n\nDefault values are 1, 15, 15." /* TooltipDescription cmd3Dsphere_TooltipDescription_RESID: (null) */
+END
+
+cmd3Dsphere_LargeImages_RESID    BITMAP    "icons\\sphere64.bmp" /* LargeImages cmd3Dsphere_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmd3Dcylinder_LabelTitle_RESID L"Cylinder" /* LabelTitle cmd3Dcylinder_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dcylinder_TooltipTitle_RESID L"Object cylinder" /* TooltipTitle cmd3Dcylinder_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dcylinder_TooltipDescription_RESID L"Values [1;2;3]\n\n1-radius\n2-height\n3-number of verticals\n\nDefault values are 0.5, 5, 15." /* TooltipDescription cmd3Dcylinder_TooltipDescription_RESID: (null) */
+END
+
+cmd3Dcylinder_LargeImages_RESID    BITMAP    "icons\\cylinder64.bmp" /* LargeImages cmd3Dcylinder_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmd3Dcone_LabelTitle_RESID L"Cone" /* LabelTitle cmd3Dcone_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dcone_TooltipTitle_RESID L"Object cone" /* TooltipTitle cmd3Dcone_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dcone_TooltipDescription_RESID L"" /* TooltipDescription cmd3Dcone_TooltipDescription_RESID: (null) */
+END
+
+cmd3Dcone_LargeImages_RESID    BITMAP    "icons\\cone64.bmp" /* LargeImages cmd3Dcone_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmd3Dpyramid_LabelTitle_RESID L"Pyramid" /* LabelTitle cmd3Dpyramid_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dpyramid_TooltipTitle_RESID L"Object pyramid" /* TooltipTitle cmd3Dpyramid_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dpyramid_TooltipDescription_RESID L"" /* TooltipDescription cmd3Dpyramid_TooltipDescription_RESID: (null) */
+END
+
+cmd3Dpyramid_LargeImages_RESID    BITMAP    "icons\\tetrahedron64.bmp" /* LargeImages cmd3Dpyramid_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmd3Dtorus_LabelTitle_RESID L"Torus" /* LabelTitle cmd3Dtorus_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dtorus_TooltipTitle_RESID L"Object torus" /* TooltipTitle cmd3Dtorus_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmd3Dtorus_TooltipDescription_RESID L"" /* TooltipDescription cmd3Dtorus_TooltipDescription_RESID: (null) */
+END
+
+cmd3Dtorus_LargeImages_RESID    BITMAP    "icons\\torus64.bmp" /* LargeImages cmd3Dtorus_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdObjectName_LabelTitle_RESID L"Name" /* LabelTitle cmdObjectName_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectName_TooltipTitle_RESID L"Object name" /* TooltipTitle cmdObjectName_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectName_TooltipDescription_RESID L"The input accepts only a maximum length of 25 characters.\nValid characters are 'a' -'z', 'A' - 'Z', '0' - '9' and underscore. A valid name begins with a letter.\n\nIn case of invalid input or existing name a correspoding message is written." /* TooltipDescription cmdObjectName_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectValues_LabelTitle_RESID L"Values" /* LabelTitle cmdObjectValues_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectValues_TooltipTitle_RESID L"Object vlaues" /* TooltipTitle cmdObjectValues_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectValues_TooltipDescription_RESID L"The input dependes on the chosen primitive.\n\nDefault values are used when empty." /* TooltipDescription cmdObjectValues_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectAdd_LabelTitle_RESID L"Add" /* LabelTitle cmdObjectAdd_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectAdd_TooltipTitle_RESID L"Add object" /* TooltipTitle cmdObjectAdd_TooltipTitle_RESID: (null) */
+END
+
+cmdObjectAdd_LargeImages_RESID    BITMAP    "icons\\add24.bmp" /* LargeImages cmdObjectAdd_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdObjectClone_LabelTitle_RESID L"Clone" /* LabelTitle cmdObjectClone_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectClone_TooltipTitle_RESID L"Clone object" /* TooltipTitle cmdObjectClone_TooltipTitle_RESID: (null) */
+END
+
+cmdObjectClone_LargeImages_RESID    BITMAP    "icons\\clone24.bmp" /* LargeImages cmdObjectClone_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdObjectDelete_LabelTitle_RESID L"Delete" /* LabelTitle cmdObjectDelete_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdObjectDelete_TooltipTitle_RESID L"Delete object" /* TooltipTitle cmdObjectDelete_TooltipTitle_RESID: (null) */
+END
+
+cmdObjectDelete_LargeImages_RESID    BITMAP    "icons\\delete24.bmp" /* LargeImages cmdObjectDelete_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdSceneMode_LabelTitle_RESID L"Mode" /* LabelTitle cmdSceneMode_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSceneModeType_LabelTitle_RESID L"Scene mode" /* LabelTitle cmdSceneModeType_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSceneModeType_TooltipTitle_RESID L"Scene mode type [Ctrl + 1-5]" /* TooltipTitle cmdSceneModeType_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformation_LabelTitle_RESID L"Transformation" /* LabelTitle cmdTransformation_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationType_LabelTitle_RESID L"Type" /* LabelTitle cmdTransformationType_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationType_TooltipTitle_RESID L"Transformation type [Shift + T, S, R]" /* TooltipTitle cmdTransformationType_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationStep_LabelTitle_RESID L"Step" /* LabelTitle cmdTransformationStep_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationStep_TooltipTitle_RESID L"Transformation step" /* TooltipTitle cmdTransformationStep_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationStep_TooltipDescription_RESID L"The value is equal to 0.1*step." /* TooltipDescription cmdTransformationStep_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationXAxis_LabelTitle_RESID L"X axis" /* LabelTitle cmdTransformationXAxis_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationXAxis_TooltipTitle_RESID L"X axis [Shift + X]" /* TooltipTitle cmdTransformationXAxis_TooltipTitle_RESID: (null) */
+END
+
+cmdTransformationXAxis_LargeImages_RESID    BITMAP    "icons\\x24.bmp" /* LargeImages cmdTransformationXAxis_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdTransformationYAxis_LabelTitle_RESID L"Y axis" /* LabelTitle cmdTransformationYAxis_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationYAxis_TooltipTitle_RESID L"Y axis [Shift + Y]" /* TooltipTitle cmdTransformationYAxis_TooltipTitle_RESID: (null) */
+END
+
+cmdTransformationYAxis_LargeImages_RESID    BITMAP    "icons\\y24.bmp" /* LargeImages cmdTransformationYAxis_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdTransformationZAxis_LabelTitle_RESID L"Z axis" /* LabelTitle cmdTransformationZAxis_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTransformationZAxis_TooltipTitle_RESID L"Z axis [Shift + Z]" /* TooltipTitle cmdTransformationZAxis_TooltipTitle_RESID: (null) */
+END
+
+cmdTransformationZAxis_LargeImages_RESID    BITMAP    "icons\\z24.bmp" /* LargeImages cmdTransformationZAxis_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdLight_LabelTitle_RESID L"Light and material" /* LabelTitle cmdLight_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdLightMaterial_LabelTitle_RESID L"Light and material" /* LabelTitle cmdLightMaterial_LabelTitle_RESID: (null) */
+END
+
+cmdLightMaterial_LargeImages_RESID    BITMAP    "icons\\light64.bmp" /* LargeImages cmdLightMaterial_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdAmbientLight_LabelTitle_RESID L"Ambient" /* LabelTitle cmdAmbientLight_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDiffuseLight_LabelTitle_RESID L"Diffuse" /* LabelTitle cmdDiffuseLight_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSpecularLight_LabelTitle_RESID L"Specular" /* LabelTitle cmdSpecularLight_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdAmbientMaterial_LabelTitle_RESID L"Ambient" /* LabelTitle cmdAmbientMaterial_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDiffuseMaterial_LabelTitle_RESID L"Diffuse" /* LabelTitle cmdDiffuseMaterial_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSpecularMaterial_LabelTitle_RESID L"Specular" /* LabelTitle cmdSpecularMaterial_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdEmissiveMaterial_LabelTitle_RESID L"Emissive" /* LabelTitle cmdEmissiveMaterial_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdLightMaterialValues_LabelTitle_RESID L"Values" /* LabelTitle cmdLightMaterialValues_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdLightMaterialValues_TooltipTitle_RESID L"Light and material values" /* TooltipTitle cmdLightMaterialValues_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdLightPosition_LabelTitle_RESID L"Position" /* LabelTitle cmdLightPosition_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdLightSource_LabelTitle_RESID L"Light source" /* LabelTitle cmdLightSource_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTexture_LabelTitle_RESID L"" /* LabelTitle cmdTexture_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTextureAdd_LabelTitle_RESID L"Texture" /* LabelTitle cmdTextureAdd_LabelTitle_RESID: (null) */
+END
+
+cmdTextureAdd_LargeImages_RESID    BITMAP    "icons\\texture64.bmp" /* LargeImages cmdTextureAdd_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdShow_LabelTitle_RESID L"Show or hide" /* LabelTitle cmdShow_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdShowAxis_LabelTitle_RESID L"Axis" /* LabelTitle cmdShowAxis_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdShowGrid_LabelTitle_RESID L"Grid" /* LabelTitle cmdShowGrid_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdCsgTree_LabelTitle_RESID L"CSG tree" /* LabelTitle cmdCsgTree_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdCsgTreeNames_LabelTitle_RESID L"Trees" /* LabelTitle cmdCsgTreeNames_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdCsgTreeNodes_LabelTitle_RESID L"Nodes" /* LabelTitle cmdCsgTreeNodes_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdNodeAdd_LabelTitle_RESID L"Add" /* LabelTitle cmdNodeAdd_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdNodeAdd_TooltipTitle_RESID L"Add node" /* TooltipTitle cmdNodeAdd_TooltipTitle_RESID: (null) */
+END
+
+cmdNodeAdd_LargeImages_RESID    BITMAP    "icons\\add24.bmp" /* LargeImages cmdNodeAdd_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdNodeRemove_LabelTitle_RESID L"Remove" /* LabelTitle cmdNodeRemove_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdNodeRemove_TooltipTitle_RESID L"Remove node" /* TooltipTitle cmdNodeRemove_TooltipTitle_RESID: (null) */
+END
+
+cmdNodeRemove_LargeImages_RESID    BITMAP    "icons\\remove24.bmp" /* LargeImages cmdNodeRemove_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdTreeDelete_LabelTitle_RESID L"Delete" /* LabelTitle cmdTreeDelete_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdTreeDelete_TooltipTitle_RESID L"Delete tree" /* TooltipTitle cmdTreeDelete_TooltipTitle_RESID: (null) */
+END
+
+cmdTreeDelete_LargeImages_RESID    BITMAP    "icons\\delete24.bmp" /* LargeImages cmdTreeDelete_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdBoolOperation_LabelTitle_RESID L"Operations" /* LabelTitle cmdBoolOperation_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSubtraction_LabelTitle_RESID L"Subtraction" /* LabelTitle cmdSubtraction_LabelTitle_RESID: (null) */
+END
+
+cmdSubtraction_LargeImages_RESID    BITMAP    "icons\\subtraction24.bmp" /* LargeImages cmdSubtraction_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdIntersection_LabelTitle_RESID L"Intersection" /* LabelTitle cmdIntersection_LabelTitle_RESID: (null) */
+END
+
+cmdIntersection_LargeImages_RESID    BITMAP    "icons\\intersection24.bmp" /* LargeImages cmdIntersection_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdUnion_LabelTitle_RESID L"Union" /* LabelTitle cmdUnion_LabelTitle_RESID: (null) */
+END
+
+cmdUnion_LargeImages_RESID    BITMAP    "icons\\union24.bmp" /* LargeImages cmdUnion_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdCsgCalculation_LabelTitle_RESID L"" /* LabelTitle cmdCsgCalculation_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdCsgCalculate_LabelTitle_RESID L"Generate object" /* LabelTitle cmdCsgCalculate_LabelTitle_RESID: (null) */
+END
+
+cmdCsgCalculate_LargeImages_RESID    BITMAP    "icons\\calculate64.bmp" /* LargeImages cmdCsgCalculate_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdOpenCsg_LabelTitle_RESID L"OpenCSG settings" /* LabelTitle cmdOpenCsg_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdCsgAlgorithm_LabelTitle_RESID L"Algorithm" /* LabelTitle cmdCsgAlgorithm_LabelTitle_RESID: (null) */
+END
+
+cmdCsgAlgorithm_LargeImages_RESID    BITMAP    "icons\\settings64.bmp" /* LargeImages cmdCsgAlgorithm_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdAutomatic_LabelTitle_RESID L"Automatic" /* LabelTitle cmdAutomatic_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdSCS_LabelTitle_RESID L"SCS" /* LabelTitle cmdSCS_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdGoldfeather_LabelTitle_RESID L"Goldfeather" /* LabelTitle cmdGoldfeather_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDepthAlgorithm_LabelTitle_RESID L"Depth complexity" /* LabelTitle cmdDepthAlgorithm_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdNoDepthComplexitySampling_LabelTitle_RESID L"NoDepthComplexitySampling" /* LabelTitle cmdNoDepthComplexitySampling_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdOcclusionQuery_LabelTitle_RESID L"OcclusionQuery" /* LabelTitle cmdOcclusionQuery_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDepthComplexitySampling_LabelTitle_RESID L"DepthComplexitySampling" /* LabelTitle cmdDepthComplexitySampling_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdOffscreenType_LabelTitle_RESID L"Back buffer" /* LabelTitle cmdOffscreenType_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdAutomaticOffscreenType_LabelTitle_RESID L"AutomaticOffscreenType" /* LabelTitle cmdAutomaticOffscreenType_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdFrameBufferObject_LabelTitle_RESID L"FrameBufferObject" /* LabelTitle cmdFrameBufferObject_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdPBuffer_LabelTitle_RESID L"PBuffer" /* LabelTitle cmdPBuffer_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdFrameBufferObjectARB_LabelTitle_RESID L"FrameBufferObjectARB" /* LabelTitle cmdFrameBufferObjectARB_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdFrameBufferObjectEXT_LabelTitle_RESID L"FrameBufferObjectEXT" /* LabelTitle cmdFrameBufferObjectEXT_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdOptimization_LabelTitle_RESID L"Optimization" /* LabelTitle cmdOptimization_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdOptimizationDefault_LabelTitle_RESID L"Default" /* LabelTitle cmdOptimizationDefault_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdOptimizationOff_LabelTitle_RESID L"Off" /* LabelTitle cmdOptimizationOff_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdOptimizationOn_LabelTitle_RESID L"On" /* LabelTitle cmdOptimizationOn_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabase_LabelTitle_RESID L"Database" /* LabelTitle cmdDatabase_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabaseConnect_LabelTitle_RESID L"Connect" /* LabelTitle cmdDatabaseConnect_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabaseConnect_TooltipTitle_RESID L"Connect to database" /* TooltipTitle cmdDatabaseConnect_TooltipTitle_RESID: (null) */
+END
+
+cmdDatabaseConnect_LargeImages_RESID    BITMAP    "icons\\database64.bmp" /* LargeImages cmdDatabaseConnect_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdDatabaseDisconnect_LabelTitle_RESID L"Disconnect" /* LabelTitle cmdDatabaseDisconnect_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabaseDisconnect_TooltipTitle_RESID L"Disconnect from database" /* TooltipTitle cmdDatabaseDisconnect_TooltipTitle_RESID: (null) */
+END
+
+cmdDatabaseDisconnect_LargeImages_RESID    BITMAP    "icons\\databasedisc64.bmp" /* LargeImages cmdDatabaseDisconnect_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdDatabaseProjects_LabelTitle_RESID L"Projects" /* LabelTitle cmdDatabaseProjects_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabaseUpload_LabelTitle_RESID L"Upload" /* LabelTitle cmdDatabaseUpload_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabaseUpload_TooltipTitle_RESID L"Upload the actual project to database" /* TooltipTitle cmdDatabaseUpload_TooltipTitle_RESID: (null) */
+END
+
+cmdDatabaseUpload_LargeImages_RESID    BITMAP    "icons\\databaseup64.bmp" /* LargeImages cmdDatabaseUpload_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdDatabaseDownload_LabelTitle_RESID L"Download" /* LabelTitle cmdDatabaseDownload_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdDatabaseDownload_TooltipTitle_RESID L"Download the list of projects from database" /* TooltipTitle cmdDatabaseDownload_TooltipTitle_RESID: (null) */
+END
+
+cmdDatabaseDownload_LargeImages_RESID    BITMAP    "icons\\databasedown64.bmp" /* LargeImages cmdDatabaseDownload_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    cmdProjectsList_LabelTitle_RESID L"Projects" /* LabelTitle cmdProjectsList_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    cmdProjectsList_TooltipTitle_RESID L"Download and open the selected project" /* TooltipTitle cmdProjectsList_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    InternalCmd2_LabelTitle_RESID L"Label:InternalCmd2" /* LabelTitle InternalCmd2_LabelTitle_RESID: (null) */
+END
+
+PHOENIX_RIBBON    UIFILE    "ribbonxml.bml"

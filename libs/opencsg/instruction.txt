@@ -1,0 +1,9 @@
+for OpenCSG 1.4.2
+
+1) open OpenCSG_vc10.sln
+2) retarget the project to Windows 10, latest Windows SDK and Toolset
+3a) without GLEW dll - In project and OpenCSG under "Preprocessor definitions" add "GLEW_STATIC"
+3b) with GLEW dll - In project and OpenCSG under "Preprocessor definitions" remove "GLEW_STATIC"
+4) Visual Studio "Runtime Library" for OpenCSG should be same as project, "MT" or "MTd"
+
+(*s.dll = static)

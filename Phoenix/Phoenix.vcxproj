@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{DC1F2CD2-AA1C-438A-921F-FDBDD33F4672}</ProjectGuid>
+    <RootNamespace>Phoenix</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <CustomBuildBeforeTargets>
+    </CustomBuildBeforeTargets>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../libs/opengl/include;../libs/vld/include;../libs/glew/include;../libs/glm/include;../libs/stb/include;../libs/opencsg/include;../libs/freetype/include;../libs/carve/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>vld.lib;propsys.lib;comctl32.lib;shlwapi.lib;glew32.lib;opengl32.lib;OpenCSGd.lib;freetype.lib;carvelib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../libs/opengl/lib/win32;../libs/vld/lib/win32;../libs/glew/lib/win32;../libs/opencsg/lib/win32;../libs/freetype/lib/win32;../libs/carve/lib/Win32/debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <CustomBuildStep>
+      <Command>..\ribbonuicc\UICC.exe ribbon.xml ribbonxml.bml /header:ribbonxml.h /res:ribbonxml.rc /name:phoenix</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>ribbonxml.bml;ribbonxml.h;ribbonxml.rc;%(Outputs)</Outputs>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../libs/opengl/include;../libs/vld/include;../libs/glew/include;../libs/glm/include;../libs/stb/include;../libs/opencsg/include;../libs/freetype/include;../libs/carve/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>../libs/opengl/lib/win32;../libs/vld/lib/win32;../libs/glew/lib/win32;../libs/opencsg/lib/win32;../libs/freetype/lib/win32;../libs/carve/lib/Win32/release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vld.lib;propsys.lib;comctl32.lib;shlwapi.lib;glew32.lib;opengl32.lib;OpenCSG.lib;freetype.lib;carvelib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="axis.cpp" />
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="carve.cpp" />
+    <ClCompile Include="csgworld.cpp" />
+    <ClCompile Include="dialog.cpp" />
+    <ClCompile Include="drawnobject.cpp" />
+    <ClCompile Include="graphiclight.cpp" />
+    <ClCompile Include="graphicobject.cpp" />
+    <ClCompile Include="graphicobjectc.cpp" />
+    <ClCompile Include="objectc.cpp" />
+    <ClCompile Include="printscreen.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="light.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="objectmanager.cpp" />
+    <ClCompile Include="opencsgobject.cpp" />
+    <ClCompile Include="rcheckboxhandler.cpp" />
+    <ClCompile Include="regularexpression.cpp" />
+    <ClCompile Include="rtogglecontrolhandler.cpp" />
+    <ClCompile Include="sceneobject.cpp" />
+    <ClCompile Include="object.cpp" />
+    <ClCompile Include="graphicworld.cpp" />
+    <ClCompile Include="grid.cpp" />
+    <ClCompile Include="project.cpp" />
+    <ClCompile Include="rcomboboxhandler.cpp" />
+    <ClCompile Include="rdropdownbuttonhandler.cpp" />
+    <ClCompile Include="rdropdowngalleryhandler.cpp" />
+    <ClCompile Include="rgallerycontrolhandler.cpp" />
+    <ClCompile Include="ribbon.cpp" />
+    <ClCompile Include="ribbonapplication.cpp" />
+    <ClCompile Include="rbuttonhandler.cpp" />
+    <ClCompile Include="rcontrolhandler.cpp" />
+    <ClCompile Include="ribboncontrolmanager.cpp" />
+    <ClCompile Include="ribbonfunctions.cpp" />
+    <ClCompile Include="rpropertyset.cpp" />
+    <ClCompile Include="rspinnerhandler.cpp" />
+    <ClCompile Include="rtogglebuttonhandler.cpp" />
+    <ClCompile Include="shaderprogram.cpp" />
+    <ClCompile Include="fontmanager.cpp" />
+    <ClCompile Include="texturemanager.cpp" />
+    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="transformationaxis.cpp" />
+    <ClCompile Include="transformation.cpp" />
+    <ClCompile Include="windowsui.cpp" />
+    <ClCompile Include="winmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="axis.hpp" />
+    <ClInclude Include="camera.hpp" />
+    <ClCompile Include="graphicobjectg.cpp" />
+    <ClInclude Include="carve.hpp" />
+    <ClInclude Include="csgworld.hpp" />
+    <ClInclude Include="dialog.hpp" />
+    <ClInclude Include="drawnobject.hpp" />
+    <ClInclude Include="enumconverter.hpp" />
+    <ClInclude Include="exceptionhandler.hpp" />
+    <ClInclude Include="fragmentshader.hpp" />
+    <ClInclude Include="graphicfunctions.hpp" />
+    <ClInclude Include="graphiclight.hpp" />
+    <ClInclude Include="graphicobjectc.hpp" />
+    <ClInclude Include="graphicobjectg.hpp" />
+    <ClInclude Include="objectc.hpp" />
+    <ClInclude Include="printscreen.hpp" />
+    <ClInclude Include="input.hpp" />
+    <ClInclude Include="light.hpp" />
+    <ClInclude Include="material.hpp" />
+    <ClInclude Include="mouse.hpp" />
+    <ClInclude Include="objectmanager.hpp" />
+    <ClInclude Include="opencsgobject.hpp" />
+    <ClInclude Include="rcheckboxhandler.hpp" />
+    <ClInclude Include="regularexpression.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="rtogglecontrolhandler.hpp" />
+    <ClInclude Include="sceneobject.hpp" />
+    <ClInclude Include="graphicobject.hpp" />
+    <ClInclude Include="object.hpp" />
+    <ClInclude Include="graphicworld.hpp" />
+    <ClInclude Include="grid.hpp" />
+    <ClInclude Include="project.hpp" />
+    <ClInclude Include="rcomboboxhandler.hpp" />
+    <ClInclude Include="rdropdownbuttonhandler.hpp" />
+    <ClInclude Include="rdropdowngalleryhandler.hpp" />
+    <ClInclude Include="rgallerycontrolhandler.hpp" />
+    <ClInclude Include="ribbon.hpp" />
+    <ClInclude Include="ribbonapplication.hpp" />
+    <ClInclude Include="rbuttonhandler.hpp" />
+    <ClInclude Include="macros.hpp" />
+    <ClInclude Include="rcontrolhandler.hpp" />
+    <ClInclude Include="ribboncontrolmanager.hpp" />
+    <ClInclude Include="ribbonfunctions.hpp" />
+    <ClInclude Include="rpropertyset.hpp" />
+    <ClInclude Include="rspinnerhandler.hpp" />
+    <ClInclude Include="rtogglebuttonhandler.hpp" />
+    <ClInclude Include="shaderprogram.hpp" />
+    <ClInclude Include="fontmanager.hpp" />
+    <ClInclude Include="texturemanager.hpp" />
+    <ClInclude Include="timer.hpp" />
+    <ClInclude Include="transformation.hpp" />
+    <ClInclude Include="transformationaxis.hpp" />
+    <ClInclude Include="vertexshader.hpp" />
+    <ClInclude Include="windowsui.hpp" />
+    <ClInclude Include="winincludes.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ribbon.xml">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\ribbonuicc\UICC.exe ribbon.xml ribbonxml.bml /header:ribbonxml.h /res:ribbonxml.rc /name:phoenix</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ribbonxml.bml;ribbonxml.h;ribbonxml.rc</Outputs>
+      <SubType>Designer</SubType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ribboncontrolgroups.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+    <ResourceCompile Include="ribbonxml.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
+    <Image Include="icons\developer24.bmp" />
+    <Image Include="icons\error.bmp" />
+    <Image Include="icons\info.bmp" />
+    <Image Include="icons\place24.bmp" />
+    <Image Include="icons\post24.bmp" />
+    <Image Include="icons\question.bmp" />
+    <Image Include="icons\warning.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

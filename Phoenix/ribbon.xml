@@ -1,0 +1,897 @@
+<Application xmlns="http://schemas.microsoft.com/windows/2009/Ribbon">
+
+  <Application.Commands>
+<!-- Tab controls -->
+<!-- ******************** -->
+    <Command Name = "ProjectTab"  Symbol = "cmdProjectTab"   Id = "100"   LabelTitle = "Project" />
+
+    <Command Name = "GraphicTab"  Symbol = "cmdGraphicTab"   Id = "110"   LabelTitle = "Graphic" />
+
+    <Command Name = "CsgTab"      Symbol = "cmdCsgTab"       Id = "120"   LabelTitle = "Csg" />
+
+    <Command Name = "DatabaseTab" Symbol = "cmdDatabaseTab"  Id = "130"   LabelTitle = "Database" />
+
+<!-- Project Tab controls -->
+<!-- ******************** -->
+    <Command Name = "MenuNewProjectButton"    Symbol = "cmdMenuNewProject"    Id = "200"    LabelTitle = "New">
+      <Command.LargeImages>
+        <Image Id = "201">icons/newproject64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "MenuOpenProjectButton"   Symbol = "cmdMenuOpenProject"   Id = "202"    LabelTitle = "Open">
+      <Command.LargeImages>
+        <Image Id = "203">icons/openproject64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "MenuSaveAsProjectButton" Symbol = "cmdMenuSaveAsProject" Id = "204"    LabelTitle = "Save as">
+      <Command.LargeImages>
+        <Image Id = "205">icons/saveas64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "MenuSaveProjectButton"   Symbol = "cmdMenuSaveProject"   Id = "206"    LabelTitle = "Save">
+      <Command.LargeImages>
+        <Image Id = "207">icons/save64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "MenuExitButton"          Symbol = "cmdMenuExit"          Id = "208"    LabelTitle = "Exit">
+      <Command.LargeImages>
+        <Image Id = "209">icons/exit64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "ProjectGroup"        Symbol = "cmdProject"        Id = "220"    LabelTitle = "Project" />
+
+    <Command Name = "NewProjectButton"    Symbol = "cmdNewProject"     Id = "221"    LabelTitle = "New">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>New project [Ctrl + N]</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "222">icons/newproject64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "OpenProjectButton"   Symbol = "cmdOpenProject"   Id = "223"    LabelTitle = "Open">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Open project [Ctrl + O]</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.SmallImages>
+        <Image Id = "224">icons/openproject24.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+
+    <Command Name = "SaveAsProjectButton" Symbol = "cmdSaveAsProject" Id = "225"    LabelTitle = "Save as">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Save project as</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.SmallImages>
+        <Image Id = "226">icons/saveas24.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+
+    <Command Name = "SaveProjectButton"   Symbol = "cmdSaveProject"   Id = "227"    LabelTitle = "Save">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Save project [Ctrl + S]</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.SmallImages>
+        <Image Id = "228">icons/save24.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+
+    <Command Name = "ShortcutsGroup"      Symbol = "cmdShortcuts"      Id = "240"    LabelTitle = "" />
+
+    <Command Name = "ShowShortcutsButton" Symbol = "cmdShowShortcuts"  Id = "241"    LabelTitle = "Shortcuts">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Show shortcuts</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "242">icons/keyboard64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "LogFileGroup"       Symbol = "cmdLogFile"        Id = "250"    LabelTitle = "" />
+
+    <Command Name = "ShowLogFileButton"  Symbol = "cmdShowLogFile"    Id = "251"    LabelTitle = "Logfile">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Show logfile</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "252">icons/log64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+<!-- Graphic Tab controls -->
+<!-- ******************** -->      
+    <Command Name = "ObjectGroup"       Symbol = "cmdObject"      Id = "300"    LabelTitle = "Object" />
+
+    <Command Name = "ObjectTypeGallery" Symbol = "cmdObjectType"  Id = "301"    LabelTitle = "Primitives">
+      <Command.LargeImages>
+        <Image Id = "302">icons/primitive64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "Cube3DToggleButton"     Symbol = "cmd3Dcube"      Id = "303"    LabelTitle = "Cube">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Object cube</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content>Values [1;2;3]&#xA;&#xA;1-length&#xA;2-height&#xA;3-depth&#xA;&#xA;Default values are 1, 1, 1.</String.Content>
+        </String>
+      </Command.TooltipDescription>
+      <Command.LargeImages>
+        <Image Id = "304">icons/cube64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "Sphere3DToggleButton"   Symbol = "cmd3Dsphere"    Id = "305"     LabelTitle = "Sphere">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Object sphere</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content>Values [1;2;3]&#xA;&#xA;1-radius&#xA;2-number of horizontals&#xA;3-number of verticals&#xA;&#xA;Default values are 1, 15, 15.</String.Content>
+        </String>
+      </Command.TooltipDescription>
+      <Command.LargeImages>
+        <Image Id = "306">icons/sphere64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "Cylinder3DToggleButton"  Symbol = "cmd3Dcylinder"  Id = "307"     LabelTitle = "Cylinder">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Object cylinder</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content>Values [1;2;3]&#xA;&#xA;1-radius&#xA;2-height&#xA;3-number of verticals&#xA;&#xA;Default values are 0.5, 5, 15.</String.Content>
+        </String>
+      </Command.TooltipDescription>
+      <Command.LargeImages>
+        <Image Id = "308">icons/cylinder64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "Cone3DToggleButton"     Symbol = "cmd3Dcone"      Id = "309"    LabelTitle = "Cone">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Object cone</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content></String.Content>
+        </String>
+      </Command.TooltipDescription>
+      <Command.LargeImages>
+        <Image Id = "310">icons/cone64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "Pyramid3DToggleButton"     Symbol = "cmd3Dpyramid"      Id = "311"    LabelTitle = "Pyramid">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Object pyramid</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content></String.Content>
+        </String>
+      </Command.TooltipDescription>
+      <Command.LargeImages>
+        <Image Id = "312">icons/tetrahedron64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "Torus3DToggleButton"     Symbol = "cmd3Dtorus"      Id = "313"    LabelTitle = "Torus">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Object torus</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content></String.Content>
+        </String>
+      </Command.TooltipDescription>
+      <Command.LargeImages>
+        <Image Id = "314">icons/torus64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "ObjectNameComboBox"   Symbol = "cmdObjectName"   Id = "320"   LabelTitle = "Name">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Object name</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content>The input accepts only a maximum length of 25 characters.&#xA;Valid characters are 'a' -'z', 'A' - 'Z', '0' - '9' and underscore. A valid name begins with a letter.&#xA;&#xA;In case of invalid input or existing name a correspoding message is written.</String.Content>
+        </String>
+      </Command.TooltipDescription>
+    </Command>
+
+    <Command Name = "ObjectValuesComboBox" Symbol = "cmdObjectValues" Id = "321"   LabelTitle = "Values">
+     <Command.TooltipTitle>
+       <String>
+         <String.Content>Object vlaues</String.Content>
+       </String>
+     </Command.TooltipTitle>
+     <Command.TooltipDescription>
+       <String>
+         <String.Content>The input dependes on the chosen primitive.&#xA;&#xA;Default values are used when empty.</String.Content>
+       </String>
+     </Command.TooltipDescription>
+    </Command>
+
+    <Command Name = "ObjectAddButton"    Symbol = "cmdObjectAdd"     Id = "322"   LabelTitle = "Add">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Add object</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "323">icons/add24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "ObjectCloneButton"  Symbol = "cmdObjectClone"   Id = "324"   LabelTitle = "Clone">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Clone object</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "325">icons/clone24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "ObjectDeleteButton"  Symbol = "cmdObjectDelete" Id = "326"   LabelTitle = "Delete">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Delete object</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "327">icons/delete24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "SceneModeGroup"              Symbol = "cmdSceneMode"          Id = "340"    LabelTitle = "Mode" />
+
+    <Command Name = "SceneModeTypeComboBox"       Symbol = "cmdSceneModeType"      Id = "341"    LabelTitle = "Scene mode">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Scene mode type [Ctrl + 1-5]</String.Content>
+        </String>
+      </Command.TooltipTitle>
+    </Command>
+
+    <Command Name = "TransformationGroup"         Symbol = "cmdTransformation"     Id = "350"    LabelTitle = "Transformation" />
+
+    <Command Name = "TransformationTypeComboBox"  Symbol = "cmdTransformationType" Id = "351"    LabelTitle = "Type">
+     <Command.TooltipTitle>
+       <String>
+         <String.Content>Transformation type [Shift + T, S, R]</String.Content>
+       </String>
+     </Command.TooltipTitle>
+    </Command>
+
+    <Command Name = "TransformationStepSpinner"   Symbol = "cmdTransformationStep"   Id = "352"   LabelTitle = "Step">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Transformation step</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.TooltipDescription>
+        <String>
+          <String.Content>The value is equal to 0.1*step.</String.Content>
+        </String>
+      </Command.TooltipDescription>
+    </Command>
+
+    <Command Name = "TransformationXAxisToggleButton" Symbol = "cmdTransformationXAxis" Id = "353"  LabelTitle = "X axis">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>X axis [Shift + X]</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "354">icons/x24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "TransformationYAxisToggleButton" Symbol = "cmdTransformationYAxis" Id = "355"  LabelTitle = "Y axis">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Y axis [Shift + Y]</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "356">icons/y24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "TransformationZAxisToggleButton" Symbol = "cmdTransformationZAxis" Id = "357"  LabelTitle = "Z axis">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Z axis [Shift + Z]</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "358">icons/z24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "LightGroup"             Symbol = "cmdLight"              Id = "370"   LabelTitle = "Light and material" />
+
+    <Command Name = "LightMaterialGallery"   Symbol = "cmdLightMaterial"      Id = "371"   LabelTitle = "Light and material">
+      <Command.LargeImages>
+        <Image Id = "372">icons/light64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "AmbientLightToggleButton"  Symbol = "cmdAmbientLight"  Id = "373" LabelTitle = "Ambient" />
+    <Command Name = "DiffuseLightToggleButton"  Symbol = "cmdDiffuseLight"  Id = "374" LabelTitle = "Diffuse" />
+    <Command Name = "SpecularLightToggleButton" Symbol = "cmdSpecularLight" Id = "375" LabelTitle = "Specular" />
+
+    <Command Name = "AmbientMaterialToggleButton"  Symbol = "cmdAmbientMaterial"  Id = "376" LabelTitle = "Ambient" />
+    <Command Name = "DiffuseMaterialToggleButton"  Symbol = "cmdDiffuseMaterial"  Id = "377" LabelTitle = "Diffuse" />
+    <Command Name = "SpecularMaterialToggleButton" Symbol = "cmdSpecularMaterial" Id = "378" LabelTitle = "Specular" />
+    <Command Name = "EmissiveMaterialToggleButton" Symbol = "cmdEmissiveMaterial" Id = "379" LabelTitle = "Emissive" />
+
+    <Command Name = "LightMaterialValuesComboBox"  Symbol = "cmdLightMaterialValues" Id = "380"   LabelTitle = "Values">
+     <Command.TooltipTitle>
+       <String>
+         <String.Content>Light and material values</String.Content>
+       </String>
+     </Command.TooltipTitle>
+    </Command>
+
+    <Command Name = "LightPositionComboBox"   Symbol = "cmdLightPosition"    Id = "381" LabelTitle = "Position" />
+
+    <Command Name = "LightSourceSpinner"      Symbol = "cmdLightSource"      Id = "382" LabelTitle = "Light source" />
+
+    <Command Name = "TextureGroup"      Symbol = "cmdTexture"      Id = "390"   LabelTitle = "" />
+
+    <Command Name = "TextureAddButton"  Symbol = "cmdTextureAdd"   Id = "391"   LabelTitle = "Texture">
+      <Command.LargeImages>
+        <Image Id = "392">icons/texture64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "cmdShowGroup"        Symbol = "cmdShow"     Id = "395" LabelTitle = "Show or hide"/>
+
+    <Command Name = "cmdShowAxisCheckBox" Symbol = "cmdShowAxis" Id =" 396" LabelTitle = "Axis" />
+
+    <Command Name = "cmdShowGridCheckBox" Symbol = "cmdShowGrid" Id =" 397" LabelTitle = "Grid" />
+
+<!-- Csg Tab controls -->
+<!-- ******************** -->
+    <Command Name = "CsgTreeGroup"          Symbol = "cmdCsgTree"      Id = "500"   LabelTitle = "CSG tree" />
+
+    <Command Name = "CsgTreeNamesComboBox"  Symbol = "cmdCsgTreeNames" Id = "501"   LabelTitle = "Trees" />
+
+    <Command Name = "CsgTreeNodesComboBox"  Symbol = "cmdCsgTreeNodes" Id = "502"   LabelTitle = "Nodes" />
+
+    <Command Name = "NodeAddButton"         Symbol = "cmdNodeAdd"      Id = "503"   LabelTitle = "Add">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Add node</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "504">icons/add24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "NodeRemoveButton"  Symbol = "cmdNodeRemove"    Id = "505"   LabelTitle = "Remove">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Remove node</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "506">icons/remove24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "TreeDeleteButton"   Symbol = "cmdTreeDelete"   Id = "507"  LabelTitle = "Delete">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Delete tree</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "508">icons/delete24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "BoolOperationGroup"   Symbol = "cmdBoolOperation"  Id = "520"  LabelTitle = "Operations" />
+
+    <Command Name = "SubtractionToggleButton"   Symbol = "cmdSubtraction"    Id = "521"  LabelTitle = "Subtraction" >
+      <Command.LargeImages>
+        <Image Id = "522">icons/subtraction24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "IntersectionToggleButton"  Symbol = "cmdIntersection"     Id = "523"  LabelTitle = "Intersection">
+      <Command.LargeImages>
+        <Image Id = "524">icons/intersection24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "UnionToggleButton"         Symbol = "cmdUnion"            Id = "525" LabelTitle = "Union">
+      <Command.LargeImages>
+        <Image Id = "526">icons/union24.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "CsgCalculationGroup"  Symbol = "cmdCsgCalculation"   Id = "540"   LabelTitle = "" />
+
+    <Command Name = "CsgCalculateButton"   Symbol = "cmdCsgCalculate"     Id = "541"   LabelTitle = "Generate object">
+      <Command.LargeImages>
+        <Image Id = "542">icons/calculate64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "OpenCsgGroup"                Symbol = "cmdOpenCsg"       Id = "550"   LabelTitle = "OpenCSG settings" />
+
+    <Command Name = "CsgAlgorithmDropDownButton"  Symbol = "cmdCsgAlgorithm"  Id = "551"   LabelTitle = "Algorithm">
+      <Command.LargeImages>
+        <Image Id = "552">icons/settings64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "AutomaticToggleButton"     Symbol = "cmdAutomatic"   Id = "553"   LabelTitle = "Automatic" />
+    <Command Name = "SCSToggleButton"           Symbol = "cmdSCS"         Id = "554"   LabelTitle = "SCS" />
+    <Command Name = "GoldfeatherToggleButton"   Symbol = "cmdGoldfeather" Id = "555"   LabelTitle = "Goldfeather" />
+
+    <Command Name = "DepthAlgorithmDropDownButton"          Symbol = "cmdDepthAlgorithm"             Id = "556"   LabelTitle = "Depth complexity" />
+    <Command Name = "NoDepthComplexitySamplingToggleButton" Symbol = "cmdNoDepthComplexitySampling"  Id = "557"   LabelTitle = "NoDepthComplexitySampling" />
+    <Command Name = "OcclusionQueryToggleButton"            Symbol = "cmdOcclusionQuery"             Id = "558"   LabelTitle = "OcclusionQuery" />
+    <Command Name = "DepthComplexitySamplingToggleButton"   Symbol = "cmdDepthComplexitySampling"    Id = "559"   LabelTitle = "DepthComplexitySampling" />
+
+    <Command Name = "OffscreenTypeDropDownButton"         Symbol = "cmdOffscreenType"           Id = "560"   LabelTitle = "Back buffer" />
+    <Command Name = "AutomaticOffscreenTypeToggleButton"  Symbol = "cmdAutomaticOffscreenType"  Id = "561"   LabelTitle = "AutomaticOffscreenType" />
+    <Command Name = "FrameBufferObjectToggleButton"       Symbol = "cmdFrameBufferObject"       Id = "562"   LabelTitle = "FrameBufferObject" />
+    <Command Name = "PBufferToggleButton"                 Symbol = "cmdPBuffer"                 Id = "563"   LabelTitle = "PBuffer" />
+    <Command Name = "FrameBufferObjectARBToggleButton"    Symbol = "cmdFrameBufferObjectARB"    Id = "564"   LabelTitle = "FrameBufferObjectARB" />
+    <Command Name = "FrameBufferObjectEXTToggleButton"    Symbol = "cmdFrameBufferObjectEXT"    Id = "565"   LabelTitle = "FrameBufferObjectEXT" />
+ 
+    <Command Name = "OptimizationDropDownButton"      Symbol = "cmdOptimization"         Id = "566"   LabelTitle = "Optimization" />
+    <Command Name = "OptimizationDefaultToggleButton" Symbol = "cmdOptimizationDefault"  Id = "567"   LabelTitle = "Default" />
+    <Command Name = "OptimizationOffToggleButton"     Symbol = "cmdOptimizationOff"      Id = "568"   LabelTitle = "Off" />
+    <Command Name = "OptimizationOnToggleButton"      Symbol = "cmdOptimizationOn"       Id = "569"   LabelTitle = "On" />
+
+<!-- Database Tab controls -->
+<!-- ******************** -->
+    <Command Name = "DatabaseGroup"             Symbol = "cmdDatabase"            Id = "700"   LabelTitle = "Database" />
+
+    <Command Name = "DatabaseConnectButton"     Symbol = "cmdDatabaseConnect"     Id = "701"   LabelTitle = "Connect">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Connect to database</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "702">icons/database64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "DatabaseDisconnectButton"  Symbol = "cmdDatabaseDisconnect"  Id = "703"    LabelTitle = "Disconnect">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Disconnect from database</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "704">icons/databasedisc64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "DatabaseProjectsGroup"    Symbol = "cmdDatabaseProjects" Id = "710" LabelTitle = "Projects" />
+
+    <Command Name = "DatabaseUploadButton"     Symbol = "cmdDatabaseUpload"   Id = "711" LabelTitle = "Upload">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Upload the actual project to database</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "712">icons/databaseup64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "DatabaseDownloadButton"    Symbol = "cmdDatabaseDownload"   Id = "713" LabelTitle = "Download">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Download the list of projects from database</String.Content>
+        </String>
+      </Command.TooltipTitle>
+      <Command.LargeImages>
+        <Image Id = "714">icons/databasedown64.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+    <Command Name = "ProjectsListComboBox"        Symbol = "cmdProjectsList"    Id = "715" LabelTitle = "Projects">
+      <Command.TooltipTitle>
+        <String>
+          <String.Content>Download and open the selected project</String.Content>
+        </String>
+      </Command.TooltipTitle>
+    </Command>
+
+    <Command Name = "cmdHelpButton" Symbol = "cmdHelp" Id = "800">
+    </Command>
+
+  </Application.Commands>
+
+  <Application.Views>
+    <Ribbon>
+        <Ribbon.ApplicationMenu>
+          <ApplicationMenu>
+            <MenuGroup>
+              <Button CommandName = "MenuNewProjectButton"/>
+              <Button CommandName = "MenuOpenProjectButton"/>
+              <Button CommandName = "MenuSaveAsProjectButton"/>
+              <Button CommandName = "MenuSaveProjectButton"/>
+            </MenuGroup>
+            <MenuGroup>
+               <Button CommandName = "MenuExitButton"/>
+            </MenuGroup>
+          </ApplicationMenu>
+        </Ribbon.ApplicationMenu>
+        <Ribbon.Tabs>
+        <Tab CommandName = "ProjectTab">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group = "ProjectGroup" Size = "Medium" />
+              </ScalingPolicy.IdealSizes>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+
+          <Group CommandName = "ProjectGroup" SizeDefinition = "FourButtons">
+            <Button   CommandName = "NewProjectButton" />
+            <Button   CommandName = "OpenProjectButton" />
+            <Button   CommandName = "SaveAsProjectButton" />
+            <Button   CommandName = "SaveProjectButton" />
+          </Group>
+
+          <Group CommandName = "ShortcutsGroup" SizeDefinition = "OneButton">
+            <Button   CommandName = "ShowShortcutsButton" />
+          </Group>
+
+          <Group CommandName = "LogFileGroup" SizeDefinition = "OneButton">
+            <Button   CommandName = "ShowLogFileButton" />
+          </Group>
+        </Tab>
+
+        <Tab CommandName = "GraphicTab">
+
+          <Group  CommandName = "ObjectGroup" SizeDefinition = "ButtonGroupsAndInputs">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "ObjectTypeGallery" />
+                <ControlNameDefinition Name = "ObjectNameComboBox" />
+                <ControlNameDefinition Name = "ObjectValuesComboBox" />
+                <ControlNameDefinition Name = "ObjectAddButton" />
+                <ControlNameDefinition Name = "ObjectCloneButton" />
+                <ControlNameDefinition Name = "ObjectDeleteButton" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <ControlSizeDefinition ControlName = "ObjectTypeGallery"    IsImageVisible = "true" IsLabelVisible = "true" ImageSize = "Large" />
+                <ColumnBreak ShowSeparator = "true"/>
+                <Row>
+                  <ControlSizeDefinition ControlName = "ObjectNameComboBox"    IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "ObjectValuesComboBox"  IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <ColumnBreak ShowSeparator = "true" />
+                <Row>
+                  <ControlSizeDefinition ControlName = "ObjectAddButton"    IsImageVisible = "true" IsLabelVisible = "false" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "ObjectCloneButton"  IsImageVisible = "true" IsLabelVisible = "false" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "ObjectDeleteButton" IsImageVisible = "true" IsLabelVisible = "false" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <DropDownGallery CommandName = "ObjectTypeGallery" ItemWidth = "32" ItemHeight = "32" Type = "Commands">
+              <DropDownGallery.MenuLayout>
+                <FlowMenuLayout Rows = "2" Columns = "4" Gripper = "None" />
+              </DropDownGallery.MenuLayout>
+            </DropDownGallery>
+            <ComboBox CommandName = "ObjectNameComboBox"   IsEditable = "true" />
+            <ComboBox CommandName = "ObjectValuesComboBox" IsEditable = "true" />
+            <Button   CommandName = "ObjectAddButton" />
+            <Button   CommandName = "ObjectCloneButton" />
+            <Button   CommandName = "ObjectDeleteButton" />
+          </Group>
+
+          <Group CommandName = "SceneModeGroup">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "SceneModeTypeComboBox"/>
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <Row>
+                  <ControlSizeDefinition ControlName = "SceneModeTypeComboBox" IsImageVisible = "false" IsLabelVisible = "false" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <ComboBox CommandName = "SceneModeTypeComboBox" IsEditable = "false"/>
+          </Group>
+
+          <Group CommandName = "TransformationGroup">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "TransformationTypeComboBox" />
+                <ControlNameDefinition Name = "TransformationStepSpinner" />
+                <ControlNameDefinition Name = "TransformationXAxisToggleButton" />
+                <ControlNameDefinition Name = "TransformationYAxisToggleButton" />
+                <ControlNameDefinition Name = "TransformationZAxisToggleButton" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <Row>
+                  <ControlSizeDefinition ControlName = "TransformationTypeComboBox" IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "TransformationStepSpinner" IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <ColumnBreak ShowSeparator = "true" />
+                <Row>
+                  <ControlSizeDefinition ControlName = "TransformationXAxisToggleButton" IsImageVisible = "true" IsLabelVisible = "false" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "TransformationYAxisToggleButton" IsImageVisible = "true" IsLabelVisible = "false" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "TransformationZAxisToggleButton" IsImageVisible = "true" IsLabelVisible = "false" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <ComboBox CommandName = "TransformationTypeComboBox" IsEditable = "false" />
+            <Spinner CommandName = "TransformationStepSpinner" />
+            <ToggleButton CommandName = "TransformationXAxisToggleButton"></ToggleButton>
+            <ToggleButton CommandName = "TransformationYAxisToggleButton"></ToggleButton>
+            <ToggleButton CommandName = "TransformationZAxisToggleButton"></ToggleButton>
+          </Group>
+
+          <Group CommandName = "LightGroup">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "LightMaterialGallery" />
+                <ControlNameDefinition Name = "LightMaterialValuesComboBox" />
+                <ControlNameDefinition Name = "LightPositionComboBox" />
+                <ControlNameDefinition Name = "LightSourceSpinner" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <ControlSizeDefinition ControlName = "LightMaterialGallery" IsImageVisible = "true"   ImageSize = "Large"      IsLabelVisible = "true" />
+
+                <ColumnBreak ShowSeparator = "true" />
+
+                <Row>
+                  <ControlSizeDefinition ControlName = "LightMaterialValuesComboBox" IsImageVisible = "false"  IsLabelVisible = "true" />
+                </Row>
+
+                <ColumnBreak ShowSeparator = "true" />  
+
+                <Row>
+                  <ControlSizeDefinition ControlName = "LightPositionComboBox" IsImageVisible = "false"  IsLabelVisible = "true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "LightSourceSpinner" IsImageVisible = "false"  IsLabelVisible = "true" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <DropDownGallery CommandName = "LightMaterialGallery" ItemWidth = "32" ItemHeight = "32" Type = "Commands">
+              <DropDownGallery.MenuLayout>
+                <FlowMenuLayout Rows = "2" Columns = "4" Gripper = "None" />
+              </DropDownGallery.MenuLayout>
+            </DropDownGallery>
+
+            <ComboBox CommandName = "LightMaterialValuesComboBox" IsEditable = "true" />
+            <ComboBox CommandName = "LightPositionComboBox" IsEditable = "true" />
+
+            <Spinner CommandName = "LightSourceSpinner" />
+          </Group>
+
+          <Group CommandName = "TextureGroup" SizeDefinition = "OneButton">
+            <Button CommandName = "TextureAddButton" />
+          </Group>
+
+          <Group CommandName = "cmdShowGroup">
+            <CheckBox CommandName = "cmdShowAxisCheckBox" />
+            <CheckBox CommandName = "cmdShowGridCheckBox" />
+          </Group>
+        </Tab>
+
+        <Tab CommandName = "CsgTab">
+          <Group CommandName = "CsgTreeGroup" SizeDefinition = "ButtonGroupsAndInputs">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "CsgTreeNamesComboBox" />
+                <ControlNameDefinition Name = "CsgTreeNodesComboBox" />
+                <ControlNameDefinition Name = "NodeAddButton" />
+                <ControlNameDefinition Name = "NodeRemoveButton" />
+                <ControlNameDefinition Name = "TreeDeleteButton" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <Row>
+                  <ControlSizeDefinition ControlName = "CsgTreeNamesComboBox" IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "CsgTreeNodesComboBox" IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <ColumnBreak ShowSeparator = "true" />
+                <Row>
+                  <ControlGroup>
+                    <ControlSizeDefinition ControlName = "TreeDeleteButton" IsImageVisible = "true" IsLabelVisible = "false" />
+                  </ControlGroup>
+                </Row>
+                <Row>
+                  <ControlGroup>
+                    <ControlSizeDefinition ControlName = "NodeAddButton" IsImageVisible = "true" IsLabelVisible = "false" />
+                    <ControlSizeDefinition ControlName = "NodeRemoveButton" IsImageVisible = "true" IsLabelVisible = "false" />
+                  </ControlGroup>
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <ComboBox CommandName = "CsgTreeNamesComboBox" />
+            <ComboBox CommandName = "CsgTreeNodesComboBox" IsEditable = "false" />
+
+            <Button   CommandName = "NodeAddButton" />
+            <Button   CommandName = "NodeRemoveButton" />
+            <Button   CommandName = "TreeDeleteButton" />
+          </Group>
+
+          <Group CommandName = "BoolOperationGroup">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "SubtractionToggleButton" />
+                <ControlNameDefinition Name = "IntersectionToggleButton" />
+                <ControlNameDefinition Name = "UnionToggleButton" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <Row>
+                  <ControlSizeDefinition ControlName = "SubtractionToggleButton" IsImageVisible = "true"  IsLabelVisible = "false" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "IntersectionToggleButton" IsImageVisible = "true"  IsLabelVisible = "false" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "UnionToggleButton" IsImageVisible = "true"  IsLabelVisible = "false" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <ToggleButton CommandName = "SubtractionToggleButton"></ToggleButton>
+            <ToggleButton CommandName = "IntersectionToggleButton"></ToggleButton>
+            <ToggleButton CommandName = "UnionToggleButton"></ToggleButton>
+          </Group>
+
+          <Group CommandName = "CsgCalculationGroup">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "CsgCalculateButton" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <ControlSizeDefinition ControlName = "CsgCalculateButton" IsImageVisible = "true" IsLabelVisible = "false" ImageSize = "Large" />
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName = "CsgCalculateButton"/>
+          </Group>
+
+          <Group CommandName = "OpenCsgGroup">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "CsgAlgorithmDropDownButton" />
+                <ControlNameDefinition Name = "DepthAlgorithmDropDownButton" />
+                <ControlNameDefinition Name = "OffscreenTypeDropDownButton" />
+                <ControlNameDefinition Name = "OptimizationDropDownButton" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                <Row>
+                  <ControlSizeDefinition ControlName = "CsgAlgorithmDropDownButton" IsImageVisible = "true" IsLabelVisible = "true" ImageSize = "Large" />
+                </Row>
+                <ColumnBreak ShowSeparator = "true"/>
+                <Row>
+                  <ControlSizeDefinition ControlName = "DepthAlgorithmDropDownButton" IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "OffscreenTypeDropDownButton" IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName = "OptimizationDropDownButton" IsImageVisible = "false" IsLabelVisible = "true" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <DropDownButton CommandName = "CsgAlgorithmDropDownButton">
+              <ToggleButton CommandName = "AutomaticToggleButton" />
+              <ToggleButton CommandName = "SCSToggleButton" />
+              <ToggleButton CommandName = "GoldfeatherToggleButton" />
+            </DropDownButton>
+            <DropDownButton CommandName = "DepthAlgorithmDropDownButton">
+              <ToggleButton CommandName = "NoDepthComplexitySamplingToggleButton" />
+              <ToggleButton CommandName = "OcclusionQueryToggleButton" />
+              <ToggleButton CommandName = "DepthComplexitySamplingToggleButton" />
+            </DropDownButton>
+            <DropDownButton CommandName = "OffscreenTypeDropDownButton">
+              <ToggleButton CommandName = "AutomaticOffscreenTypeToggleButton" />
+              <ToggleButton CommandName = "FrameBufferObjectToggleButton" />
+              <ToggleButton CommandName = "PBufferToggleButton" />
+              <ToggleButton CommandName = "FrameBufferObjectARBToggleButton" />
+              <ToggleButton CommandName = "FrameBufferObjectEXTToggleButton" />
+            </DropDownButton>
+            <DropDownButton CommandName = "OptimizationDropDownButton">
+              <ToggleButton CommandName = "OptimizationDefaultToggleButton" />
+              <ToggleButton CommandName = "OptimizationOffToggleButton" />
+              <ToggleButton CommandName = "OptimizationOnToggleButton" />
+            </DropDownButton>
+          </Group>
+        </Tab>
+
+        <Tab CommandName = "DatabaseTab">
+          <Group CommandName = "DatabaseGroup" SizeDefinition = "TwoButtons">
+            <Button CommandName = "DatabaseConnectButton" />
+            <Button CommandName = "DatabaseDisconnectButton" />
+          </Group>
+
+          <Group CommandName = "DatabaseProjectsGroup">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name = "DatabaseUploadButton" />
+                <ControlNameDefinition Name = "DatabaseDownloadButton" />
+                <ControlNameDefinition Name = "ProjectsListComboBox" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size = "Large">
+                  <ControlSizeDefinition ControlName = "DatabaseUploadButton" IsImageVisible = "true" ImageSize = "Large" IsLabelVisible = "true" />
+                  <ColumnBreak ShowSeparator = "true" />
+                  <ControlSizeDefinition ControlName = "DatabaseDownloadButton" IsImageVisible = "true" ImageSize = "Large" IsLabelVisible = "true" />
+                  <ColumnBreak ShowSeparator = "true" />
+                  <ControlSizeDefinition ControlName = "ProjectsListComboBox" IsImageVisible = "false" IsLabelVisible = "false" />
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName = "DatabaseUploadButton" />
+            <Button CommandName = "DatabaseDownloadButton" />
+            <ComboBox CommandName = "ProjectsListComboBox" IsEditable = "false" />
+          </Group>
+        </Tab>
+
+      </Ribbon.Tabs>
+
+      <Ribbon.HelpButton>
+        <HelpButton CommandName = "cmdHelpButton" />
+      </Ribbon.HelpButton>
+
+    </Ribbon>
+  </Application.Views>
+
+</Application>
