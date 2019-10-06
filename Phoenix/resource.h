@@ -61,6 +61,7 @@
 #define ID_ACC_AXIS_X                   2012
 #define ID_ACC_AXIS_Y                   2013
 #define ID_ACC_AXIS_Z                   2014
+#define ID_ACC_DEL                      2015
 #define IDD_MESSAGEBOX                  3000
 #define IDC_STATIC_M1                   3001
 #define IDC_STATIC_M2                   3002

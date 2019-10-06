@@ -79,6 +79,8 @@ class CsgWorld
 		void setNodeOperation(_IN_(std::basic_string<TCHAR> & treeName), _IN_(unsigned int & position), _IN_(CsgNode::OPERATION & operation));
 		bool getNodeOperation(_IN_(std::basic_string<TCHAR> & treeName), _IN_(unsigned int & position), _OUT_(CsgNode::OPERATION & operation));
 
+		bool isObjectCsgNode(_IN_(GraphicObject* object));
+
 		void drawObjects(_IN_(unsigned int & shaderProgram), _IN_(unsigned int & shaderProgramFixed));
 
 	private:

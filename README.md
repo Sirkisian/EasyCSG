@@ -2,7 +2,7 @@
 
 EasyCSG is a Windows operating system program focusing on Constructive Solid Geometry (CSG).
 
-CSG is a solid modeling technique, which allows to create complex objects by using boolean operations (subtraction, intersection, union) between simple objects, called primitives (cube, sphere, cylinder, cone, pyramid, torus). There are two ways to achieve a CSG result: CSG rendering or CSG calculating. EasyCSG implements both of them. The first one uses the graphics card to get a CSG result visually. It is faster than the calculating part, which is time consuming because it generates the vetices, normals and textures of the final complex object.
+CSG is a solid modeling technique, which allows to create complex objects by using boolean operations (subtraction, intersection, union) between simple objects, called primitives (cube, sphere, cylinder, cone, pyramid, torus). There are two ways to achieve a CSG result: CSG rendering or CSG calculating. EasyCSG implements both of them. The first one uses the graphics card to get a CSG result visually. It is faster than the calculating part, which is time consuming because it generates the vertices, normals and textures of the final complex object.
 
 The goal of EasyCSG was to create an easy to use, fast, robust and lightweight program.
 
@@ -43,7 +43,7 @@ EasyCSG is developed in Visual Studio 2019 Community. The project contains all f
 - Add call stack for errors
 - Add xml output for logfile
 - Add more primitives (cone, pyramid, torus)
-- Add action to ribbon buttons in menu (open, save, save as, logfile, delete)
+- Add action to ribbon buttons in menu (open, save, save as, logfile)
 - Add lighting and texturing for carve objects
 - Add shader for drawing of carve objects
 - Implement triangulation or tessellation for carve objects

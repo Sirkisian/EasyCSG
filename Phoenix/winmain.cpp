@@ -211,6 +211,12 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 							SendMessage(hWnd, WM_RIBBON, cmdTransformationType, 2);
 						}
 						break;
+
+					case ID_ACC_DEL:
+						{
+							SendMessage(hWnd, WM_RIBBON, cmdObjectDelete, 0);
+						}
+						break;
 				}
 			}
 			break;
@@ -376,30 +382,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 						if(position > 0)
 						{
-							for(BYTE i = static_cast<BYTE>(Material::MATERIALTYPE::AMBIENT), j = static_cast<BYTE>(Material::MATERIALTYPE::EMISSIVE); i <= j; i++)
-							{
-								const std::array<FLOAT, 4>* material = g_project->graphicWorld.getMaterialValues(position, Material::convertMaterialType(i));
-
-								if(material != NULL)
-								{
-									std::basic_string<TCHAR> string;
-									formatLightMaterialString(*material, string, i);
-
-									if(selected)
-									{
-										if(!clearSelection)
-										{
-											string.insert(0, _T("*"));
-										}
-
-										RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdLightMaterialValues, string, 2, 3 + i);
-									}
-									else
-									{
-										RibbonControlManager::ComboBoxManager::AddEntry(framework, cmdLightMaterialValues, string, 2);
-									}
-								}
-							}
+							setMaterial(framework, position, selected, clearSelection);
 
 							if(!selected)
 							{
@@ -414,16 +397,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							if(clearSelection)
 							{
-								for(BYTE i = static_cast<BYTE>(Material::MATERIALTYPE::AMBIENT), j = static_cast<BYTE>(Material::MATERIALTYPE::EMISSIVE); i <= j; i++)
-								{
-									RibbonControlManager::ComboBoxManager::RemoveEntry(framework, cmdLightMaterialValues, 4);
-								}
-
-								g_project->graphicWorld.drawTransformationAxis = FALSE;
-
-								g_ribbon->EnableControlsOnCreate(FALSE, mCONTROLGROUP::OBJECT);
-
-								RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectControls, FALSE);
+								removeSelection(framework);
 							}
 						}
 
@@ -795,10 +769,44 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 					case cmdObjectDelete:
 						{
-							Dialog::MessageDialog dialog;
-
-							if(dialog.show(hWnd, Dialog::MessageDialog::TYPE::M_QUESTION, mMAINWINDOWNAME, _T("Do you want to delete the selected object-s?")))
+							if(g_project->graphicWorld.selectedObjectsCount() > 0)
 							{
+								BOOL deleted = FALSE;
+
+								Dialog::MessageDialog dialog;
+
+								if(dialog.show(hWnd, Dialog::MessageDialog::TYPE::M_QUESTION, mMAINWINDOWNAME, std::basic_string<TCHAR>{_T("Do you want to delete the selected object-s?\n(Nodes will not be deleted.)")}))
+								{
+									std::vector<GraphicObject*> objects = g_project->graphicWorld.getSelectedObjects(); //get copy of selected objects
+
+									for(std::vector<GraphicObject*>::iterator i = objects.begin(), j = objects.end(); i != j; i++)
+									{
+										if(!g_project->csgWorld.isObjectCsgNode(*i))
+										{
+											deleted = TRUE;
+
+											g_project->graphicWorld.deleteGraphicObject((*i)->getObjectId());
+
+											*i = NULL;
+										}
+									}
+
+									if(deleted)
+									{
+										size_t size = g_project->graphicWorld.selectedObjectsCount();
+
+										if(size == 0)
+										{
+											removeSelection(framework);
+										}
+										else
+										{
+											setMaterial(framework, size, TRUE, size == 1);
+										}
+
+										InvalidateRect(childWindow, NULL, TRUE);
+									}
+								}
 							}
 						}
 						break;
@@ -1690,6 +1698,48 @@ VOID formatLightMaterialString(_IN_(ARRAY4REF(FLOAT, values)), _OUT_(std::basic_
 	stringFormated << _T(")");
 
 	string = stringFormated.str();
+}
+
+VOID removeSelection(IUIFramework* framework)
+{
+	g_project->graphicWorld.drawTransformationAxis = FALSE;
+
+	g_ribbon->EnableControlsOnCreate(FALSE, mCONTROLGROUP::OBJECT);
+
+	for(BYTE i = static_cast<BYTE>(Material::MATERIALTYPE::AMBIENT), j = static_cast<BYTE>(Material::MATERIALTYPE::EMISSIVE); i <= j; i++)
+	{
+		RibbonControlManager::ComboBoxManager::RemoveEntry(framework, cmdLightMaterialValues, 4);
+	}
+
+	RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectControls, FALSE);
+}
+
+VOID setMaterial(IUIFramework* framework, size_t position, BOOL selected, BOOL single)
+{
+	for(BYTE i = static_cast<BYTE>(Material::MATERIALTYPE::AMBIENT), j = static_cast<BYTE>(Material::MATERIALTYPE::EMISSIVE); i <= j; i++)
+	{
+		const std::array<FLOAT, 4>* material = g_project->graphicWorld.getMaterialValues(position, Material::convertMaterialType(i));
+
+		if(material != NULL)
+		{
+			std::basic_string<TCHAR> string;
+			formatLightMaterialString(*material, string, i);
+
+			if(selected)
+			{
+				if(!single)
+				{
+					string.insert(0, _T("*"));
+				}
+
+				RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdLightMaterialValues, string, 2, 3 + i);
+			}
+			else
+			{
+				RibbonControlManager::ComboBoxManager::AddEntry(framework, cmdLightMaterialValues, string, 2);
+			}
+		}
+	}
 }
 
 BOOL getExePath(_OUT_(std::basic_string<TCHAR> & path))

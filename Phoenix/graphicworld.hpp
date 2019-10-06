@@ -11,6 +11,23 @@
 //----
 //---
 //--
+class ComparatorGraphicObject
+{
+	public:
+		ComparatorGraphicObject(GLuint id):
+		id(id)
+		{
+		}
+
+		GLboolean operator()(_IN_(GraphicObject* object))
+		{
+			return object->getObjectId() == this->id;
+		}
+
+	private:
+		GLuint id;
+};
+
 class GraphicWorld
 {
 	public:
@@ -61,6 +78,8 @@ class GraphicWorld
 		{
 			ExceptionHandler::push_back<GraphicObject*>(this->objects, object);
 		}
+
+		GLvoid deleteGraphicObject(GLuint id);
 
 		size_t selectObject(long x, long y);
 		size_t selectObjects(long x, long y);

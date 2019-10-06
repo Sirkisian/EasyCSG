@@ -217,6 +217,23 @@ bool CsgWorld::getNodeOperation(_IN_(std::basic_string<TCHAR> & treeName), _IN_(
 	return false;
 }
 
+bool CsgWorld::isObjectCsgNode(_IN_(GraphicObject* object))
+{
+	for(std::map<std::basic_string<TCHAR>, CsgTree>::iterator i = this->csgTrees.begin(), j = this->csgTrees.end(); i != j; i++)
+	{
+		CsgTree & tree = i->second;
+
+		std::vector<CsgNode>::iterator location = std::find_if(tree.csgNodes.begin(), tree.csgNodes.end(), ComparatorCsgNode(object->getObjectId()));
+
+		if(location != tree.csgNodes.end())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void CsgWorld::drawObjects(_IN_(unsigned int & shaderProgram), _IN_(unsigned int & shaderProgramFixed))
 {
 	CsgNode::OPERATION operation;

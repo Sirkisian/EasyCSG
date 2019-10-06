@@ -230,6 +230,25 @@ GLvoid GraphicWorld::addGraphicLight(GLushort lightSource)
 	}
 }
 
+GLvoid GraphicWorld::deleteGraphicObject(GLuint id)
+{
+	std::vector<GraphicObject*>::iterator location = std::find_if(this->selectedObjects.begin(), this->selectedObjects.end(), ComparatorGraphicObject(id));
+
+	if(location != this->selectedObjects.end())
+	{
+		this->selectedObjects.erase(location);
+	}
+
+	location = std::find_if(this->objects.begin(), this->objects.end(), ComparatorGraphicObject(id));
+
+	if(location != this->objects.end())
+	{
+		delete *location;
+
+		this->objects.erase(location);
+	}
+}
+
 size_t GraphicWorld::selectObject(long x, long y)
 {
 	const GLuint & shader = this->shaderProgram.useShaderProgram();
