@@ -22,6 +22,18 @@ GLvoid Transformation::multModelMatrix(_INOUT_(glm::mat4 & matrix)) const
 	matrix *= model;
 }
 
+std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Transformation & transformation))
+{
+	FileIO::Export::push(out, _T("translation"));
+	out << transformation.translation.x << _T(" ") << transformation.translation.y << _T(" ") << transformation.translation.z << FileIO::Export::pop;
+	FileIO::Export::push(out, _T("scaling"));
+	out << transformation.scaling.x << _T(" ") << transformation.scaling.y << _T(" ") << transformation.scaling.z << FileIO::Export::pop;
+	FileIO::Export::push(out, _T("rotation"));
+	out << transformation.rotation.x << _T(" ") << transformation.rotation.y << _T(" ") << transformation.rotation.z << FileIO::Export::pop;
+
+	return out;
+}
+
 GLvoid Transformation::transform(_INOUT_(glm::vec3 & transformation), _IN_(GLfloat & x), _IN_(GLfloat & y), _IN_(GLfloat & z), _IN_(Transformation::ACTION & action))
 {
 	switch(action)

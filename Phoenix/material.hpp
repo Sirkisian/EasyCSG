@@ -1,8 +1,8 @@
 #pragma once
 //-----
 #include <gl/glew.h>
-#include "macros.hpp"
 #include "enumconverter.hpp"
+#include "fileio.hpp"
 //----
 //---
 //--
@@ -21,6 +21,8 @@ class Material
 
 		GLvoid setMaterialValues(_IN_(ARRAY4REF(GLfloat, materialValues)), Material::MATERIALTYPE materialType);
 		const std::array<GLfloat, 4>* getMaterialValues(Material::MATERIALTYPE materialType);
+
+		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Material & material));
 
 	private:
 		std::array<GLfloat, 4> ambient;

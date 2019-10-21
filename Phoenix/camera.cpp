@@ -50,3 +50,10 @@ GLvoid Camera::setOrbitCamera(GLbyte signHorizontal, GLbyte signVertical, GLbyte
 	this->eye[mCOORDINATE::Y] = this->center[mCOORDINATE::Y] + (-this->distance * sinf(tmp2));
 	this->eye[mCOORDINATE::Z] = this->center[mCOORDINATE::Z] + (this->distance * cosf(tmp1) * tmp3);
 }
+
+std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Camera & camera))
+{
+	out << std::fixed << camera.angleHorizontal << _T(" ") << camera.angleVertical << _T(" ") << camera.distance;
+
+	return out;
+}

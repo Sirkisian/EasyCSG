@@ -3,47 +3,15 @@
 const std::array<GLfloat, 4> GraphicObjectG::lineColor{0.1f, 0.1f, 0.1f, 1.0f};
 
 GraphicObjectG::GraphicObjectG(_IN_(std::vector<GVERTEX>* vertices), _IN_(GLenum & primitiveType), _IN_(std::vector<GLuint>* indices), Object::OBJECTTYPE type, std::array<GLfloat, 4> parameters):
-GraphicObject(vertices, primitiveType),
+GraphicObject(vertices, primitiveType, indices),
 type(type),
 parameters(parameters),
-ebo(0),
-indices(indices),
 texture(0)
 {
-	glGenBuffers(1, &this->ebo);
-
-	if(this->ebo > 0)
-	{
-		if(this->bindVao())
-		{
-			this->bindVbo();
-			this->bindEbo();
-			this->unbind();
-		}
-	}
 }
 
 GraphicObjectG::~GraphicObjectG()
 {
-	if(this->ebo > 0)
-	{
-		glDeleteBuffers(1, &this->ebo);
-	}
-
-	if(this->indices != nullptr)
-	{
-		delete this->indices;
-		this->indices = nullptr;
-	}
-}
-
-GLvoid GraphicObjectG::bindEbo()
-{
-	if(this->ebo > 0)
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->indices->size(), this->indices->data(), GL_STATIC_DRAW);
-	}
 }
 
 GLvoid GraphicObjectG::drawObject(_IN_(GLuint & shaderProgram), SceneObject::DRAWMODE mode, GLboolean fixedPipeline)
@@ -190,4 +158,27 @@ GraphicObject* GraphicObjectG::clone()
 	}
 
 	return clone;
+}
+
+GLvoid GraphicObjectG::filePrintf(std::basic_ostream<TCHAR> & out) const
+{
+	FileIO::FormatNumber4Out<GLfloat> formatedFloat(out);
+
+	FileIO::Export::push(out, _T("type"));
+	out << _T("G") << FileIO::Export::pop;
+
+	FileIO::Export::push(out, _T("primitive"));
+	out << static_cast<GLubyte>(this->type) << FileIO::Export::pop;
+
+	FileIO::Export::push(out, _T("parameters"));
+	std::for_each(this->parameters.begin(), this->parameters.end(), formatedFloat);
+	out << FileIO::Export::pop;
+
+	GraphicObject::filePrintf(out);
+
+	FileIO::Export::push(out, _T("material"));
+	out << this->material << FileIO::Export::pop;
+
+	FileIO::Export::push(out, _T("texture"));
+	out << this->texture << FileIO::Export::pop;
 }

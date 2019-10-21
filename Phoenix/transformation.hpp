@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "macros.hpp"
 #include "enumconverter.hpp"
+#include "fileio.hpp"
 //----
 //---
 //--
@@ -44,6 +44,8 @@ class Transformation
 		{
 			return this->translation;
 		}
+
+		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Transformation & transformation));
 
 	private:
 		GLvoid transform(_INOUT_(glm::vec3 & transformation), _IN_(GLfloat & x), _IN_(GLfloat & y), _IN_(GLfloat & z), _IN_(Transformation::ACTION & action));

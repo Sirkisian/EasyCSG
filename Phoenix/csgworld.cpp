@@ -19,6 +19,17 @@ OpenCSG::Operation CsgNode::getOpenCsgEquivalent(CsgNode::OPERATION operation)
 	}
 }
 
+std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgNode & node))
+{
+	FileIO::Export::push(out, _T("operation"));
+	out << static_cast<unsigned char>(node.operation) << FileIO::Export::pop;
+
+	FileIO::Export::push(out, _T("object"));
+	out << node.object->getObjectId() << FileIO::Export::pop;
+
+	return out;
+}
+
 CsgTree::CsgTree():
 generate(false)
 {
@@ -39,6 +50,19 @@ void CsgTree::deleteOpenCsgNodes()
 	}
 
 	this->openCsgNodes.clear();
+}
+
+std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgTree & tree))
+{
+	FileIO::Export::push(out, _T("nodes"));
+	for(std::vector<CsgNode>::const_iterator i = tree.csgNodes.begin(), j = tree.csgNodes.end(); i != j; i++)
+	{
+		FileIO::Export::push(out, _T("node"));
+		out << *i << FileIO::Export::pop;
+	}
+	FileIO::Export::pop(out);
+
+	return out;
 }
 
 CsgWorld::CsgWorld()
@@ -292,6 +316,19 @@ void CsgWorld::drawObjects(_IN_(unsigned int & shaderProgram), _IN_(unsigned int
 			}
 		}
 	}
+}
+
+void CsgWorld::save(std::basic_ofstream<TCHAR> & file)
+{
+	FileIO::Export::push(file, _T("trees"));
+	for(std::map<std::basic_string<TCHAR>, CsgTree>::const_iterator i = this->csgTrees.begin(), j = this->csgTrees.end(); i != j; i++)
+	{
+		FileIO::Export::push(file, _T("tree"));
+		FileIO::Export::push(file, _T("name"));
+		file << i->first << FileIO::Export::pop << i->second;
+		FileIO::Export::pop(file);
+	}
+	FileIO::Export::pop(file);
 }
 
 std::vector<CsgNode>* CsgWorld::getTreeCsgNodes(_IN_(std::basic_string<TCHAR> & treeName))

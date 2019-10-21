@@ -120,6 +120,8 @@ class GraphicWorld
 			return this->shaderProgramFixed.getShaderProgram();
 		}
 
+		GLvoid save(std::basic_ofstream<TCHAR> & file);
+
 		GLboolean drawSceneAxis;
 		GLboolean drawSceneGrid;
 		GLboolean drawTransformationAxis;

@@ -20,6 +20,8 @@ BOOL g_repaint = FALSE;
 
 TRANSFORMATIONVALUES g_transformationValues;
 
+std::basic_string<TCHAR> g_fileName;
+
 INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPTSTR pCmdLine, _In_ INT nCmdShow)
 {
 	VLDEnable();
@@ -503,6 +505,53 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 										return SendMessage(hWnd, WM_SIZE, 0, 0);
 									}
 								}
+							}
+						}
+						break;
+
+					case cmdSaveAsProject:
+					case cmdMenuSaveAsProject:
+						{
+							std::basic_string<TCHAR> name{_T("EasyCSG - ")};
+							std::basic_string<TCHAR> fileFormats{_T("*.ecsg")};
+							name.append(fileFormats);
+
+							std::vector<COMDLG_FILTERSPEC> types;
+							ExceptionHandler::push_back<COMDLG_FILTERSPEC>(types, {name.data(), fileFormats.data()});
+
+							if(SUCCEEDED(Dialog::save(mMAINWINDOWNAME, types, g_fileName)))
+							{
+								size_t position = g_fileName.rfind(_T("."));
+
+								if(position == std::string::npos)
+								{
+									g_fileName.append(_T(".ecsg"));
+								}
+								else
+								{
+									std::basic_string<TCHAR> extension = g_fileName.substr(position + 1);
+
+									if(extension.compare(_T("ecsg")) != 0)
+									{
+										g_fileName.append(_T(".ecsg"));
+									}
+								}
+
+								g_project->save(g_fileName);
+							}
+						}
+						break;
+
+					case cmdSaveProject:
+					case cmdMenuSaveProject:
+						{
+							if(g_fileName.empty())
+							{
+								SendMessage(hWnd, WM_RIBBON, cmdSaveAsProject, 0);
+							}
+							else
+							{
+								g_project->save(g_fileName);
 							}
 						}
 						break;

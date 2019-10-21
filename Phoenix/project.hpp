@@ -13,6 +13,8 @@ class Project
 		Project();
 		~Project();
 
+		void save(_IN_(std::basic_string<TCHAR> & fileName));
+
 		CsgWorld csgWorld;
 		GraphicWorld graphicWorld;
 		TextureManager textureManager;

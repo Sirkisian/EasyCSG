@@ -66,3 +66,22 @@ const std::array<GLfloat, 4>* Light::getLightValues(Light::LIGHTTYPE lightType)
 
 	return nullptr;
 }
+
+std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Light & light))
+{
+	FileIO::FormatNumber4Out<GLfloat> formatedFloat(out);
+
+	FileIO::Export::push(out, _T("ambient"));
+	std::for_each(light.ambient.begin(), light.ambient.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
+	FileIO::Export::push(out, _T("diffuse"));
+	std::for_each(light.diffuse.begin(), light.diffuse.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
+	FileIO::Export::push(out, _T("specular"));
+	std::for_each(light.specular.begin(), light.specular.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
+	return out;
+}

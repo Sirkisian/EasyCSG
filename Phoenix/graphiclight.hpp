@@ -13,6 +13,8 @@ class GraphicLight
 
 		GLvoid setPosition(_IN_(ARRAY3REF(GLfloat, position)));
 
+		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(GraphicLight & graphicLight));
+
 		Light light;
 		GraphicObjectG* lightCube;
 };

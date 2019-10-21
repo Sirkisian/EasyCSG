@@ -197,7 +197,7 @@ VOID Dialog::setTitle(_INOUT_(std::basic_string<TCHAR> & title), std::basic_stri
 
 HRESULT Dialog::dialog(CLSID key, _IN_(std::basic_string<TCHAR> & title), _IN_(std::vector<COMDLG_FILTERSPEC> & types), _OUT_(std::basic_string<TCHAR> & file))
 {
-	IFileOpenDialog* dialog = NULL;
+	IFileDialog* dialog = NULL;
 
 	HRESULT hResult = CoCreateInstance(key, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&dialog));
 

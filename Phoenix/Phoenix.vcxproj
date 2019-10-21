@@ -142,6 +142,7 @@
     <ClCompile Include="csgworld.cpp" />
     <ClCompile Include="dialog.cpp" />
     <ClCompile Include="drawnobject.cpp" />
+    <ClCompile Include="fileio.cpp" />
     <ClCompile Include="graphiclight.cpp" />
     <ClCompile Include="graphicobject.cpp" />
     <ClCompile Include="graphicobjectc.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="drawnobject.hpp" />
     <ClInclude Include="enumconverter.hpp" />
     <ClInclude Include="exceptionhandler.hpp" />
+    <ClInclude Include="fileio.hpp" />
     <ClInclude Include="fragmentshader.hpp" />
     <ClInclude Include="graphicfunctions.hpp" />
     <ClInclude Include="graphiclight.hpp" />

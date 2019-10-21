@@ -75,3 +75,26 @@ const std::array<GLfloat, 4>* Material::getMaterialValues(Material::MATERIALTYPE
 
 	return nullptr;
 }
+
+std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Material & material))
+{
+	FileIO::FormatNumber4Out<GLfloat> formatedFloat(out);
+
+	FileIO::Export::push(out, _T("ambient"));
+	std::for_each(material.ambient.begin(), material.ambient.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
+	FileIO::Export::push(out, _T("diffuse"));
+	std::for_each(material.diffuse.begin(), material.diffuse.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
+	FileIO::Export::push(out, _T("specular"));
+	std::for_each(material.specular.begin(), material.specular.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
+	FileIO::Export::push(out, _T("emissive"));
+	std::for_each(material.emissive.begin(), material.emissive.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
+	return out;
+}

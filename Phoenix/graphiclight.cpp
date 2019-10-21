@@ -31,3 +31,16 @@ GLvoid GraphicLight::setPosition(_IN_(ARRAY3REF(GLfloat, position)))
 		this->lightCube->transformation.translate(position[mCOORDINATE::X], position[mCOORDINATE::Y], position[mCOORDINATE::Z], Transformation::ACTION::SET);
 	}
 }
+
+std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(GraphicLight & graphicLight))
+{
+	out << graphicLight.light;
+
+	if(graphicLight.lightCube != nullptr)
+	{
+		FileIO::Export::push(out, _T("lightcube"));
+		out << graphicLight.lightCube->transformation << FileIO::Export::pop;
+	}
+
+	return out;
+}

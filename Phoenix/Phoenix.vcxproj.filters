@@ -213,6 +213,9 @@
     <ClCompile Include="carve.cpp">
       <Filter>Source Files\crossPlatform\csg</Filter>
     </ClCompile>
+    <ClCompile Include="fileio.cpp">
+      <Filter>Source Files\crossPlatform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="winincludes.hpp">
@@ -375,6 +378,9 @@
       <Filter>Header Files\crossPlatform\graphic\objects</Filter>
     </ClInclude>
     <ClInclude Include="objectc.hpp">
+      <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="fileio.hpp">
       <Filter>Header Files\crossPlatform</Filter>
     </ClInclude>
   </ItemGroup>

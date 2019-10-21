@@ -471,6 +471,31 @@ GLvoid GraphicWorld::centerObject(size_t position)
 	}
 }
 
+GLvoid GraphicWorld::save(std::basic_ofstream<TCHAR> & file)
+{
+	FileIO::Export::push(file, _T("camera"));
+	file << this->camera << FileIO::Export::pop;
+
+	FileIO::Export::push(file, _T("lights"));
+	for(std::array<GraphicLight*, 8>::const_iterator i = this->lights.begin(), j = this->lights.end(); i != j; i++)
+	{
+		if(*i != nullptr)
+		{
+			FileIO::Export::push(file, _T("light"));
+			file << *(*i) << FileIO::Export::pop;
+		}
+	}
+	FileIO::Export::pop(file);
+
+	FileIO::Export::push(file, _T("objects"));
+	for(std::vector<GraphicObject*>::const_iterator i = this->objects.begin(), j = this->objects.end(); i != j; i++)
+	{
+		FileIO::Export::push(file, _T("object"));
+		file << *i << FileIO::Export::pop;
+	}
+	FileIO::Export::pop(file);
+}
+
 const std::map<GLushort, GLubyte> GraphicWorld::lightSources{{GL_LIGHT0, 0}, {GL_LIGHT1, 1}, {GL_LIGHT2, 2}, {GL_LIGHT3, 3}, {GL_LIGHT4, 4}, {GL_LIGHT5, 5}, {GL_LIGHT6, 6}, {GL_LIGHT7, 7}};
 
 GraphicObject* GraphicWorld::getObject(size_t position, _IN_(std::vector<GraphicObject*> & objects))

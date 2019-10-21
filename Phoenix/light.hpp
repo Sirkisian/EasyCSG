@@ -1,8 +1,8 @@
 #pragma once
 //-----
 #include <gl/glew.h>
-#include "macros.hpp"
 #include "enumconverter.hpp"
+#include "fileio.hpp"
 //----
 //---
 //--
@@ -36,6 +36,8 @@ class Light
 		{
 			return lightSource;
 		}
+
+		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Light & light));
 
 	private:
 		GLushort lightSource;

@@ -5,7 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include "macros.hpp"
+#include "fileio.hpp"
 //----
 //---
 //--
@@ -28,6 +28,8 @@ class Camera
 		{
 			return this->eye;
 		}
+
+		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Camera & camera));
 
 	private:
 		glm::mat4 view;

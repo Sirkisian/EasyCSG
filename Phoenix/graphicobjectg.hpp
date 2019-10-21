@@ -12,8 +12,6 @@ class GraphicObjectG : public GraphicObject
 		GraphicObjectG(_IN_(std::vector<GVERTEX>* vertices), _IN_(GLenum & primitiveType), _IN_(std::vector<GLuint>* indices), Object::OBJECTTYPE type = Object::OBJECTTYPE::NOOBJECTTYPE, std::array<GLfloat, 4> parameters = std::array<GLfloat, 4>{0.0f, 0.0f, 0.0f, 0.0f});
 		~GraphicObjectG();
 
-		GLvoid bindEbo();
-
 		inline GLvoid setTexture(_IN_(GLuint & texture))
 		{
 			this->texture = texture;
@@ -32,10 +30,7 @@ class GraphicObjectG : public GraphicObject
 		const std::array<GLfloat, 4> parameters;
 
 	private:
-		//element buffer object
-		GLuint ebo;
-
-		const std::vector<GLuint>* indices;
+		GLvoid filePrintf(std::basic_ostream<TCHAR> & out) const;
 
 		GLuint texture;
 };

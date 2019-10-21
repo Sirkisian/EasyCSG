@@ -13,6 +13,8 @@ class CsgNode
 
 		static OpenCSG::Operation getOpenCsgEquivalent(CsgNode::OPERATION operation);
 
+		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgNode & node));
+
 		CsgNode::OPERATION operation;
 
 		GraphicObject* object;
@@ -42,6 +44,8 @@ class CsgTree
 		~CsgTree();
 
 		void deleteOpenCsgNodes();
+
+		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgTree & tree));
 
 		std::vector<CsgNode> csgNodes;
 		std::vector<OpenCSG::Primitive*> openCsgNodes;
@@ -82,6 +86,8 @@ class CsgWorld
 		bool isObjectCsgNode(_IN_(GraphicObject* object));
 
 		void drawObjects(_IN_(unsigned int & shaderProgram), _IN_(unsigned int & shaderProgramFixed));
+
+		void save(std::basic_ofstream<TCHAR> & file);
 
 	private:
 		std::vector<CsgNode>* getTreeCsgNodes(_IN_(std::basic_string<TCHAR> & treeName));

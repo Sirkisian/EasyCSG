@@ -1,7 +1,7 @@
 #pragma once
 //-----
-#include "csgworld.hpp"
 #include "graphicobjectc.hpp"
+#include "csgworld.hpp"
 //----
 //---
 //--

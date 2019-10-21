@@ -156,7 +156,7 @@ GLboolean FontManager::loadFontFile(_IN_(std::basic_string<TCHAR> & fontPath), _
 
 	if(file.is_open())
 	{
-		size_t size = file.tellg();
+		std::streampos size = file.tellg();
 		file.seekg(0, std::ios::beg);
 
 		try
