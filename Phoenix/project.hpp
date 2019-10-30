@@ -15,8 +15,13 @@ class Project
 
 		void save(_IN_(std::basic_string<TCHAR> & fileName));
 
+		void reset();
+
 		CsgWorld csgWorld;
 		GraphicWorld graphicWorld;
 		TextureManager textureManager;
 		FontManager fontManager;
+
+	private:
+		void addDefaultObjects();
 };

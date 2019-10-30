@@ -15,6 +15,8 @@ class Camera
 		Camera();
 		~Camera();
 
+		GLvoid setDefaultValues();
+
 		GLvoid multViewMatrix(_INOUT_(glm::mat4 & matrix));
 
 		GLvoid setOrbitCamera(GLbyte signHorizontal, GLbyte signVertical, GLbyte signDistance = 0);

@@ -8,13 +8,19 @@ namespace RibbonControlManager
 {
 	HRESULT EnableDisableCommands(IUIFramework* framework, _IN_(std::vector<UINT> & commands), BOOL value);
 
-	HRESULT SetToggleButtonGroup(IUIFramework* framework, _IN_(std::vector<UINT> & commands), _IN_(UINT & command), BOOL radioButton = TRUE);
+	HRESULT SetToggleGroup(IUIFramework* framework, _IN_(std::vector<UINT> & commands), _IN_(UINT & command), BOOL radioButton = TRUE);
+
+	inline HRESULT SetToggleControl(IUIFramework* framework, UINT command)
+	{
+		return RibbonControlManager::SetToggleGroup(framework, std::vector<UINT>{command}, command);
+	}
 
 	HRESULT GetSelectedControl(IUIFramework* framework, _IN_(std::vector<UINT> & commands), _OUT_(UINT & command));
 
 	HRESULT GetStringValue(IUIFramework* framework, UINT command, _OUT_(std::basic_string<TCHAR> & string));
 
 	HRESULT GetDecimalValue(IUIFramework* framework, UINT command, _OUT_(FLOAT & value));
+	HRESULT SetDecimalValue(IUIFramework* framework, UINT command, _IN_(FLOAT & value));
 
 	class ComboBoxManager
 	{

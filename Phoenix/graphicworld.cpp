@@ -45,22 +45,7 @@ GraphicWorld::~GraphicWorld()
 		this->transformationAxis = nullptr;
 	}
 
-	if(!this->objects.empty())
-	{
-		for(std::vector<GraphicObject*>::const_iterator i = this->objects.begin(), j = this->objects.end(); i != j; i++)
-		{
-			delete *i;
-		}
-
-		this->objects.clear();
-	}
-
-	for(std::array<GraphicLight*, 8>::iterator i = this->lights.begin(), j = this->lights.end(); i != j; i++)
-	{
-		delete *i;
-
-		*i = nullptr;
-	}
+	this->clear();
 }
 
 GLvoid GraphicWorld::setTransformationAxisPosition(long x, long y)
@@ -494,6 +479,28 @@ GLvoid GraphicWorld::save(std::basic_ofstream<TCHAR> & file)
 		file << *i << FileIO::Export::pop;
 	}
 	FileIO::Export::pop(file);
+}
+
+GLvoid GraphicWorld::clear()
+{
+	this->selectedObjects.clear();
+
+	if(!this->objects.empty())
+	{
+		for(std::vector<GraphicObject*>::const_iterator i = this->objects.begin(), j = this->objects.end(); i != j; i++)
+		{
+			delete *i;
+		}
+
+		this->objects.clear();
+	}
+
+	for(std::array<GraphicLight*, 8>::iterator i = this->lights.begin(), j = this->lights.end(); i != j; i++)
+	{
+		delete *i;
+
+		*i = nullptr;
+	}
 }
 
 const std::map<GLushort, GLubyte> GraphicWorld::lightSources{{GL_LIGHT0, 0}, {GL_LIGHT1, 1}, {GL_LIGHT2, 2}, {GL_LIGHT3, 3}, {GL_LIGHT4, 4}, {GL_LIGHT5, 5}, {GL_LIGHT6, 6}, {GL_LIGHT7, 7}};

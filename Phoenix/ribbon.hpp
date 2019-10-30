@@ -28,7 +28,7 @@ class Ribbon
 			return this->SetColor(UI_PKEY_GlobalTextColor, hue, saturation, brightness);
 		}
 
-		VOID EnableControlsOnCreate(BOOL value,  mCONTROLGROUP group);
+		VOID EnableControlsOnCreate(BOOL value, mCONTROLGROUP group);
 
 		inline IUIFramework* GetFramework()
 		{

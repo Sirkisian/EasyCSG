@@ -89,6 +89,11 @@ class CsgWorld
 
 		void save(std::basic_ofstream<TCHAR> & file);
 
+		inline void clear()
+		{
+			this->csgTrees.clear();
+		}
+
 	private:
 		std::vector<CsgNode>* getTreeCsgNodes(_IN_(std::basic_string<TCHAR> & treeName));
 

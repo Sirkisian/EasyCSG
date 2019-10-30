@@ -1,19 +1,25 @@
 #include "camera.hpp"
 
-Camera::Camera():
-distance(8.0f),
-angleVertical(0.0f),
-angleHorizontal(0.0f)
+Camera::Camera()
 {
+	this->setDefaultValues();
+}
+
+Camera::~Camera()
+{
+}
+
+GLvoid Camera::setDefaultValues()
+{
+	this->distance = 8.0f,
+	this->angleVertical = 0.0f,
+	this->angleHorizontal = 0.0f;
+
 	this->view = glm::mat4(1.0f);
 
 	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
 	this->center = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->eye = glm::vec3(this->angleHorizontal, this->angleVertical, this->distance);
-}
-
-Camera::~Camera()
-{
 }
 
 GLvoid Camera::multViewMatrix(_INOUT_(glm::mat4 & matrix))

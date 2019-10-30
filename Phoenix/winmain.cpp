@@ -41,7 +41,7 @@ INT WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 VOID createUI(HINSTANCE hInstance)
 {
 	std::array<SHORT, 2> position{0, 0};
-	std::array<SHORT, 2>  size{0, 0};
+	std::array<SHORT, 2> size{0, 0};
 
 	WindowsUI::getScreenSize(size);
 
@@ -192,25 +192,19 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 					case ID_ACC_AXIS_X:
 						{
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::axisControls, cmdTransformationXAxis);
-
-							SendMessage(hWnd, WM_RIBBON, cmdTransformationType, 0);
+							SendMessage(hWnd, WM_RIBBON, cmdTransformationXAxis, 0);
 						}
 						break;
 
 					case ID_ACC_AXIS_Y:
 						{
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::axisControls, cmdTransformationYAxis);
-
-							SendMessage(hWnd, WM_RIBBON, cmdTransformationType, 1);
+							SendMessage(hWnd, WM_RIBBON, cmdTransformationYAxis, 0);
 						}
 						break;
 
 					case ID_ACC_AXIS_Z:
 						{
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::axisControls, cmdTransformationZAxis);
-
-							SendMessage(hWnd, WM_RIBBON, cmdTransformationType, 2);
+							SendMessage(hWnd, WM_RIBBON, cmdTransformationZAxis, 0);
 						}
 						break;
 
@@ -471,7 +465,23 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 					case cmdNewProject:
 					case cmdMenuNewProject:
 						{
-							if(g_windowsUI != NULL && childWindow == NULL)
+							if(g_project != NULL)
+							{
+								Dialog::MessageDialog dialog;
+
+								if(dialog.show(hWnd, Dialog::MessageDialog::TYPE::M_QUESTION, mMAINWINDOWNAME, std::basic_string<TCHAR>{_T("Do you want to create a new project?")}))
+								{
+									g_project->reset();
+
+									g_transformationValues = TRANSFORMATIONVALUES();
+
+									resetRibbon(framework);
+									removeSelection(framework);
+
+									InvalidateRect(childWindow, NULL, TRUE);
+								}
+							}
+							else
 							{
 								std::array<SHORT, 2> position{0, 0};
 								std::array<SHORT, 2> size{0, 0};
@@ -615,7 +625,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 					case cmd3Dpyramid:
 					case cmd3Dtorus:
 						{
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::objectTypeControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectTypeControls, wParam);
 						}
 						break;
 
@@ -883,21 +893,21 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 					case cmdTransformationXAxis:
 						{
 							g_transformationValues.axisRibbon = mCOORDINATE::X;
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::axisControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::axisControls, wParam);
 						}
 						break;
 
 					case cmdTransformationYAxis:
 						{
 							g_transformationValues.axisRibbon = mCOORDINATE::Y;
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::axisControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::axisControls, wParam);
 						}
 						break;
 
 					case cmdTransformationZAxis:
 						{
 							g_transformationValues.axisRibbon = mCOORDINATE::Z;
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::axisControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::axisControls, wParam);
 						}
 						break;
 
@@ -911,7 +921,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							std::vector<UINT> lightMaterialControls = RibbonControlGroups::lightControls;
 							lightMaterialControls.insert(lightMaterialControls.end(), RibbonControlGroups::materialControls.begin(), RibbonControlGroups::materialControls.end());
-							RibbonControlManager::SetToggleButtonGroup(framework, lightMaterialControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, lightMaterialControls, wParam);
 						}
 						break;
 
@@ -1076,15 +1086,10 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 													g_project->graphicWorld.setLightPosition(GL_LIGHT0 + (static_cast<BYTE>(lightSource) - 1), arrayValues);
 
-													std::basic_ostringstream<TCHAR> string;
-													string.setf(std::ios::showpoint);
-													string.precision(4);
+													std::basic_string<TCHAR> string;
+													formatLightPosition(arrayValues, string);
 
-													string << _T("x=") << values[mCOORDINATE::X];
-													string << _T(" y=") << values[mCOORDINATE::Y];
-													string << _T(" z=") << values[mCOORDINATE::Z];
-
-													RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, wParam, string.str(), 1, 1);
+													RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, wParam, string, 1, 1);
 
 													SceneObject::DRAWMODE mode = g_project->graphicWorld.getDrawMode();
 
@@ -1161,15 +1166,18 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 							{
 								if(lParam == STRINGVALUE)
 								{
-									if(g_project->csgWorld.addCsgTree(treeName))
+									if(!treeName.empty())
 									{
-										RibbonControlManager::ComboBoxManager::AddEntry(framework, wParam, treeName);
+										if(g_project->csgWorld.addCsgTree(treeName))
+										{
+											RibbonControlManager::ComboBoxManager::AddEntry(framework, wParam, treeName);
+										}
 									}
 								}
 
 								RibbonControlManager::ComboBoxManager::ClearContent(framework, cmdCsgTreeNodes);
 
-								RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::objectCsgControls, 0);
+								RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectCsgControls, 0);
 								RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectCsgControls, FALSE);
 
 								if(g_project->csgWorld.isCsgTreeEmpty(treeName))
@@ -1230,7 +1238,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							if(lParam == 0)
 							{
-								RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::objectCsgControls, 0);
+								RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectCsgControls, 0);
 								RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectCsgControls, FALSE);
 							}
 							else
@@ -1269,7 +1277,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 											RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectCsgControls, TRUE);
 
-											RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::objectCsgControls, command);
+											RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectCsgControls, command);
 										}
 									}
 								}
@@ -1357,7 +1365,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 										RibbonControlManager::ComboBoxManager::Invalidate(framework, cmdCsgTreeNodes);
 
-										RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::objectCsgControls, 0);
+										RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectCsgControls, 0);
 										RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectCsgControls, FALSE);
 
 										if(g_project->graphicWorld.getDrawMode() == SceneObject::DRAWMODE::CSG)
@@ -1413,7 +1421,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 										g_project->csgWorld.setNodeOperation(treeName, position, operation);
 
-										RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::objectCsgControls, wParam);
+										RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectCsgControls, wParam);
 
 										std::basic_string<TCHAR> string;
 										if(SUCCEEDED(RibbonControlManager::GetStringValue(framework, cmdCsgTreeNodes, string)))
@@ -1466,7 +1474,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::AlgorithmSetting, OpenCSG::Algorithm::Automatic);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgAlgorithmControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgAlgorithmControls, wParam);
 						}
 						break;
 
@@ -1474,7 +1482,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::AlgorithmSetting, OpenCSG::Algorithm::SCS);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgAlgorithmControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgAlgorithmControls, wParam);
 						}
 						break;
 
@@ -1482,7 +1490,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::AlgorithmSetting, OpenCSG::Algorithm::Goldfeather);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgAlgorithmControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgAlgorithmControls, wParam);
 						}
 						break;
 
@@ -1490,7 +1498,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::DepthComplexitySetting, OpenCSG::DepthComplexityAlgorithm::NoDepthComplexitySampling);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, wParam);
 						}
 						break;
 
@@ -1498,7 +1506,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::DepthComplexitySetting, OpenCSG::DepthComplexityAlgorithm::OcclusionQuery);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, wParam);
 						}
 						break;
 
@@ -1506,7 +1514,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::DepthComplexitySetting, OpenCSG::DepthComplexityAlgorithm::DepthComplexitySampling);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, wParam);
 						}
 						break;
 
@@ -1514,7 +1522,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::OffscreenSetting, OpenCSG::OffscreenType::AutomaticOffscreenType);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
 						}
 						break;
 
@@ -1522,7 +1530,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::OffscreenSetting, OpenCSG::OffscreenType::FrameBufferObject);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
 						}
 						break;
 
@@ -1530,7 +1538,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::OffscreenSetting, OpenCSG::OffscreenType::PBuffer);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
 						}
 						break;
 
@@ -1538,7 +1546,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::OffscreenSetting, OpenCSG::OffscreenType::FrameBufferObjectARB);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
 						}
 						break;
 
@@ -1546,7 +1554,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::OffscreenSetting, OpenCSG::OffscreenType::FrameBufferObjectEXT);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, wParam);
 						}
 						break;
 
@@ -1554,7 +1562,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::DepthBoundsOptimization, OpenCSG::Optimization::OptimizationDefault);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOptimizationControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOptimizationControls, wParam);
 						}
 						break;
 
@@ -1562,7 +1570,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::DepthBoundsOptimization, OpenCSG::Optimization::OptimizationOff);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOptimizationControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOptimizationControls, wParam);
 						}
 						break;
 
@@ -1570,7 +1578,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							OpenCSG::setOption(OpenCSG::DepthBoundsOptimization, OpenCSG::Optimization::OptimizationOn);
 
-							RibbonControlManager::SetToggleButtonGroup(framework, RibbonControlGroups::csgOptimizationControls, wParam);
+							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOptimizationControls, wParam);
 						}
 						break;
 
@@ -1749,6 +1757,19 @@ VOID formatLightMaterialString(_IN_(ARRAY4REF(FLOAT, values)), _OUT_(std::basic_
 	string = stringFormated.str();
 }
 
+VOID formatLightPosition(_IN_(ARRAY3REF(FLOAT, values)), _OUT_(std::basic_string<TCHAR> & string))
+{
+	std::basic_ostringstream<TCHAR> stringFormated;
+	stringFormated.setf(std::ios::showpoint);
+	stringFormated.precision(4);
+
+	stringFormated << _T("x=") << values[mCOORDINATE::X];
+	stringFormated << _T(" y=") << values[mCOORDINATE::Y];
+	stringFormated << _T(" z=") << values[mCOORDINATE::Z];
+
+	string = stringFormated.str();
+}
+
 VOID removeSelection(IUIFramework* framework)
 {
 	g_project->graphicWorld.drawTransformationAxis = FALSE;
@@ -1808,6 +1829,55 @@ BOOL getExePath(_OUT_(std::basic_string<TCHAR> & path))
 	}
 
 	return FALSE;
+}
+
+VOID resetRibbon(IUIFramework* framework)
+{
+	std::basic_string<TCHAR> string;
+
+	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectTypeControls, 0);
+
+	RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdObjectName, std::basic_string<TCHAR>{_T("-")}, 0, 0, TRUE);
+	RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdObjectValues, std::basic_string<TCHAR>{_T("-")}, 0, 0, TRUE);
+
+	RibbonControlManager::ComboBoxManager::SelectEntry(framework, cmdSceneModeType, 1);
+
+	RibbonControlManager::ComboBoxManager::SelectEntry(framework, cmdTransformationType, 0);
+	RibbonControlManager::SetDecimalValue(framework, cmdTransformationStep, 1.0f);
+
+	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::axisControls, cmdTransformationXAxis);
+
+	std::vector<UINT> lightMaterialControls = RibbonControlGroups::lightControls;
+	lightMaterialControls.insert(lightMaterialControls.end(), RibbonControlGroups::materialControls.begin(), RibbonControlGroups::materialControls.end());
+	RibbonControlManager::SetToggleGroup(framework, lightMaterialControls, 0);
+
+	std::array<FLOAT, 4> values4{1.0f, 1.0f, 1.0f, 1.0f};
+	for(BYTE i = static_cast<BYTE>(Light::LIGHTTYPE::AMBIENT), j = static_cast<BYTE>(Light::LIGHTTYPE::SPECULAR); i <= j; i++)
+	{
+		formatLightMaterialString(values4, string, i);
+		RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdLightMaterialValues, string, 1, i);
+	}
+
+	std::array<FLOAT, 3> values3{0.0f, 0.0f, 0.0f};
+	formatLightPosition(values3, string);
+	RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdLightPosition, string, 1, 1);
+
+	RibbonControlManager::SetToggleControl(framework, cmdShowAxis);
+	RibbonControlManager::SetToggleControl(framework, cmdShowGrid);
+
+	if(SUCCEEDED(RibbonControlManager::ComboBoxManager::ClearContent(framework, cmdCsgTreeNames)))
+	{
+		RibbonControlManager::ComboBoxManager::AddEntry(framework, cmdCsgTreeNames, std::basic_string<TCHAR>{_T("default")});
+	}
+
+	RibbonControlManager::ComboBoxManager::ClearContent(framework, cmdCsgTreeNodes);
+
+	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectCsgControls, 0);
+
+	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgAlgorithmControls, cmdSCS);
+	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, cmdNoDepthComplexitySampling);
+	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, cmdAutomaticOffscreenType);
+	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOptimizationControls, cmdOptimizationOff);
 }
 
 VOID free()

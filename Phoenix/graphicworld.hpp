@@ -122,6 +122,8 @@ class GraphicWorld
 
 		GLvoid save(std::basic_ofstream<TCHAR> & file);
 
+		GLvoid clear();
+
 		GLboolean drawSceneAxis;
 		GLboolean drawSceneGrid;
 		GLboolean drawTransformationAxis;

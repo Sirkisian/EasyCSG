@@ -69,9 +69,11 @@ BOOL CALLBACK EnumChildProc(HWND hWndChild, LPARAM lParam);
 VOID writeInfoMessage(HWND hWnd, IUIFramework* framework, _IN_(UINT & command), std::basic_string<TCHAR> reset, std::basic_string<TCHAR> message);
 BOOL handleFloatListControl(HWND hWnd, IUIFramework* framework, _IN_(UINT & command), _IN_(std::vector<UINT> & commands), _OUT_(std::basic_string<TCHAR> & string), _OUT_(UINT & type), std::basic_string<TCHAR> reset, std::basic_string<TCHAR> message);
 VOID formatLightMaterialString(_IN_(ARRAY4REF(FLOAT, values)), _OUT_(std::basic_string<TCHAR> & string), BYTE lightMaterialType);
+VOID formatLightPosition(_IN_(ARRAY3REF(FLOAT, values)), _OUT_(std::basic_string<TCHAR> & string));
 VOID removeSelection(IUIFramework* framework);
 VOID setMaterial(IUIFramework* framework, size_t position, BOOL selected, BOOL single);
 BOOL getExePath(_OUT_(std::basic_string<TCHAR> & path));
+VOID resetRibbon(IUIFramework* framework);
 VOID free();
 
 INT_PTR CALLBACK helpDialogProcedure(HWND hWndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);

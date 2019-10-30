@@ -40,7 +40,7 @@ HRESULT RibbonControlManager::EnableDisableCommands(IUIFramework* framework, _IN
 	return S_OK;
 }
 
-HRESULT RibbonControlManager::SetToggleButtonGroup(IUIFramework* framework, _IN_(std::vector<UINT> & commands), _IN_(UINT & command), BOOL radioButton)
+HRESULT RibbonControlManager::SetToggleGroup(IUIFramework* framework, _IN_(std::vector<UINT> & commands), _IN_(UINT & command), BOOL radioButton)
 {
 	BOOL value;
 	PROPVARIANT propvar;
@@ -182,6 +182,31 @@ HRESULT RibbonControlManager::GetDecimalValue(IUIFramework* framework, UINT comm
 	PropVariantClear(&propvar);
 
 	return VarR4FromDec(&decimal, &value);
+}
+
+HRESULT RibbonControlManager::SetDecimalValue(IUIFramework* framework, UINT command, _IN_(FLOAT & value))
+{
+	DECIMAL decimal;
+	PROPVARIANT propvar;
+
+	if(framework == NULL)
+	{
+		return E_POINTER;
+	}
+
+	HRESULT hResult = VarDecFromR4(value, &decimal);
+	IFFAILEDRETURN(hResult);
+
+	PropVariantInit(&propvar);
+
+	hResult = UIInitPropertyFromDecimal(UI_PKEY_DecimalValue, decimal, &propvar);
+	IFFAILEDRETURN(hResult);
+
+	hResult = framework->SetUICommandProperty(command, UI_PKEY_DecimalValue, propvar);
+
+	PropVariantClear(&propvar);
+
+	return hResult;
 }
 
 HRESULT RibbonControlManager::ComboBoxManager::ReplaceEntry(IUIFramework* framework, UINT command, std::basic_string<TCHAR> value, UINT category, BYTE position, BOOL invalidate)
