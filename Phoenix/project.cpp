@@ -31,13 +31,16 @@ void Project::save(_IN_(std::basic_string<TCHAR> & fileName))
 
 void Project::reset()
 {
+	this->csgWorld.clear();
+
 	this->graphicWorld.clear();
 	this->graphicWorld.drawSceneAxis = true;
 	this->graphicWorld.drawSceneGrid = true;
 	this->graphicWorld.setDrawMode(SceneObject::DRAWMODE::COLOR);
 	this->graphicWorld.camera.setDefaultValues();
+	this->graphicWorld.objectManager.reset();
 
-	this->csgWorld.clear();
+	this->textureManager.clear();
 
 	this->addDefaultObjects();
 }

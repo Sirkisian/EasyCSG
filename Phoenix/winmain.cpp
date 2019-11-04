@@ -820,6 +820,10 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 								{
 									g_project->graphicWorld.objectManager.setObjectId(clone);
 
+									std::basic_ostringstream<TCHAR> cloneName;
+									cloneName << _T("clone#") << clone->getObjectId();
+									clone->setObjectName(cloneName.str());
+
 									g_project->graphicWorld.addGraphicObject(clone);
 								}
 							}
@@ -1460,8 +1464,12 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 								if(object != NULL)
 								{
-									//set name ...
 									g_project->graphicWorld.objectManager.setObjectId(object);
+
+									std::basic_ostringstream<TCHAR> objectName;
+									objectName << _T("csgObject#") << object->getObjectId();
+									object->setObjectName(objectName.str());
+
 									g_project->graphicWorld.addGraphicObject(object);
 
 									InvalidateRect(childWindow, NULL, TRUE);
@@ -1621,24 +1629,25 @@ BOOL CALLBACK EnumChildProc(HWND hWndChild, LPARAM lParam)
 
 				if(SUCCEEDED(hResult))
 				{
+					USHORT width = static_cast<USHORT>(rect.right);
 					USHORT height = static_cast<USHORT>(rect.bottom - ribbonHeight - statusBar.bottom);
 
-					if(SetWindowPos(hWndChild, HWND_BOTTOM, 0, ribbonHeight, rect.right, height, 0))
+					if(SetWindowPos(hWndChild, HWND_BOTTOM, 0, ribbonHeight, width, height, 0))
 					{
 						g_infoMessage.position = std::array<USHORT, 2>{50, static_cast<USHORT>(height - 50)};
 
 						if(g_project != NULL)
 						{
-							g_project->graphicWorld.setProjection(45, 1, 50, rect.right, height);
+							g_project->graphicWorld.setProjection(45, 1, 50, width, height);
 
-							g_project->graphicWorld.setTransformationAxisPosition(rect.right - 200, 150);
+							g_project->graphicWorld.setTransformationAxisPosition(width - 200, 150);
 
 							g_project->fontManager.setOrthoProjection(g_project->graphicWorld.getOrthoProjection());
 						}
 
 						if(g_printScreen != NULL)
 						{
-							g_printScreen->createRenderBuffer(std::array<USHORT, 2>{static_cast<USHORT>(rect.right), height});
+							g_printScreen->createRenderBuffer(std::array<USHORT, 2>{width, height});
 						}
 					}
 				}

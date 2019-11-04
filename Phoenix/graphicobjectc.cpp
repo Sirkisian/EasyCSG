@@ -99,9 +99,9 @@ GLboolean GraphicObjectC::getVerticesFromMesh()
 	{
 		for(size_t i = 0; i < size; i++)
 		{
-			(*vertices)[i].vertex[mCOORDINATE::X] = this->meshSet->vertex_storage[i].v.x;
-			(*vertices)[i].vertex[mCOORDINATE::Y] = this->meshSet->vertex_storage[i].v.y;
-			(*vertices)[i].vertex[mCOORDINATE::Z] = this->meshSet->vertex_storage[i].v.z;
+			(*vertices)[i].vertex[mCOORDINATE::X] = static_cast<GLfloat>(this->meshSet->vertex_storage[i].v.x);
+			(*vertices)[i].vertex[mCOORDINATE::Y] = static_cast<GLfloat>(this->meshSet->vertex_storage[i].v.y);
+			(*vertices)[i].vertex[mCOORDINATE::Z] = static_cast<GLfloat>(this->meshSet->vertex_storage[i].v.z);
 		}
 
 		this->vertices = vertices;
@@ -125,7 +125,7 @@ GLvoid GraphicObjectC::getIndicesFromMesh()
 		face = *i;
 
 		std::vector<GLuint> objectFace;
-		std::pair<std::map<GLushort, std::vector<GLuint>>::iterator, bool> inserted = this->faces.insert({face->n_edges, objectFace});
+		std::pair<std::map<GLuint, std::vector<GLuint>>::iterator, bool> inserted = this->faces.insert({face->n_edges, objectFace});
 
 		for(carve::mesh::MeshSet<3>::face_t::edge_iter_t k = face->begin(), l = face->end(); k != l; k++)
 		{
@@ -162,7 +162,7 @@ GLvoid GraphicObjectC::filePrintf(std::basic_ostream<TCHAR> & out) const
 
 	size_t size, last;
 	FileIO::Export::push(out, _T("faces"));
-	for(std::map<GLushort, std::vector<GLuint>>::const_iterator i = this->faces.begin(), j = this->faces.end(); i != j; i++)
+	for(std::map<GLuint, std::vector<GLuint>>::const_iterator i = this->faces.begin(), j = this->faces.end(); i != j; i++)
 	{
 		size = (i->second.size() / i->first) - 1;
 

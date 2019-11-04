@@ -44,7 +44,7 @@ class GraphicObjectC : public GraphicObject
 
 		GLvoid render();
 
-		std::map<GLushort, std::vector<GLuint>> faces;
+		std::map<GLuint, std::vector<GLuint>> faces;
 
 		carve::mesh::MeshSet<3>* meshSet;
 		carve::interpolate::FaceVertexAttr<TSTRUCT> fv_tex;

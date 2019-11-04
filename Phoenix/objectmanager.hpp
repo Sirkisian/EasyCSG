@@ -26,6 +26,11 @@ class ObjectManager
 
 		GLvoid setObjectId(_INOUT_(GraphicObject* object));
 
+		inline GLvoid reset()
+		{
+			this->id = 0;
+		}
+
 	private:
 		GLuint id;
 };

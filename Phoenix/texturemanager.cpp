@@ -9,15 +9,7 @@ TextureManager::TextureManager()
 
 TextureManager::~TextureManager()
 {
-	for(std::vector<Texture>::const_iterator i = this->textures.begin(), j = this->textures.end(); i != j; i++) 
-	{
-		if(glIsTexture(i->id))
-		{
-			glDeleteTextures(1, &(i->id));
-		}
-	}
-
-	this->textures.clear();
+	this->clear();
 }
 
 GLuint TextureManager::textureLoaded(_IN_(std::basic_string<TCHAR> & file))
@@ -87,4 +79,17 @@ GLuint TextureManager::loadTexture(_IN_(std::basic_string<TCHAR> & file))
 	}
 
 	return texture.id;
+}
+
+GLvoid TextureManager::clear()
+{
+	for(std::vector<Texture>::const_iterator i = this->textures.begin(), j = this->textures.end(); i != j; i++)
+	{
+		if(glIsTexture(i->id))
+		{
+			glDeleteTextures(1, &(i->id));
+		}
+	}
+
+	this->textures.clear();
 }

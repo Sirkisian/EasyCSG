@@ -30,6 +30,8 @@ class TextureManager
 
 		GLuint loadTexture(_IN_(std::basic_string<TCHAR> & file));
 
+		GLvoid clear();
+
 	private:
 		std::vector<Texture> textures;
 };
