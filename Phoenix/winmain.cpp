@@ -876,15 +876,26 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 					case cmdSceneModeType:
 						{
-							g_project->graphicWorld.setDrawMode(SceneObject::convertDrawMode(static_cast<BYTE>(lParam) + 1));
+							if(g_project != NULL)
+							{
+								BYTE selected = static_cast<BYTE>(lParam);
 
-							InvalidateRect(childWindow, NULL, TRUE);
+								g_ribbon->SetMutableControl(_T("sceneModeType"), std::vector<UnionValue>{UnionValue(selected)});
+
+								g_project->graphicWorld.setDrawMode(SceneObject::convertDrawMode(selected + 1));
+
+								InvalidateRect(childWindow, NULL, TRUE);
+							}
 						}
 						break;
 
 					case cmdTransformationType:
 						{
-							g_transformationValues.type = Transformation::convertType(static_cast<BYTE>(lParam) + 1);
+							BYTE selected = static_cast<BYTE>(lParam);
+
+							g_ribbon->SetMutableControl(_T("transformationType"), std::vector<UnionValue>{UnionValue(selected)});
+
+							g_transformationValues.type = Transformation::convertType(selected + 1);
 						}
 						break;
 
@@ -898,6 +909,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							g_transformationValues.axisRibbon = mCOORDINATE::X;
 							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::axisControls, wParam);
+							g_ribbon->SetMutableControl(_T("transformationAxis"), std::vector<UnionValue>{UnionValue(wParam)});
 						}
 						break;
 
@@ -905,6 +917,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							g_transformationValues.axisRibbon = mCOORDINATE::Y;
 							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::axisControls, wParam);
+							g_ribbon->SetMutableControl(_T("transformationAxis"), std::vector<UnionValue>{UnionValue(wParam)});
 						}
 						break;
 
@@ -912,6 +925,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						{
 							g_transformationValues.axisRibbon = mCOORDINATE::Z;
 							RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::axisControls, wParam);
+							g_ribbon->SetMutableControl(_T("transformationAxis"), std::vector<UnionValue>{UnionValue(wParam)});
 						}
 						break;
 

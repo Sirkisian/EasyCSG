@@ -35,6 +35,8 @@ class Ribbon
 			return this->framework;
 		}
 
+		VOID SetMutableControl(std::basic_string<TCHAR> control, std::vector<UnionValue> value);
+
 	private:
 		HRESULT SetColor(_IN_(PROPERTYKEY & key), _IN_(BYTE & hue), _IN_(BYTE & saturation), _IN_(BYTE & brightness));
 

@@ -53,15 +53,6 @@ class CsgTree
 		bool generate;
 };
 
-class ComparatorCsgTree
-{
-	public:
-		inline bool operator()(_IN_(std::basic_string<TCHAR> & str1), _IN_(std::basic_string<TCHAR> & str2)) const
-		{
-			return str1.compare(str2) < 0;
-		}
-};
-
 class CsgWorld
 {
 	public:
@@ -97,5 +88,5 @@ class CsgWorld
 	private:
 		std::vector<CsgNode>* getTreeCsgNodes(_IN_(std::basic_string<TCHAR> & treeName));
 
-		std::map<std::basic_string<TCHAR>, CsgTree, ComparatorCsgTree> csgTrees;
+		std::map<std::basic_string<TCHAR>, CsgTree> csgTrees;
 };

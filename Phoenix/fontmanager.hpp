@@ -30,15 +30,6 @@ class Font
 		std::map<TCHAR, Character*> characters;
 };
 
-class ComparatorString
-{
-	public:
-		inline bool operator()(_IN_(std::basic_string<TCHAR> & str1), _IN_(std::basic_string<TCHAR> & str2)) const
-		{
-			return str1.compare(str2) < 0;
-		}
-};
-
 class FontManager : public DrawnObject
 {
 	public:
@@ -58,7 +49,7 @@ class FontManager : public DrawnObject
 
 		GLvoid loadCharacters(_IN_(FT_Face face), std::map<TCHAR, Character*> & characters);
 
-		std::map<std::basic_string<TCHAR>, Font, ComparatorString> fonts;
+		std::map<std::basic_string<TCHAR>, Font> fonts;
 
 		ShaderProgram shaderProgram;
 };

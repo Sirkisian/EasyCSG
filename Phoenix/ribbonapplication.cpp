@@ -1,10 +1,89 @@
 #include "ribbonapplication.hpp"
 
+UnionValue::UnionValue(INT intValue)
+{
+	this->dataType = UnionValue::DATATYPE::TINT;
+	this->intValue = intValue;
+}
+
+UnionValue::UnionValue(std::basic_string<TCHAR> stringValue)
+{
+	this->dataType = UnionValue::DATATYPE::TSTRING;
+	new (&this->stringValue) std::basic_string<TCHAR>(stringValue);
+}
+
+UnionValue::UnionValue(_IN_(UnionValue & in))
+{
+	switch(in.dataType)
+	{
+		case UnionValue::DATATYPE::TINT:
+			{
+				this->dataType = UnionValue::DATATYPE::TINT;
+				this->intValue = in.intValue;
+			}
+			break;
+
+		case UnionValue::DATATYPE::TSTRING:
+			{
+				this->dataType = UnionValue::DATATYPE::TSTRING;
+				new (&this->stringValue) std::basic_string<TCHAR>(in.stringValue);
+			}
+			break;
+	}
+}
+
+UnionValue::~UnionValue()
+{
+	switch(this->dataType)
+	{
+		case UnionValue::DATATYPE::TSTRING:
+			{
+				this->stringValue.~basic_string();
+			}
+			break;
+	}
+}
+
+UnionValue::operator INT()
+{
+	if(this->dataType == UnionValue::DATATYPE::TINT)
+	{
+		return this->intValue;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+UnionValue::operator std::basic_string<TCHAR>()
+{
+	if(this->dataType == UnionValue::DATATYPE::TSTRING)
+	{
+		return this->stringValue;
+	}
+	else
+	{
+		return std::basic_string<TCHAR>();
+	}
+}
+
 RibbonApplication::RibbonApplication(HWND hWnd):
 cRef(1),
 hWnd(hWnd)
 {
 	this->controlsEnabled.fill(FALSE); //0. Project, 1. Object
+
+	std::vector<UnionValue> tmp;
+	this->mutableControls.insert({_T("objectName"), tmp});
+	this->mutableControls.insert({_T("sceneModeType"), tmp});
+	this->mutableControls.insert({_T("transformationType"), tmp});
+	this->mutableControls.insert({_T("transformationAxis"), tmp});
+	this->mutableControls.insert({_T("lightValues"), tmp});
+	this->mutableControls.insert({_T("materialValues"), tmp});
+	this->mutableControls.insert({_T("lightPosition"), tmp});
+	this->mutableControls.insert({_T("csgTreeNames"), tmp});
+	this->mutableControls.insert({_T("csgTreeNodes"), tmp});
 }
 
 RibbonApplication::~RibbonApplication()
@@ -122,6 +201,17 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 			break;
 	//-----
 		case cmdObjectName:
+			{
+				std::basic_string<TCHAR> objectName{_T("-")};
+				this->GetValue<std::basic_string<TCHAR>>(_T("objectName"), objectName);
+
+				std::vector<Property> propertySet;
+				ExceptionHandler::push_back<Property>(propertySet, Property(objectName, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+
+				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet);
+			}
+			break;
+
 		case cmdObjectValues:
 			{
 				std::vector<Property> propertySet;
@@ -133,6 +223,9 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 
 		case cmdSceneModeType:
 			{
+				INT selected = 1;
+				this->GetValue<INT>(_T("sceneModeType"), selected);
+
 				std::vector<Property> propertySet;
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("Wire mode")}, 0, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::CATEGORY));
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("[1] wire")}, 0, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
@@ -145,31 +238,51 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("Csg mode")}, 4, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::CATEGORY));
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("[5] boolean operations")}, 4, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 
-				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet, 1);
+				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet, selected);
 			}
 			break;
 
 		case cmdTransformationType:
 			{
+				INT selected = 0;
+				this->GetValue<INT>(_T("transformationType"), selected);
+
 				std::vector<Property> propertySet;
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("translate")}, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("scale")}, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("rotate")}, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 
-				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet);
+				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet, selected);
 			}
 			break;
 
 		case cmdLightMaterialValues:
 			{
+				std::vector<std::basic_string<TCHAR>> lightValues;
+				ExceptionHandler::push_back<std::basic_string<TCHAR>>(lightValues, std::basic_string<TCHAR>{_T("r=1.00 g=1.00 b=1.00 a=1.00 (ambient)")});
+				ExceptionHandler::push_back<std::basic_string<TCHAR>>(lightValues, std::basic_string<TCHAR>{_T("r=1.00 g=1.00 b=1.00 a=1.00 (diffuse)")});
+				ExceptionHandler::push_back<std::basic_string<TCHAR>>(lightValues, std::basic_string<TCHAR>{_T("r=1.00 g=1.00 b=1.00 a=1.00 (specular)")});
+				this->GetValues<std::basic_string<TCHAR>>(_T("lightValues"), lightValues);
+
+				std::vector<std::basic_string<TCHAR>> materialValues;
+				this->GetValues<std::basic_string<TCHAR>>(_T("materialValues"), materialValues);
+
 				std::vector<Property> propertySet;
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("Light and material")}, 0, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::CATEGORY));
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("")}, 0, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("Light")}, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::CATEGORY));
-				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("r=1.00 g=1.00 b=1.00 a=1.00 (ambient)")}, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
-				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("r=1.00 g=1.00 b=1.00 a=1.00 (diffuse)")}, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
-				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("r=1.00 g=1.00 b=1.00 a=1.00 (specular)")}, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+
+				for(std::vector<std::basic_string<TCHAR>>::const_iterator i = lightValues.begin(), j = lightValues.end(); i != j; i++)
+				{
+					ExceptionHandler::push_back<Property>(propertySet, Property(*i, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+				}
+
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("Material")}, 2, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::CATEGORY));
+
+				for(std::vector<std::basic_string<TCHAR>>::const_iterator i = materialValues.begin(), j = materialValues.end(); i != j; i++)
+				{
+					ExceptionHandler::push_back<Property>(propertySet, Property(*i, 2, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+				}
 
 				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet);
 			}
@@ -177,10 +290,13 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 
 		case cmdLightPosition:
 			{
+				std::basic_string<TCHAR> lightPosition{_T("x=0.0000 y=0.0000 z=0.0000")};
+				this->GetValue<std::basic_string<TCHAR>>(_T("lightPosition"), lightPosition);
+
 				std::vector<Property> propertySet;
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("")}, 0, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("Light")}, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::CATEGORY));
-				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("x=0.0000 y=0.0000 z=0.0000")}, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+				ExceptionHandler::push_back<Property>(propertySet, Property(lightPosition, 1, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 
 				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet);
 			}
@@ -188,8 +304,15 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 
 		case cmdCsgTreeNames:
 			{
+				std::vector<std::basic_string<TCHAR>> csgTreeNames;
+				ExceptionHandler::push_back<std::basic_string<TCHAR>>(csgTreeNames, std::basic_string<TCHAR>{_T("default")});
+				this->GetValues<std::basic_string<TCHAR>>(_T("csgTreeNames"), csgTreeNames);
+
 				std::vector<Property> propertySet;
-				ExceptionHandler::push_back<Property>(propertySet, Property(std::basic_string<TCHAR>{_T("default")}, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+				for(std::vector<std::basic_string<TCHAR>>::const_iterator i = csgTreeNames.begin(), j = csgTreeNames.end(); i != j; i++)
+				{
+					ExceptionHandler::push_back<Property>(propertySet, Property(*i, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+				}
 
 				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[0], propertySet);
 			}
@@ -197,6 +320,15 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 
 		case cmdCsgTreeNodes:
 			{
+				std::vector<std::basic_string<TCHAR>> csgTreeNodes;
+				this->GetValues<std::basic_string<TCHAR>>(_T("csgTreeNodes"), csgTreeNodes);
+
+				std::vector<Property> propertySet;
+				for(std::vector<std::basic_string<TCHAR>>::const_iterator i = csgTreeNodes.begin(), j = csgTreeNodes.end(); i != j; i++)
+				{
+					ExceptionHandler::push_back<Property>(propertySet, Property(*i, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
+				}
+
 				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, FALSE, std::vector<Property>{});
 			}
 			break;
@@ -281,15 +413,13 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 			break;
 
 		case cmdTransformationXAxis:
-			{
-				hResult = RibbonApplication::AddToggleButton(ppCommandHandler, this->hWnd, this->controlsEnabled[0], TRUE);
-			}
-			break;
-
 		case cmdTransformationYAxis:
 		case cmdTransformationZAxis:
 			{
-				hResult = RibbonApplication::AddToggleButton(ppCommandHandler, this->hWnd, this->controlsEnabled[0], FALSE);
+				INT axis = cmdTransformationXAxis;
+				this->GetValue<INT>(_T("transformationAxis"), axis);
+
+				hResult = RibbonApplication::AddToggleButton(ppCommandHandler, this->hWnd, this->controlsEnabled[0], axis == nCmdID);
 			}
 			break;
 

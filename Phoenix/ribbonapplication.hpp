@@ -1,5 +1,6 @@
 #pragma once
 //-----
+#include <map>
 #include "exceptionhandler.hpp"
 #include "ribbonxml.h" //through uicc.exe generated header from xml
 #include "rbuttonhandler.hpp"
@@ -13,6 +14,29 @@
 enum mCONTROLGROUP {PROJECT, OBJECT};
 //---
 //--
+class UnionValue //or boost::variant or std::variant (C++17)
+{
+	public:
+		enum class DATATYPE : BYTE {TINT, TSTRING};
+
+		UnionValue(INT intValue);
+		UnionValue(std::basic_string<TCHAR> stringValue);
+		UnionValue(_IN_(UnionValue & in));
+		~UnionValue();
+
+		operator INT();
+		operator std::basic_string<TCHAR>();
+
+	private:
+		DATATYPE dataType;
+
+		union
+		{
+			INT intValue;
+			std::basic_string<TCHAR> stringValue;
+		};
+};
+
 class RibbonApplication : public IUIApplication
 {
 	public:
@@ -37,6 +61,8 @@ class RibbonApplication : public IUIApplication
 
 		std::array<BOOL, 2> controlsEnabled;
 
+		std::map<std::basic_string<TCHAR>, std::vector<UnionValue>> mutableControls;
+
 	private:
 		static HRESULT AddButton(_OUT_(IUICommandHandler** ppCommandHandler), HWND hWnd, BOOL enabled);
 		static HRESULT AddCheckBox(_OUT_(IUICommandHandler** ppCommandHandler), HWND hWnd, BOOL enabled, BOOL defValue);
@@ -48,6 +74,46 @@ class RibbonApplication : public IUIApplication
 		static HRESULT AddControl(_OUT_(IUICommandHandler** ppCommandHandler), HRESULT createResult, _OUT_(IUICommandHandler** control));
 
 		RibbonApplication(HWND hWnd);
+
+		template <class T>
+		BOOL GetLocation(_IN_(std::basic_string<TCHAR> & control), std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator & location)
+		{
+			location = this->mutableControls.find(control);
+
+			if(location != this->mutableControls.end())
+			{
+				if(!location->second.empty())
+				{
+					return TRUE;
+				}
+			}
+
+			return FALSE;
+		}
+
+		template <class T>
+		VOID GetValue(_IN_(std::basic_string<TCHAR> & control), _OUT_(T & value))
+		{
+			std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator location;
+
+			if(this->GetLocation<T>(control, location))
+			{
+				value = static_cast<T>(location->second.front());
+			}
+		}
+
+		template <class T>
+		VOID GetValues(_IN_(std::basic_string<TCHAR> & control), _OUT_(std::vector<T> & values))
+		{
+			std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator location;
+
+			if(this->GetLocation<T>(control, location))
+			{
+				values.clear();
+
+				std::copy(location->second.begin(), location->second.end(), std::back_inserter(values));
+			}
+		}
 
 		LONG cRef;
 		HWND hWnd;

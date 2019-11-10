@@ -72,6 +72,18 @@ VOID Ribbon::EnableControlsOnCreate(BOOL value, mCONTROLGROUP group)
 	}
 }
 
+VOID Ribbon::SetMutableControl(std::basic_string<TCHAR> control, std::vector<UnionValue> value)
+{
+	std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator location = this->application->mutableControls.find(control);
+
+	if(location != this->application->mutableControls.end())
+	{
+		location->second.clear();
+
+		std::copy(value.begin(), value.end(), std::back_inserter(location->second));
+	}
+}
+
 HRESULT Ribbon::SetColor(_IN_(PROPERTYKEY & key), _IN_(BYTE & hue), _IN_(BYTE & saturation), _IN_(BYTE & brightness))
 {
 	PROPVARIANT propvarColor;
