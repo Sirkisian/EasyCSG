@@ -75,7 +75,6 @@ class RibbonApplication : public IUIApplication
 
 		RibbonApplication(HWND hWnd);
 
-		template <class T>
 		BOOL GetLocation(_IN_(std::basic_string<TCHAR> & control), std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator & location)
 		{
 			location = this->mutableControls.find(control);
@@ -91,28 +90,43 @@ class RibbonApplication : public IUIApplication
 			return FALSE;
 		}
 
-		template <class T>
-		VOID GetValue(_IN_(std::basic_string<TCHAR> & control), _OUT_(T & value))
+		VOID EraseMutableControl(std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator & location, BOOL erase)
 		{
-			std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator location;
-
-			if(this->GetLocation<T>(control, location))
+			if(erase)
 			{
-				value = static_cast<T>(location->second.front());
+				if(location != this->mutableControls.end())
+				{
+					this->mutableControls.erase(location);
+				}
 			}
 		}
 
 		template <class T>
-		VOID GetValues(_IN_(std::basic_string<TCHAR> & control), _OUT_(std::vector<T> & values))
+		VOID GetValue(_IN_(std::basic_string<TCHAR> & control), _OUT_(T & value), BOOL erase = TRUE)
 		{
 			std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator location;
 
-			if(this->GetLocation<T>(control, location))
+			if(this->GetLocation(control, location))
+			{
+				value = static_cast<T>(location->second.front());
+			}
+
+			this->EraseMutableControl(location, erase);
+		}
+
+		template <class T>
+		VOID GetValues(_IN_(std::basic_string<TCHAR> & control), _OUT_(std::vector<T> & values), BOOL erase = TRUE)
+		{
+			std::map<std::basic_string<TCHAR>, std::vector<UnionValue>>::iterator location;
+
+			if(this->GetLocation(control, location))
 			{
 				values.clear();
 
 				std::copy(location->second.begin(), location->second.end(), std::back_inserter(values));
 			}
+
+			this->EraseMutableControl(location, erase);
 		}
 
 		LONG cRef;

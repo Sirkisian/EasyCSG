@@ -417,7 +417,7 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 		case cmdTransformationZAxis:
 			{
 				INT axis = cmdTransformationXAxis;
-				this->GetValue<INT>(_T("transformationAxis"), axis);
+				this->GetValue<INT>(_T("transformationAxis"), axis, cmdTransformationZAxis == nCmdID);
 
 				hResult = RibbonApplication::AddToggleButton(ppCommandHandler, this->hWnd, this->controlsEnabled[0], axis == nCmdID);
 			}
