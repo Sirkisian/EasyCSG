@@ -152,24 +152,25 @@ GLvoid GraphicObjectC::filePrintf(std::basic_ostream<TCHAR> & out) const
 	GraphicObject::filePrintf(out);
 
 	FileIO::Export::push(out, _T("vertices"));
+	FileIO::Export::pushTag(_T("v"));
 	for(std::vector<carve::mesh::MeshSet<3>::vertex_t>::const_iterator i = this->meshSet->vertex_storage.begin(), j = this->meshSet->vertex_storage.end(); i != j; i++)
 	{
-		FileIO::Export::push(out, _T("v"));
+		FileIO::Export::topOpen(out);
 		std::for_each(i->v.v, i->v.v + 3, formatedDouble);
-		FileIO::Export::pop(out);
+		FileIO::Export::topClose(out);
 	}
+	FileIO::Export::popTag();
 	FileIO::Export::pop(out);
 
 	size_t size, last;
 	FileIO::Export::push(out, _T("faces"));
+	FileIO::Export::pushTag(_T("f"));
 	for(std::map<GLuint, std::vector<GLuint>>::const_iterator i = this->faces.begin(), j = this->faces.end(); i != j; i++)
 	{
 		size = (i->second.size() / i->first) - 1;
 
 		for(size_t k = 0; k <= size; k++)
 		{
-			FileIO::Export::push(out, _T("f"));
-
 			last = i->first * (k + 1);
 
 			if(k == size)
@@ -177,10 +178,12 @@ GLvoid GraphicObjectC::filePrintf(std::basic_ostream<TCHAR> & out) const
 				last--;
 			}
 
+			FileIO::Export::topOpen(out);
 			std::for_each(&(i->second[i->first * k]), &(i->second[last]), formatedInt);
-			FileIO::Export::pop(out);
+			FileIO::Export::topClose(out);
 		}
 	}
+	FileIO::Export::popTag();
 	FileIO::Export::pop(out);
 
 	//+ textures

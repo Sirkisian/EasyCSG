@@ -51,6 +51,26 @@ namespace FileIO
 			static void push(std::basic_ostream<TCHAR> & out, std::basic_string<TCHAR> tag);
 			static std::basic_ostream<TCHAR> & pop(std::basic_ostream<TCHAR> & out);
 
+			static inline void pushTag(std::basic_string<TCHAR> tag)
+			{
+				FileIO::Export::xmlTags.push(tag);
+			}
+
+			static inline void popTag()
+			{
+				FileIO::Export::xmlTags.pop();
+			}
+
+			static inline void topOpen(std::basic_ostream<TCHAR> & out)
+			{
+				out << std::endl << _T("<") << FileIO::Export::xmlTags.top() << _T(">");
+			}
+
+			static inline void topClose(std::basic_ostream<TCHAR> & out)
+			{
+				out << _T("</") << FileIO::Export::xmlTags.top() << _T(">");
+			}
+
 		private:
 			static bool poped;
 			static std::stack<std::basic_string<TCHAR>> xmlTags;
