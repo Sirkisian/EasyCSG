@@ -32,15 +32,50 @@ GLvoid GraphicLight::setPosition(_IN_(ARRAY3REF(GLfloat, position)))
 	}
 }
 
-std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(GraphicLight & graphicLight))
+std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(GraphicLight & graphicLight))
 {
+	FileIO::Export::push(out, _T("values"));
 	out << graphicLight.light;
+	FileIO::Export::pop(out);
 
 	if(graphicLight.lightCube != nullptr)
 	{
 		FileIO::Export::push(out, _T("lightcube"));
-		out << graphicLight.lightCube->transformation << FileIO::Export::pop;
+		FileIO::Export::push(out, _T("transformation"));
+		out << graphicLight.lightCube->transformation;
+		FileIO::Export::pop(out);
+		FileIO::Export::pop(out);
 	}
 
 	return out;
+}
+
+GLvoid GraphicLight::operator<<(_IN_(rapidxml::xml_node<TCHAR>* parentNode))
+{
+	if(parentNode != nullptr)
+	{
+		rapidxml::xml_node<TCHAR>* node = parentNode->first_node();
+
+		while(node != nullptr)
+		{
+			if(FileIO::Import::isTag(_T("values"), node))
+			{
+				this->light << node;
+			}
+			else if(FileIO::Import::isTag(_T("lightcube"), node))
+			{
+				if(this->lightCube != nullptr)
+				{
+					rapidxml::xml_node<TCHAR>* childNode = node->first_node();
+
+					if(FileIO::Import::isTag(_T("transformation"), childNode))
+					{
+						this->lightCube->transformation << childNode;
+					}
+				}
+			}
+
+			node = node->next_sibling();
+		}
+	}
 }

@@ -11,7 +11,7 @@
 #include "rspinnerhandler.hpp"
 #include "rtogglebuttonhandler.hpp"
 //----
-enum mCONTROLGROUP {PROJECT, OBJECT};
+enum mCONTROLGROUP {PROJECT, OBJECT, CSGNODE};
 //---
 //--
 class UnionValue //or boost::variant or std::variant (C++17)
@@ -59,7 +59,7 @@ class RibbonApplication : public IUIApplication
 		STDMETHOD(OnCreateUICommand)(UINT32 nCmdID, UI_COMMANDTYPE typeID, IUICommandHandler** ppCommandHandler);
 		STDMETHOD(OnDestroyUICommand)(UINT32 commandId, UI_COMMANDTYPE typeID, IUICommandHandler* pCommandHandler);
 
-		std::array<BOOL, 2> controlsEnabled;
+		std::array<BOOL, 3> controlsEnabled;
 
 		std::map<std::basic_string<TCHAR>, std::vector<UnionValue>> mutableControls;
 

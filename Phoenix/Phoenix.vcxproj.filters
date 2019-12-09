@@ -207,14 +207,17 @@
     <ClCompile Include="graphicobjectc.cpp">
       <Filter>Source Files\crossPlatform\graphic\objects</Filter>
     </ClCompile>
-    <ClCompile Include="objectc.cpp">
-      <Filter>Source Files\crossPlatform</Filter>
-    </ClCompile>
     <ClCompile Include="carve.cpp">
       <Filter>Source Files\crossPlatform\csg</Filter>
     </ClCompile>
     <ClCompile Include="fileio.cpp">
       <Filter>Source Files\crossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="lighting.cpp">
+      <Filter>Source Files\crossPlatform\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="objectc.cpp">
+      <Filter>Source Files\crossPlatform\csg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -377,11 +380,14 @@
     <ClInclude Include="graphicobjectc.hpp">
       <Filter>Header Files\crossPlatform\graphic\objects</Filter>
     </ClInclude>
-    <ClInclude Include="objectc.hpp">
-      <Filter>Header Files\crossPlatform</Filter>
-    </ClInclude>
     <ClInclude Include="fileio.hpp">
       <Filter>Header Files\crossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="lighting.hpp">
+      <Filter>Header Files\crossPlatform\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="objectc.hpp">
+      <Filter>Header Files\crossPlatform\csg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

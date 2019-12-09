@@ -3,11 +3,21 @@
 #include "axis.hpp"
 #include "grid.hpp"
 #include "graphicobjectg.hpp"
+#include "graphicobjectc.hpp"
 //----
 #define BASICOBJECTVARIABLES GLenum primitiveType
 #define OBJECTVARIABLES BASICOBJECTVARIABLES; std::vector<GVERTEX>* vertices = nullptr; std::vector<GLuint>* indices = nullptr; GraphicObjectG* object = nullptr
 //---
 //--
+class ComparatorObjectID
+{
+	public:
+		GLboolean operator()(_IN_(GraphicObject* object1), _IN_(GraphicObject* object2))
+		{
+			return object1->getObjectId() < object2->getObjectId();
+		}
+};
+
 class ObjectManager
 {
 	public:
@@ -31,6 +41,13 @@ class ObjectManager
 			this->id = 0;
 		}
 
+		GLvoid load(_OUT_(std::vector<GraphicObject*> & objects), _IN_(rapidxml::xml_node<TCHAR>* parentNode));
+
 	private:
+		static GraphicObjectG* createObject(Object::OBJECTTYPE primitive, _IN_(std::vector<GLfloat> & parameters));
+
+		static GraphicObjectG* loadGobject(_IN_(rapidxml::xml_node<TCHAR>* parentNode));
+		static GraphicObjectC* loadCobject(_IN_(rapidxml::xml_node<TCHAR>* parentNode));
+
 		GLuint id;
 };

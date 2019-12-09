@@ -32,3 +32,13 @@ std::basic_ostream<TCHAR> & FileIO::Export::pop(std::basic_ostream<TCHAR> & out)
 
 	return out;
 }
+
+bool FileIO::Import::isTag(_IN_(std::basic_string<TCHAR> & tag), _IN_(rapidxml::xml_node<TCHAR>* node))
+{
+	if(node != nullptr)
+	{
+		return tag.compare(node->name()) == 0;
+	}
+
+	return false;
+}

@@ -30,7 +30,8 @@ class GraphicObjectG : public GraphicObject
 		const std::array<GLfloat, 4> parameters;
 
 	private:
-		GLvoid filePrintf(std::basic_ostream<TCHAR> & out) const;
+		GLvoid filePrintf(_INOUT_(std::basic_ostream<TCHAR> & out)) const;
+		GLvoid fileScanf(_IN_(rapidxml::xml_node<TCHAR>* parentNode));
 
 		GLuint texture;
 };

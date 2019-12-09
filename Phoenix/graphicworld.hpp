@@ -79,6 +79,7 @@ class GraphicWorld
 			ExceptionHandler::push_back<GraphicObject*>(this->objects, object);
 		}
 
+		GraphicObject* getGraphicObject(GLuint id) const;
 		GLvoid deleteGraphicObject(GLuint id);
 
 		size_t selectObject(long x, long y);
@@ -97,7 +98,9 @@ class GraphicWorld
 		GLvoid transformSelectedObjects(_IN_(mCOORDINATE & axis), _IN_(Transformation::TYPE & type), _IN_(GLfloat & value));
 
 		GLvoid setLightPosition(GLushort lightSource, _IN_(ARRAY3REF(GLfloat, position)));
+		const std::array<GLfloat, 3>* getLightPosition(GLushort lightSource);
 		GLvoid setLightValues(GLushort lightSource, _IN_(ARRAY4REF(GLfloat, values)), Light::LIGHTTYPE lightType);
+		const std::array<GLfloat, 4>* getLightValues(GLushort lightSource, Light::LIGHTTYPE lightType);
 		GLvoid setMaterialValues(_IN_(ARRAY4REF(GLfloat, values)), Material::MATERIALTYPE materialType);
 		const std::array<GLfloat, 4>* getMaterialValues(size_t position, Material::MATERIALTYPE materialType);
 
@@ -120,7 +123,8 @@ class GraphicWorld
 			return this->shaderProgramFixed.getShaderProgram();
 		}
 
-		GLvoid save(std::basic_ofstream<TCHAR> & file);
+		GLvoid save(_INOUT_(std::basic_ofstream<TCHAR> & file));
+		GLvoid load(_IN_(rapidxml::xml_node<TCHAR>* parentNode));
 
 		GLvoid clear();
 
@@ -129,8 +133,6 @@ class GraphicWorld
 		GLboolean drawTransformationAxis;
 
 		Camera camera;
-
-		ObjectManager objectManager;
 
 	private:
 		static const std::map<GLushort, GLubyte> lightSources;

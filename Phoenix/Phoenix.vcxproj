@@ -79,7 +79,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../libs/opengl/include;../libs/vld/include;../libs/glew/include;../libs/glm/include;../libs/stb/include;../libs/opencsg/include;../libs/freetype/include;../libs/carve/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../libs/opengl/include;../libs/vld/include;../libs/glew/include;../libs/glm/include;../libs/stb/include;../libs/opencsg/include;../libs/freetype/include;../libs/carve/include;../libs/rapidxml/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -146,6 +146,7 @@
     <ClCompile Include="graphiclight.cpp" />
     <ClCompile Include="graphicobject.cpp" />
     <ClCompile Include="graphicobjectc.cpp" />
+    <ClCompile Include="lighting.cpp" />
     <ClCompile Include="objectc.cpp" />
     <ClCompile Include="printscreen.cpp" />
     <ClCompile Include="input.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="graphiclight.hpp" />
     <ClInclude Include="graphicobjectc.hpp" />
     <ClInclude Include="graphicobjectg.hpp" />
+    <ClInclude Include="lighting.hpp" />
     <ClInclude Include="objectc.hpp" />
     <ClInclude Include="printscreen.hpp" />
     <ClInclude Include="input.hpp" />

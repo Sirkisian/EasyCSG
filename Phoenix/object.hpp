@@ -6,6 +6,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "macros.hpp"
+#include "enumconverter.hpp"
 //----
 //---
 typedef struct gvertex
@@ -32,6 +33,11 @@ typedef struct gvertex
 namespace Object
 {
 	enum class OBJECTTYPE : GLubyte {NOOBJECTTYPE, CUBE, SPHERE, CYLINDER, CONE, PYRAMID};
+
+	inline Object::OBJECTTYPE convertObjectType(GLubyte objectType)
+	{
+		return EnumConverter::convert<Object::OBJECTTYPE>(objectType, Object::OBJECTTYPE::CUBE, Object::OBJECTTYPE::PYRAMID);
+	}
 }
 
 class Object2D
@@ -62,6 +68,7 @@ class Object2D
 class Object3D
 {
 	public:
+		static std::vector<std::array<GLfloat, 2>> minMax;
 		static const std::array<std::basic_string<TCHAR>, 5> primitiveNames;
 
 		static std::vector<GVERTEX>* axis(_IN_(GLfloat & length), _OUT_(GLenum & primitiveType));

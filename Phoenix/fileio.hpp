@@ -4,18 +4,19 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
-#include <tchar.h>
-#include "macros.hpp"
+#include <rapidxml.hpp>
+#include <rapidxml_utils.hpp>
+#include "input.hpp"
 //----
 //---
 //--
 namespace FileIO
 {
 	template <class T>
-	class FormatNumber4Out
+	class FormatNumArray4Out
 	{
 		public:
-			FormatNumber4Out(std::basic_ostream<TCHAR> & out):
+			FormatNumArray4Out(std::basic_ostream<TCHAR> & out):
 			first(true),
 			out(out)
 			{
@@ -74,5 +75,11 @@ namespace FileIO
 		private:
 			static bool poped;
 			static std::stack<std::basic_string<TCHAR>> xmlTags;
+	};
+
+	class Import
+	{
+		public:
+			static bool isTag(_IN_(std::basic_string<TCHAR> & tag), _IN_(rapidxml::xml_node<TCHAR>* node));
 	};
 }

@@ -13,7 +13,8 @@ class GraphicLight
 
 		GLvoid setPosition(_IN_(ARRAY3REF(GLfloat, position)));
 
-		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(GraphicLight & graphicLight));
+		friend std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(GraphicLight & graphicLight));
+		GLvoid operator<<(_IN_(rapidxml::xml_node<TCHAR>* parentNode));
 
 		Light light;
 		GraphicObjectG* lightCube;

@@ -160,25 +160,37 @@ GraphicObject* GraphicObjectG::clone()
 	return clone;
 }
 
-GLvoid GraphicObjectG::filePrintf(std::basic_ostream<TCHAR> & out) const
+GLvoid GraphicObjectG::filePrintf(_INOUT_(std::basic_ostream<TCHAR> & out)) const
 {
-	FileIO::FormatNumber4Out<GLfloat> formatedFloat(out);
+	FileIO::FormatNumArray4Out<GLfloat> formatedFloat(out);
 
 	FileIO::Export::push(out, _T("type"));
-	out << _T("G") << FileIO::Export::pop;
+	out << _T("G");
+	FileIO::Export::pop(out);
 
 	FileIO::Export::push(out, _T("primitive"));
-	out << static_cast<GLubyte>(this->type) << FileIO::Export::pop;
+	out << static_cast<GLubyte>(this->type);
+	FileIO::Export::pop(out);
 
 	FileIO::Export::push(out, _T("parameters"));
 	std::for_each(this->parameters.begin(), this->parameters.end(), formatedFloat);
-	out << FileIO::Export::pop;
+	FileIO::Export::pop(out);
 
 	GraphicObject::filePrintf(out);
 
 	FileIO::Export::push(out, _T("material"));
-	out << this->material << FileIO::Export::pop;
+	out << this->material;
+	FileIO::Export::pop(out);
+}
 
-	FileIO::Export::push(out, _T("texture"));
-	out << this->texture << FileIO::Export::pop;
+GLvoid GraphicObjectG::fileScanf(_IN_(rapidxml::xml_node<TCHAR>* parentNode))
+{
+	GraphicObject::fileScanf(parentNode);
+
+	rapidxml::xml_node<TCHAR>* node = parentNode->first_node(_T("material"));
+
+	if(node != nullptr)
+	{
+		this->material << node;
+	}
 }

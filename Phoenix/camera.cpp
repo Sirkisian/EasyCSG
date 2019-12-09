@@ -19,7 +19,8 @@ GLvoid Camera::setDefaultValues()
 
 	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
 	this->center = glm::vec3(0.0f, 0.0f, 0.0f);
-	this->eye = glm::vec3(this->angleHorizontal, this->angleVertical, this->distance);
+
+	this->calculateEye();
 }
 
 GLvoid Camera::multViewMatrix(_INOUT_(glm::mat4 & matrix))
@@ -31,9 +32,6 @@ GLvoid Camera::multViewMatrix(_INOUT_(glm::mat4 & matrix))
 
 GLvoid Camera::setOrbitCamera(GLbyte signHorizontal, GLbyte signVertical, GLbyte signDistance)
 {
-	GLfloat tmp1, tmp2, tmp3;
-	GLfloat halfPI = static_cast<GLfloat>(M_PI) / 180.0f;
-
 	if(signHorizontal != 0)
 	{
 		this->angleHorizontal += 1.0f * signHorizontal;
@@ -49,17 +47,43 @@ GLvoid Camera::setOrbitCamera(GLbyte signHorizontal, GLbyte signVertical, GLbyte
 		this->distance += 1.0f * signDistance;
 	}
 
+	this->calculateEye();
+}
+
+std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(Camera & camera))
+{
+	FileIO::FormatNumArray4Out<GLfloat> formatedFloat(out);
+
+	std::array<GLfloat, 3> values{camera.angleHorizontal, camera.angleVertical, camera.distance};
+	std::for_each(values.begin(), values.end(), formatedFloat);
+
+	return out;
+}
+
+GLvoid Camera::operator<<(_IN_(rapidxml::xml_node<TCHAR>* node))
+{
+	if(node != nullptr)
+	{
+		std::array<GLfloat, 3> values;
+		Input::list2NumArray(node->value(), ' ', values);
+
+		this->angleHorizontal = values[0];
+		this->angleVertical = values[1];
+		this->distance = values[2];
+
+		this->calculateEye();
+	}
+}
+
+GLvoid Camera::calculateEye()
+{
+	GLfloat tmp1, tmp2, tmp3;
+	GLfloat halfPI = static_cast<GLfloat>(M_PI) / 180.0f;
+
 	tmp1 = this->angleHorizontal * halfPI;
 	tmp2 = this->angleVertical * halfPI; 
 	tmp3 = cosf(tmp2);
 	this->eye[mCOORDINATE::X] = this->center[mCOORDINATE::X] + (this->distance * sinf(tmp1) * tmp3);
 	this->eye[mCOORDINATE::Y] = this->center[mCOORDINATE::Y] + (-this->distance * sinf(tmp2));
 	this->eye[mCOORDINATE::Z] = this->center[mCOORDINATE::Z] + (this->distance * cosf(tmp1) * tmp3);
-}
-
-std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Camera & camera))
-{
-	out << std::fixed << camera.angleHorizontal << _T(" ") << camera.angleVertical << _T(" ") << camera.distance;
-
-	return out;
 }

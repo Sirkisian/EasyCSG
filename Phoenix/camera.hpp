@@ -31,9 +31,12 @@ class Camera
 			return this->eye;
 		}
 
-		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Camera & camera));
+		friend std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(Camera & camera));
+		GLvoid operator<<(_IN_(rapidxml::xml_node<TCHAR>* node));
 
 	private:
+		GLvoid calculateEye();
+
 		glm::mat4 view;
 
 		glm::vec3 up;

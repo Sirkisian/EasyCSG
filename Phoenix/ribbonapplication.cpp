@@ -72,7 +72,7 @@ RibbonApplication::RibbonApplication(HWND hWnd):
 cRef(1),
 hWnd(hWnd)
 {
-	this->controlsEnabled.fill(FALSE); //0. Project, 1. Object
+	this->controlsEnabled.fill(FALSE); //0. Project, 1. Object, 2. CSG nodes
 
 	std::vector<UnionValue> tmp;
 	this->mutableControls.insert({_T("objectName"), tmp});
@@ -160,7 +160,6 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 			}
 			break;
 
-		case cmdNodeRemove:
 		case cmdSubtraction:
 		case cmdIntersection:
 		case cmdUnion:
@@ -190,6 +189,12 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 		case cmdNodeAdd:
 			{
 				hResult = RibbonApplication::AddButton(ppCommandHandler, this->hWnd, this->controlsEnabled[1]);
+			}
+			break;
+
+		case cmdNodeRemove:
+			{
+				hResult = RibbonApplication::AddButton(ppCommandHandler, this->hWnd, this->controlsEnabled[2]);
 			}
 			break;
 	//-----
@@ -329,7 +334,7 @@ STDMETHODIMP RibbonApplication::OnCreateUICommand(UINT32 nCmdID, UI_COMMANDTYPE 
 					ExceptionHandler::push_back<Property>(propertySet, Property(*i, UI_COLLECTION_INVALIDINDEX, 0, UI_COMMANDTYPE_UNKNOWN, Property::CONTENTTYPE::ITEM));
 				}
 
-				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, FALSE, std::vector<Property>{});
+				hResult = RibbonApplication::AddComboBox(ppCommandHandler, this->hWnd, this->controlsEnabled[2], propertySet);
 			}
 			break;
 	//-----

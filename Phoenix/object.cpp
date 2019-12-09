@@ -143,6 +143,8 @@ std::vector<GVERTEX>* Object2D::alocHelper(GLuint vertexCount, GLuint indicesCou
 	return vertices;
 }
 
+std::vector<std::array<GLfloat, 2>> Object3D::minMax{{0.1f, 100.0f}, {0.1f, 100.0f}, {0.1f, 100.0f}, {0.0f, 0.0f}};
+
 const std::array<std::basic_string<TCHAR>, 5> Object3D::primitiveNames{_T("cube"), _T("sphere"), _T("cylinder"), _T("cone"), _T("pyramid")};
 
 std::vector<GVERTEX>* Object3D::axis(_IN_(GLfloat & length), _OUT_(GLenum & primitiveType))

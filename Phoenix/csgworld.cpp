@@ -19,13 +19,15 @@ OpenCSG::Operation CsgNode::getOpenCsgEquivalent(CsgNode::OPERATION operation)
 	}
 }
 
-std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgNode & node))
+std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(CsgNode & node))
 {
 	FileIO::Export::push(out, _T("operation"));
-	out << static_cast<unsigned char>(node.operation) << FileIO::Export::pop;
+	out << static_cast<unsigned char>(node.operation);
+	FileIO::Export::pop(out);
 
 	FileIO::Export::push(out, _T("object"));
-	out << node.object->getObjectId() << FileIO::Export::pop;
+	out << node.object->getObjectId();
+	FileIO::Export::pop(out);
 
 	return out;
 }
@@ -52,13 +54,14 @@ void CsgTree::deleteOpenCsgNodes()
 	this->openCsgNodes.clear();
 }
 
-std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgTree & tree))
+std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(CsgTree & tree))
 {
 	FileIO::Export::push(out, _T("nodes"));
 	for(std::vector<CsgNode>::const_iterator i = tree.csgNodes.begin(), j = tree.csgNodes.end(); i != j; i++)
 	{
 		FileIO::Export::push(out, _T("node"));
-		out << *i << FileIO::Export::pop;
+		out << *i;
+		FileIO::Export::pop(out);
 	}
 	FileIO::Export::pop(out);
 
@@ -87,13 +90,23 @@ bool CsgWorld::addCsgTree(_IN_(std::basic_string<TCHAR> & treeName))
 	return inserted.second;
 }
 
-bool CsgWorld::addCsgNode(_IN_(std::basic_string<TCHAR> & treeName), GraphicObject* object)
+void CsgWorld::getCsgTreeNames(_OUT_(std::vector<std::basic_string<TCHAR>> & treeNames))
+{
+	treeNames.clear();
+
+	for(std::map<std::basic_string<TCHAR>, CsgTree>::iterator i = this->csgTrees.begin(), j = this->csgTrees.end(); i != j; i++)
+	{
+		ExceptionHandler::push_back<std::basic_string<TCHAR>>(treeNames, i->first);
+	}
+}
+
+bool CsgWorld::addCsgNode(_IN_(std::basic_string<TCHAR> & treeName), GraphicObject* object, CsgNode::OPERATION operation)
 {
 	std::vector<CsgNode>* nodes = this->getTreeCsgNodes(treeName);
 
 	if(nodes != nullptr)
 	{
-		CsgNode node{CsgNode::OPERATION::UNION, object};
+		CsgNode node{operation, object};
 
 		std::vector<CsgNode>::iterator location = std::find_if(nodes->begin(), nodes->end(), ComparatorCsgNode(object->getObjectId()));
 
@@ -318,17 +331,88 @@ void CsgWorld::drawObjects(_IN_(unsigned int & shaderProgram), _IN_(unsigned int
 	}
 }
 
-void CsgWorld::save(std::basic_ofstream<TCHAR> & file)
+void CsgWorld::save(_INOUT_(std::basic_ofstream<TCHAR> & file))
 {
 	FileIO::Export::push(file, _T("trees"));
 	for(std::map<std::basic_string<TCHAR>, CsgTree>::const_iterator i = this->csgTrees.begin(), j = this->csgTrees.end(); i != j; i++)
 	{
 		FileIO::Export::push(file, _T("tree"));
 		FileIO::Export::push(file, _T("name"));
-		file << i->first << FileIO::Export::pop << i->second;
+		file << i->first;
+		FileIO::Export::pop(file);
+		file << i->second;
 		FileIO::Export::pop(file);
 	}
 	FileIO::Export::pop(file);
+}
+
+void CsgWorld::load(_IN_(rapidxml::xml_node<TCHAR>* parentNode), _IN_(GraphicWorld & graphicWorld))
+{
+	if(parentNode != nullptr)
+	{
+		GraphicObject* object;
+		CsgNode::OPERATION operation;
+		std::basic_string<TCHAR> treeName;
+		rapidxml::xml_node<TCHAR>* childNode1 = nullptr;
+		rapidxml::xml_node<TCHAR>* childNode2 = nullptr;
+
+		rapidxml::xml_node<TCHAR>* node = parentNode->first_node();
+
+		while(node != nullptr)
+		{
+			if(FileIO::Import::isTag(_T("tree"), node))
+			{
+				childNode1 = node->first_node(_T("name"));
+
+				if(childNode1 != nullptr)
+				{
+					treeName = childNode1->value();
+
+					if(treeName.compare(_T("default")) == 0 || this->addCsgTree(treeName))
+					{
+						childNode1 = node->first_node(_T("nodes"));
+
+						if(childNode1 != nullptr)
+						{
+							childNode1 = childNode1->first_node();
+
+							while(childNode1 != nullptr)
+							{
+								if(FileIO::Import::isTag(_T("node"), childNode1))
+								{
+									object = nullptr;
+									operation = CsgNode::OPERATION::NOOPERATION;
+
+									childNode2 = childNode1->first_node(_T("operation"));
+
+									if(childNode2 != nullptr)
+									{
+										operation = CsgNode::convertOperation(_ttoi(childNode2->value()));
+									}
+
+									childNode2 = childNode1->first_node(_T("object"));
+
+									if(childNode2 != nullptr)
+									{
+										object = graphicWorld.getGraphicObject(_ttoi(childNode2->value()));
+									}
+
+									if(operation != CsgNode::OPERATION::NOOPERATION && object != nullptr)
+									{
+										this->addCsgNode(treeName, object ,operation);
+									}
+								}
+
+								childNode1 = childNode1->next_sibling();
+							}
+						}
+					}
+				}
+			}
+
+			node = node->next_sibling();
+		}
+	}
 }
 
 std::vector<CsgNode>* CsgWorld::getTreeCsgNodes(_IN_(std::basic_string<TCHAR> & treeName))

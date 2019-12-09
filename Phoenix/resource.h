@@ -27,6 +27,9 @@
 #define IDC_STATIC_21                   221
 #define IDC_STATIC_22                   222
 #define IDC_STATIC_23                   223
+#define IDC_STATIC_24                   224
+#define IDC_STATIC_25                   225
+#define IDC_STATIC_26                   226
 #define IDC_SYSLINK_1                   301
 #define IDC_SYSLINK_2                   302
 #define IDC_SYSLINK_3                   303
@@ -36,6 +39,7 @@
 #define IDC_SYSLINK_7                   307
 #define IDC_SYSLINK_8                   308
 #define IDC_SYSLINK_9                   309
+#define IDC_SYSLINK_10                  310
 #define IDC_LOGO                        400
 #define IDC_STATIC_2PB                  401
 #define IDC_STATIC_2EB                  402

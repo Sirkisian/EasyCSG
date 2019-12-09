@@ -9,11 +9,16 @@
 class CsgNode
 {
 	public:
-		enum class OPERATION : unsigned char {INTERSECTION, SUBTRACTION, UNION};
+		enum class OPERATION : unsigned char {NOOPERATION, INTERSECTION, SUBTRACTION, UNION};
+
+		static inline CsgNode::OPERATION convertOperation(unsigned char operation)
+		{
+			return EnumConverter::convert<CsgNode::OPERATION>(operation, CsgNode::OPERATION::INTERSECTION, CsgNode::OPERATION::UNION);
+		}
 
 		static OpenCSG::Operation getOpenCsgEquivalent(CsgNode::OPERATION operation);
 
-		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgNode & node));
+		friend std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(CsgNode & node));
 
 		CsgNode::OPERATION operation;
 
@@ -45,7 +50,7 @@ class CsgTree
 
 		void deleteOpenCsgNodes();
 
-		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(CsgTree & tree));
+		friend std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(CsgTree & tree));
 
 		std::vector<CsgNode> csgNodes;
 		std::vector<OpenCSG::Primitive*> openCsgNodes;
@@ -61,7 +66,9 @@ class CsgWorld
 
 		bool addCsgTree(_IN_(std::basic_string<TCHAR> & treeName));
 
-		bool addCsgNode(_IN_(std::basic_string<TCHAR> & treeName), GraphicObject* object);
+		void getCsgTreeNames(_OUT_(std::vector<std::basic_string<TCHAR>> & treeNames));
+
+		bool addCsgNode(_IN_(std::basic_string<TCHAR> & treeName), GraphicObject* object, CsgNode::OPERATION operation = CsgNode::OPERATION::UNION);
 		bool removeCsgNode(_IN_(std::basic_string<TCHAR> & treeName), _IN_(unsigned int & position));
 		const std::vector<CsgNode>* getCsgNodes(_IN_(std::basic_string<TCHAR> & treeName));
 
@@ -78,7 +85,8 @@ class CsgWorld
 
 		void drawObjects(_IN_(unsigned int & shaderProgram), _IN_(unsigned int & shaderProgramFixed));
 
-		void save(std::basic_ofstream<TCHAR> & file);
+		void save(_INOUT_(std::basic_ofstream<TCHAR> & file));
+		void load(_IN_(rapidxml::xml_node<TCHAR>* parentNode), _IN_(GraphicWorld & graphicWorld));
 
 		inline void clear()
 		{

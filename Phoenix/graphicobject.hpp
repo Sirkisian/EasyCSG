@@ -53,12 +53,18 @@ class GraphicObject : public SceneObject
 
 		virtual GraphicObject* clone() = 0;
 
-		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(GraphicObject* object));
+		friend std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(GraphicObject* object));
+
+		inline GLvoid operator<<(_IN_(rapidxml::xml_node<TCHAR>* node))
+		{
+			this->fileScanf(node);
+		}
 
 		Material material;
 
 	protected:
-		virtual GLvoid filePrintf(std::basic_ostream<TCHAR> & out) const = 0;
+		virtual GLvoid filePrintf(_INOUT_(std::basic_ostream<TCHAR> & out)) const = 0;
+		virtual GLvoid fileScanf(_IN_(rapidxml::xml_node<TCHAR>* parentNode)) = 0;
 
 		//element buffer object
 		GLuint ebo;

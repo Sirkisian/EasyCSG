@@ -18,9 +18,10 @@ CSG calcualting | [Carve](https://github.com/folded/carve/)
 Mathematical library | [GLM](https://glm.g-truc.net/)
 Image library | [STB](https://github.com/nothings/stb/)
 Font library | [FreeType](https://freetype.org/)
+XML parser | [RapidXml](http://rapidxml.sourceforge.net/)
+Web server | [MiniWeb](http://miniweb.sourceforge.net/)
 Memory leak detection | [Visual Leak Detector](https://kinddragon.github.io/vld/)
 Icons | [icons8](https://icons8.com/)
-Web server | [miniweb](http://miniweb.sourceforge.net/)
 []()|[]()
 
 EasyCSG is developed in Visual Studio 2019 Community. The project contains all files and libraries which are needed for futher development. The Code is divided into two main parts: cross platform and Windows platform.

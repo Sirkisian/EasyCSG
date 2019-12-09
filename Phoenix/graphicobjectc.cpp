@@ -141,13 +141,14 @@ GLvoid GraphicObjectC::getIndicesFromMesh()
 	}
 }
 
-GLvoid GraphicObjectC::filePrintf(std::basic_ostream<TCHAR> & out) const
+GLvoid GraphicObjectC::filePrintf(_INOUT_(std::basic_ostream<TCHAR> & out)) const
 {
-	FileIO::FormatNumber4Out<GLdouble> formatedDouble(out);
-	FileIO::FormatNumber4Out<GLint> formatedInt(out);
+	FileIO::FormatNumArray4Out<GLdouble> formatedDouble(out);
+	FileIO::FormatNumArray4Out<GLint> formatedInt(out);
 
 	FileIO::Export::push(out, _T("type"));
-	out << _T("C") << FileIO::Export::pop;
+	out << _T("C");
+	FileIO::Export::pop(out);
 
 	GraphicObject::filePrintf(out);
 
@@ -162,7 +163,7 @@ GLvoid GraphicObjectC::filePrintf(std::basic_ostream<TCHAR> & out) const
 	FileIO::Export::popTag();
 	FileIO::Export::pop(out);
 
-	size_t size, last;
+	size_t size;
 	FileIO::Export::push(out, _T("faces"));
 	FileIO::Export::pushTag(_T("f"));
 	for(std::map<GLuint, std::vector<GLuint>>::const_iterator i = this->faces.begin(), j = this->faces.end(); i != j; i++)
@@ -171,15 +172,8 @@ GLvoid GraphicObjectC::filePrintf(std::basic_ostream<TCHAR> & out) const
 
 		for(size_t k = 0; k <= size; k++)
 		{
-			last = i->first * (k + 1);
-
-			if(k == size)
-			{
-				last--;
-			}
-
 			FileIO::Export::topOpen(out);
-			std::for_each(&(i->second[i->first * k]), &(i->second[last]), formatedInt);
+			std::for_each(i->second.begin() + (i->first * k), i->second.begin() + (i->first * (k + 1)), formatedInt);
 			FileIO::Export::topClose(out);
 		}
 	}
@@ -187,6 +181,11 @@ GLvoid GraphicObjectC::filePrintf(std::basic_ostream<TCHAR> & out) const
 	FileIO::Export::pop(out);
 
 	//+ textures
+}
+
+GLvoid GraphicObjectC::fileScanf(_IN_(rapidxml::xml_node<TCHAR>* parentNode))
+{
+	GraphicObject::fileScanf(parentNode);
 }
 
 void GraphicObjectC::render()

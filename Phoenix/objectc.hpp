@@ -1,7 +1,10 @@
 #pragma once
 //-----
+#pragma warning(push)
+#pragma warning(disable:4018)
 #include <carve/input.hpp>
 #include <carve/interpolator.hpp>
+#pragma warning(pop)
 #include "macros.hpp"
 #include "exceptionhandler.hpp"
 //----

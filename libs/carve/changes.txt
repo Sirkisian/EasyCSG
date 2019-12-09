@@ -12,12 +12,19 @@ mesh.cpp:
 -add
 #include <algorithm>
 #include <functional>
+
 -----
+
 mesh_impl.hpp:
+
 -add
+
 #include <algorithm>
+
 -----
+
 aabb_impl.hpp:
+
 -add
 #include <algorithm>
 -----
@@ -34,3 +41,7 @@ stream.hpp
 djset.hpp
 -removed
 void collate(in_iter_t in, out_collection_t& out)
+-----
+util.hpp
+-add
+#include <algorithm>

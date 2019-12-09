@@ -471,50 +471,42 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 								if(dialog.show(hWnd, Dialog::MessageDialog::TYPE::M_QUESTION, mMAINWINDOWNAME, std::basic_string<TCHAR>{_T("Do you want to create a new project?")}))
 								{
-									g_project->reset();
-
-									g_transformationValues = TRANSFORMATIONVALUES();
-
-									resetRibbon(framework);
-									removeSelection(framework);
-
-									InvalidateRect(childWindow, NULL, TRUE);
+									resetProject(childWindow, framework);
 								}
 							}
 							else
 							{
-								std::array<SHORT, 2> position{0, 0};
-								std::array<SHORT, 2> size{0, 0};
+								createProject(hWnd, framework);
+							}
+						}
+						break;
 
-								WindowProperty wp(mCHILDWINDOWNAME, WS_CHILDWINDOW, position, size, mWINDOW::CHILD, mWINDOW::MAIN, SW_SHOW);
+					case cmdOpenProject:
+					case cmdMenuOpenProject:
+						{
+							std::basic_string<TCHAR> name{_T("EasyCSG - ")};
+							std::basic_string<TCHAR> fileFormats{_T("*.ecsg")};
+							name.append(fileFormats);
 
-								if(g_windowsUI->createGraphicWindow(wp))
+							std::vector<COMDLG_FILTERSPEC> types;
+							ExceptionHandler::push_back<COMDLG_FILTERSPEC>(types, {name.data(), fileFormats.data()});
+
+							if(SUCCEEDED(Dialog::open(mMAINWINDOWNAME, types, g_fileName)))
+							{
+								if(g_project != NULL)
 								{
-									g_project = new Project;
-
-									if(g_project != NULL)
-									{
-										g_ribbon->EnableControlsOnCreate(TRUE, mCONTROLGROUP::PROJECT);
-
-										RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::projectControls, TRUE);
-
-										LPTSTR fontPath;
-										if(SUCCEEDED(SHGetKnownFolderPath(FOLDERID_Fonts, 0, NULL, &fontPath)))
-										{
-											std::basic_string<TCHAR> font{fontPath};
-
-											font.append(_T("\\verdana.ttf"));
-
-											g_project->fontManager.loadFont(font);
-
-											CoTaskMemFree(fontPath);
-										}
-
-										g_printScreen = new PrintScreen;
-
-										return SendMessage(hWnd, WM_SIZE, 0, 0);
-									}
+									resetProject(childWindow, framework);
 								}
+								else
+								{
+									createProject(hWnd, framework);
+								}
+
+								g_project->load(g_fileName);
+
+								loadRibbon(framework);
+
+								InvalidateRect(childWindow, NULL, TRUE);
 							}
 						}
 						break;
@@ -674,7 +666,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 									BOOL validValues = FALSE;
 
 									std::vector<FLOAT> values(4, 0.0f);
-									Input::list2floatArray(objectValues, std::basic_string<TCHAR>{_T(";")}, values);
+									Input::list2NumArray(objectValues, ';', values);
 
 									switch(objectType)
 									{
@@ -682,8 +674,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 										case cmd3Dsphere:
 										case cmd3Dcylinder:
 											{
-												std::vector<std::array<FLOAT, 2>> minMax{{0.1f, 100.0f}, {0.1f, 100.0f}, {0.1f, 100.0f}, {0.0f, 0.0f}};
-												validValues = Input::checkFloatArrayValues(values, minMax);
+												validValues = Input::checkFloatArrayValues(values, Object3D::minMax);
 											}
 											break;
 									}
@@ -734,7 +725,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 												std::vector<FLOAT> values(4, 0.0f);
 												if(!defaultValues)
 												{
-													Input::list2floatArray(objectValues, std::basic_string<TCHAR>{_T(";")}, values);
+													Input::list2NumArray(objectValues, ';', values);
 												}
 
 												switch(objectType)
@@ -749,7 +740,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 																values[3] = 0;
 															}
 
-															object = g_project->graphicWorld.objectManager.createPrimitive(Object::OBJECTTYPE::CUBE, objectName, values);
+															object = g_project->objectManager.createPrimitive(Object::OBJECTTYPE::CUBE, objectName, values);
 														}
 														break;
 
@@ -763,7 +754,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 																values[3] = 0;
 															}
 
-															object = g_project->graphicWorld.objectManager.createPrimitive(Object::OBJECTTYPE::SPHERE, objectName, values);
+															object = g_project->objectManager.createPrimitive(Object::OBJECTTYPE::SPHERE, objectName, values);
 														}
 														break;
 
@@ -777,7 +768,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 																values[3] = 0;
 															}
 
-															object = g_project->graphicWorld.objectManager.createPrimitive(Object::OBJECTTYPE::CYLINDER, objectName, values);
+															object = g_project->objectManager.createPrimitive(Object::OBJECTTYPE::CYLINDER, objectName, values);
 														}
 														break;
 												}
@@ -818,7 +809,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 								if(clone != NULL)
 								{
-									g_project->graphicWorld.objectManager.setObjectId(clone);
+									g_project->objectManager.setObjectId(clone);
 
 									std::basic_ostringstream<TCHAR> cloneName;
 									cloneName << _T("clone#") << clone->getObjectId();
@@ -956,12 +947,9 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 								if(handleFloatListControl(hWnd, framework, wParam, lightMaterialControls, lightMaterialValues, lightMaterialType, std::basic_string<TCHAR>{_T("")}, std::basic_string<TCHAR>{_T("No light/material selected!")}))
 								{
 									std::vector<FLOAT> values(4, 0.0f);
+									Input::list2NumArray(lightMaterialValues, ';', values);
 
-									Input::list2floatArray(lightMaterialValues, std::basic_string<TCHAR>{_T(";")}, values);
-
-									std::vector<std::array<FLOAT, 2>> minMax{{0.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, 1.0f}};
-
-									if(!Input::checkFloatArrayValues(values, minMax))
+									if(!Input::checkFloatArrayValues(values, Lighting::minMax))
 									{
 										writeInfoMessage(hWnd, framework, wParam, std::basic_string<TCHAR>{_T("")}, std::basic_string<TCHAR>{_T("Invalid arguments!")});
 									}
@@ -1005,7 +993,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 												BYTE lightTypeNum = static_cast<BYTE>(lightType);
 
-												formatLightMaterialString(arrayValues, string, lightTypeNum);
+												formatLightMaterial(arrayValues, string, lightTypeNum);
 
 												RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, wParam, string, 1, lightTypeNum);
 											}
@@ -1046,7 +1034,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 											BYTE materialTypeNum = static_cast<BYTE>(materialType);
 
-											formatLightMaterialString(arrayValues, string, materialTypeNum);
+											formatLightMaterial(arrayValues, string, materialTypeNum);
 
 											if(g_project->graphicWorld.selectedObjectsCount() > 1)
 											{
@@ -1086,7 +1074,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 										else
 										{
 											std::vector<FLOAT> values(3, 0.0f);
-											Input::list2floatArray(lightPosition, std::basic_string<TCHAR>{_T(";")}, values);
+											Input::list2NumArray(lightPosition, ';', values);
 
 											std::vector<std::array<FLOAT, 2>> minMax{{-100.0f, 100.0f}, {-100.0f, 100.0f}, {-100.0f, 100.0f}};
 
@@ -1177,6 +1165,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 						}
 						break;
 
+					//Tab [Csg]
 					case cmdCsgTreeNames:
 						{
 							std::basic_string<TCHAR> treeName;
@@ -1198,56 +1187,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 								RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::objectCsgControls, 0);
 								RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectCsgControls, FALSE);
 
-								if(g_project->csgWorld.isCsgTreeEmpty(treeName))
-								{
-									RibbonControlManager::EnableDisableCommands(framework, std::vector<UINT>{cmdCsgTreeNodes, cmdNodeRemove}, FALSE);
-								}
-								else
-								{
-									RibbonControlManager::EnableDisableCommands(framework, std::vector<UINT>{cmdCsgTreeNodes, cmdNodeRemove}, TRUE);
-
-									const std::vector<CsgNode>* nodes = g_project->csgWorld.getCsgNodes(treeName);
-
-									if(nodes != NULL)
-									{
-										for(std::vector<CsgNode>::const_iterator i = nodes->begin(), j = nodes->end(); i != j; i++)
-										{
-											std::basic_ostringstream<TCHAR> string;
-
-											if(i != nodes->begin())
-											{
-												string << _T("op(");
-
-												switch(i->operation)
-												{
-													case CsgNode::OPERATION::SUBTRACTION:
-														{
-															string << _T("S");
-														}
-														break;
-
-													case CsgNode::OPERATION::INTERSECTION:
-														{
-															string << _T("I");
-														}
-														break;
-
-													case CsgNode::OPERATION::UNION:
-														{
-															string << _T("U");
-														}
-														break;
-												}
-
-												string << _T(") ");
-											}
-
-											string << i->object->getObjectName();
-
-											RibbonControlManager::ComboBoxManager::AddEntry(framework, cmdCsgTreeNodes, string.str());
-										}
-									}
-								}
+								setCsgNodes(framework, treeName);
 							}
 						}
 						break;
@@ -1478,7 +1418,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 								if(object != NULL)
 								{
-									g_project->graphicWorld.objectManager.setObjectId(object);
+									g_project->objectManager.setObjectId(object);
 
 									std::basic_ostringstream<TCHAR> objectName;
 									objectName << _T("csgObject#") << object->getObjectId();
@@ -1735,7 +1675,7 @@ BOOL handleFloatListControl(HWND hWnd, IUIFramework* framework, _IN_(UINT & comm
 	return returnValue;
 }
 
-VOID formatLightMaterialString(_IN_(ARRAY4REF(FLOAT, values)), _OUT_(std::basic_string<TCHAR> & string), BYTE lightMaterialType)
+VOID formatLightMaterial(_IN_(ARRAY4REF(FLOAT, values)), _OUT_(std::basic_string<TCHAR> & string), BYTE lightMaterialType)
 {
 	std::basic_ostringstream<TCHAR> stringFormated;
 	stringFormated.setf(std::ios::showpoint | std::ios::left);
@@ -1793,30 +1733,18 @@ VOID formatLightPosition(_IN_(ARRAY3REF(FLOAT, values)), _OUT_(std::basic_string
 	string = stringFormated.str();
 }
 
-VOID removeSelection(IUIFramework* framework)
-{
-	g_project->graphicWorld.drawTransformationAxis = FALSE;
-
-	g_ribbon->EnableControlsOnCreate(FALSE, mCONTROLGROUP::OBJECT);
-
-	for(BYTE i = static_cast<BYTE>(Material::MATERIALTYPE::AMBIENT), j = static_cast<BYTE>(Material::MATERIALTYPE::EMISSIVE); i <= j; i++)
-	{
-		RibbonControlManager::ComboBoxManager::RemoveEntry(framework, cmdLightMaterialValues, 4);
-	}
-
-	RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectControls, FALSE);
-}
-
 VOID setMaterial(IUIFramework* framework, size_t position, BOOL selected, BOOL single)
 {
+	std::basic_string<TCHAR> string;
+	std::vector<UnionValue> unionValues;
+
 	for(BYTE i = static_cast<BYTE>(Material::MATERIALTYPE::AMBIENT), j = static_cast<BYTE>(Material::MATERIALTYPE::EMISSIVE); i <= j; i++)
 	{
 		const std::array<FLOAT, 4>* material = g_project->graphicWorld.getMaterialValues(position, Material::convertMaterialType(i));
 
 		if(material != NULL)
 		{
-			std::basic_string<TCHAR> string;
-			formatLightMaterialString(*material, string, i);
+			formatLightMaterial(*material, string, i);
 
 			if(selected)
 			{
@@ -1831,6 +1759,74 @@ VOID setMaterial(IUIFramework* framework, size_t position, BOOL selected, BOOL s
 			{
 				RibbonControlManager::ComboBoxManager::AddEntry(framework, cmdLightMaterialValues, string, 2);
 			}
+
+			ExceptionHandler::push_back<UnionValue>(unionValues, UnionValue(string));
+		}
+	}
+
+	g_ribbon->SetMutableControl(_T("materialValues"), unionValues);
+}
+
+VOID setCsgNodes(IUIFramework* framework, _IN_(std::basic_string<TCHAR> & treeName))
+{
+	if(g_project->csgWorld.isCsgTreeEmpty(treeName))
+	{
+		RibbonControlManager::EnableDisableCommands(framework, std::vector<UINT>{cmdCsgTreeNodes, cmdNodeRemove}, FALSE);
+
+		g_ribbon->EnableControlsOnCreate(FALSE, mCONTROLGROUP::CSGNODE);
+	}
+	else
+	{
+		RibbonControlManager::EnableDisableCommands(framework, std::vector<UINT>{cmdCsgTreeNodes, cmdNodeRemove}, TRUE);
+
+		g_ribbon->EnableControlsOnCreate(TRUE, mCONTROLGROUP::CSGNODE);
+
+		const std::vector<CsgNode>* nodes = g_project->csgWorld.getCsgNodes(treeName);
+
+		if(nodes != NULL)
+		{
+			std::vector<UnionValue> unionValues;
+
+			for(std::vector<CsgNode>::const_iterator i = nodes->begin(), j = nodes->end(); i != j; i++)
+			{
+				std::basic_ostringstream<TCHAR> string;
+
+				if(i != nodes->begin())
+				{
+					string << _T("op(");
+
+					switch(i->operation)
+					{
+						case CsgNode::OPERATION::SUBTRACTION:
+							{
+								string << _T("S");
+							}
+							break;
+
+						case CsgNode::OPERATION::INTERSECTION:
+							{
+								string << _T("I");
+							}
+							break;
+
+						case CsgNode::OPERATION::UNION:
+							{
+								string << _T("U");
+							}
+							break;
+					}
+
+					string << _T(") ");
+				}
+
+				string << i->object->getObjectName();
+
+				RibbonControlManager::ComboBoxManager::AddEntry(framework, cmdCsgTreeNodes, string.str());
+
+				ExceptionHandler::push_back<UnionValue>(unionValues, UnionValue(string.str()));
+			}
+
+			g_ribbon->SetMutableControl(_T("csgTreeNodes"), unionValues);
 		}
 	}
 }
@@ -1852,6 +1848,20 @@ BOOL getExePath(_OUT_(std::basic_string<TCHAR> & path))
 	}
 
 	return FALSE;
+}
+
+VOID removeSelection(IUIFramework* framework)
+{
+	g_project->graphicWorld.drawTransformationAxis = FALSE;
+
+	g_ribbon->EnableControlsOnCreate(FALSE, mCONTROLGROUP::OBJECT);
+
+	for(BYTE i = static_cast<BYTE>(Material::MATERIALTYPE::AMBIENT), j = static_cast<BYTE>(Material::MATERIALTYPE::EMISSIVE); i <= j; i++)
+	{
+		RibbonControlManager::ComboBoxManager::RemoveEntry(framework, cmdLightMaterialValues, 4);
+	}
+
+	RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::objectControls, FALSE);
 }
 
 VOID resetRibbon(IUIFramework* framework)
@@ -1877,7 +1887,7 @@ VOID resetRibbon(IUIFramework* framework)
 	std::array<FLOAT, 4> values4{1.0f, 1.0f, 1.0f, 1.0f};
 	for(BYTE i = static_cast<BYTE>(Light::LIGHTTYPE::AMBIENT), j = static_cast<BYTE>(Light::LIGHTTYPE::SPECULAR); i <= j; i++)
 	{
-		formatLightMaterialString(values4, string, i);
+		formatLightMaterial(values4, string, i);
 		RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdLightMaterialValues, string, 1, i);
 	}
 
@@ -1901,6 +1911,108 @@ VOID resetRibbon(IUIFramework* framework)
 	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgDepthAlgorithmControls, cmdNoDepthComplexitySampling);
 	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOfscreenTypeControls, cmdAutomaticOffscreenType);
 	RibbonControlManager::SetToggleGroup(framework, RibbonControlGroups::csgOptimizationControls, cmdOptimizationOff);
+}
+
+VOID loadRibbon(IUIFramework* framework)
+{
+	std::basic_string<TCHAR> string;
+	std::vector<UnionValue> unionValues;
+	std::vector<std::basic_string<TCHAR>> stringVector;
+
+	for(BYTE i = static_cast<BYTE>(Light::LIGHTTYPE::AMBIENT), j = static_cast<BYTE>(Light::LIGHTTYPE::SPECULAR); i <= j; i++)
+	{
+		const std::array<FLOAT, 4>* light = g_project->graphicWorld.getLightValues(GL_LIGHT0, Light::convertLightType(i));
+
+		if(light != NULL)
+		{
+			formatLightMaterial(*light, string, i);
+			RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdLightMaterialValues, string, 1, i);
+
+			ExceptionHandler::push_back<UnionValue>(unionValues, UnionValue(string));
+		}
+	}
+
+	g_ribbon->SetMutableControl(_T("lightValues"), unionValues);
+
+	unionValues.clear();
+
+	const std::array<FLOAT, 3>* position = g_project->graphicWorld.getLightPosition(GL_LIGHT0);
+
+	if(position != NULL)
+	{
+		formatLightPosition(*position, string);
+
+		RibbonControlManager::ComboBoxManager::ReplaceEntry(framework, cmdLightPosition, string, 1, 1);
+
+		g_ribbon->SetMutableControl(_T("lightPosition"), std::vector<UnionValue>{UnionValue(string)});
+	}
+
+	g_project->csgWorld.getCsgTreeNames(stringVector);
+
+	for(std::vector<std::basic_string<TCHAR>>::const_iterator i = stringVector.begin(), j = stringVector.end(); i != j; i++)
+	{
+		if(i->compare(_T("default")) != 0)
+		{
+			RibbonControlManager::ComboBoxManager::AddEntry(framework, cmdCsgTreeNames, *i);
+		}
+
+		ExceptionHandler::push_back<UnionValue>(unionValues, UnionValue(*i));
+	}
+
+	g_ribbon->SetMutableControl(_T("csgTreeNames"), unionValues);
+
+	if(!stringVector.empty())
+	{
+		setCsgNodes(framework, stringVector.front());
+	}
+}
+
+VOID createProject(HWND hWnd, IUIFramework* framework)
+{
+	std::array<SHORT, 2> position{0, 0};
+	std::array<SHORT, 2> size{0, 0};
+
+	WindowProperty wp(mCHILDWINDOWNAME, WS_CHILDWINDOW, position, size, mWINDOW::CHILD, mWINDOW::MAIN, SW_SHOW);
+
+	if(g_windowsUI->createGraphicWindow(wp))
+	{
+		g_project = new Project;
+
+		if(g_project != NULL)
+		{
+			g_ribbon->EnableControlsOnCreate(TRUE, mCONTROLGROUP::PROJECT);
+
+			RibbonControlManager::EnableDisableCommands(framework, RibbonControlGroups::projectControls, TRUE);
+
+			LPTSTR fontPath;
+			if(SUCCEEDED(SHGetKnownFolderPath(FOLDERID_Fonts, 0, NULL, &fontPath)))
+			{
+				std::basic_string<TCHAR> font{fontPath};
+
+				font.append(_T("\\verdana.ttf"));
+
+				g_project->fontManager.loadFont(font);
+
+				CoTaskMemFree(fontPath);
+			}
+
+			g_printScreen = new PrintScreen;
+
+			SendMessage(hWnd, WM_SIZE, 0, 0);
+		}
+	}
+}
+
+VOID resetProject(HWND hWnd, IUIFramework* framework)
+{
+	g_project->reset();
+
+	g_transformationValues = TRANSFORMATIONVALUES();
+
+	resetRibbon(framework);
+	removeSelection(framework);
+
+	InvalidateRect(hWnd, NULL, TRUE);
 }
 
 VOID free()
@@ -2034,16 +2146,21 @@ INT_PTR CALLBACK helpDialogProcedure(HWND hWndDlg, UINT uMsg, WPARAM wParam, LPA
 							}
 							else if(wParam == IDC_SYSLINK_7)
 							{
-								openUrl(std::basic_string<TCHAR>{_T("https://kinddragon.github.io/vld/")});
+								openUrl(std::basic_string<TCHAR>{_T("http://rapidxml.sourceforge.net/")});
 							}
 							else if(wParam == IDC_SYSLINK_8)
 							{
-								openUrl(std::basic_string<TCHAR>{_T("https://icons8.com/")});
+								openUrl(std::basic_string<TCHAR>{_T("http://miniweb.sourceforge.net/")});
 							}
 							else if(wParam == IDC_SYSLINK_9)
 							{
-								openUrl(std::basic_string<TCHAR>{_T("http://miniweb.sourceforge.net/")});
+								openUrl(std::basic_string<TCHAR>{_T("https://kinddragon.github.io/vld/")});
 							}
+							else if(wParam == IDC_SYSLINK_10)
+							{
+								openUrl(std::basic_string<TCHAR>{_T("https://icons8.com/")});
+							}
+
 						}
 						break;
 				}

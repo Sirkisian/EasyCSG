@@ -215,6 +215,18 @@ GLvoid GraphicWorld::addGraphicLight(GLushort lightSource)
 	}
 }
 
+GraphicObject* GraphicWorld::getGraphicObject(GLuint id) const
+{
+	std::vector<GraphicObject*>::const_iterator location = std::find_if(this->objects.begin(), this->objects.end(), ComparatorGraphicObject(id));
+
+	if(location != this->objects.end())
+	{
+		return *location;
+	}
+
+	return nullptr;
+}
+
 GLvoid GraphicWorld::deleteGraphicObject(GLuint id)
 {
 	std::vector<GraphicObject*>::iterator location = std::find_if(this->selectedObjects.begin(), this->selectedObjects.end(), ComparatorGraphicObject(id));
@@ -396,6 +408,19 @@ GLvoid GraphicWorld::setLightPosition(GLushort lightSource, _IN_(ARRAY3REF(GLflo
 	}
 }
 
+const std::array<GLfloat, 3>* GraphicWorld::getLightPosition(GLushort lightSource)
+{
+	GLbyte arrayPosition = this->getLightArrayPosition(lightSource);
+
+	if(arrayPosition >= 0)
+	{
+		if(this->lights[arrayPosition] != nullptr)
+		{
+			return this->lights[arrayPosition]->light.getLightPosition();
+		}
+	}
+}
+
 GLvoid GraphicWorld::setLightValues(GLushort lightSource, _IN_(ARRAY4REF(GLfloat, values)), Light::LIGHTTYPE lightType)
 {
 	GLbyte arrayPosition = this->getLightArrayPosition(lightSource);
@@ -407,6 +432,21 @@ GLvoid GraphicWorld::setLightValues(GLushort lightSource, _IN_(ARRAY4REF(GLfloat
 			this->lights[arrayPosition]->light.setLightValues(values, lightType);
 		}
 	}
+}
+
+const std::array<GLfloat, 4>* GraphicWorld::getLightValues(GLushort lightSource, Light::LIGHTTYPE lightType)
+{
+	GLbyte arrayPosition = this->getLightArrayPosition(lightSource);
+
+	if(arrayPosition >= 0)
+	{
+		if(this->lights[arrayPosition] != nullptr)
+		{
+			return this->lights[arrayPosition]->light.getLightValues(lightType);
+		}
+	}
+
+	return nullptr;
 }
 
 GLvoid GraphicWorld::setMaterialValues(_IN_(ARRAY4REF(GLfloat, values)), Material::MATERIALTYPE materialType)
@@ -456,10 +496,11 @@ GLvoid GraphicWorld::centerObject(size_t position)
 	}
 }
 
-GLvoid GraphicWorld::save(std::basic_ofstream<TCHAR> & file)
+GLvoid GraphicWorld::save(_INOUT_(std::basic_ofstream<TCHAR> & file))
 {
 	FileIO::Export::push(file, _T("camera"));
-	file << this->camera << FileIO::Export::pop;
+	file << this->camera;
+	FileIO::Export::pop(file);
 
 	FileIO::Export::push(file, _T("lights"));
 	for(std::array<GraphicLight*, 8>::const_iterator i = this->lights.begin(), j = this->lights.end(); i != j; i++)
@@ -467,7 +508,8 @@ GLvoid GraphicWorld::save(std::basic_ofstream<TCHAR> & file)
 		if(*i != nullptr)
 		{
 			FileIO::Export::push(file, _T("light"));
-			file << *(*i) << FileIO::Export::pop;
+			file << *(*i);
+			FileIO::Export::pop(file);
 		}
 	}
 	FileIO::Export::pop(file);
@@ -476,9 +518,55 @@ GLvoid GraphicWorld::save(std::basic_ofstream<TCHAR> & file)
 	for(std::vector<GraphicObject*>::const_iterator i = this->objects.begin(), j = this->objects.end(); i != j; i++)
 	{
 		FileIO::Export::push(file, _T("object"));
-		file << *i << FileIO::Export::pop;
+		file << *i;
+		FileIO::Export::pop(file);
 	}
 	FileIO::Export::pop(file);
+}
+
+GLvoid GraphicWorld::load(_IN_(rapidxml::xml_node<TCHAR>* parentNode))
+{
+	if(parentNode != nullptr)
+	{
+		rapidxml::xml_node<TCHAR>* node = parentNode->first_node();
+
+		while(node != nullptr)
+		{
+			if(FileIO::Import::isTag(_T("camera"), node))
+			{
+				this->camera << node;
+			}
+			else if(FileIO::Import::isTag(_T("lights"), node))
+			{
+				std::array<GraphicLight*, 8>::const_iterator i = this->lights.begin();
+				std::array<GraphicLight*, 8>::const_iterator j = this->lights.end();
+
+				rapidxml::xml_node<TCHAR>* childNode = node->first_node();
+
+				while(childNode != nullptr)
+				{
+					if(FileIO::Import::isTag(_T("light"), childNode))
+					{
+						if(*i != nullptr)
+						{
+							*(*i) << childNode;
+						}
+
+						i++;
+
+						if(i == j)
+						{
+							break;
+						}
+					}
+
+					childNode = childNode->next_sibling();
+				}
+			}
+
+			node = node->next_sibling();
+		}
+	}
 }
 
 GLvoid GraphicWorld::clear()

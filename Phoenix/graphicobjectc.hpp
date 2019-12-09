@@ -40,7 +40,8 @@ class GraphicObjectC : public GraphicObject
 		GLboolean getVerticesFromMesh();
 		GLvoid getIndicesFromMesh();
 
-		GLvoid filePrintf(std::basic_ostream<TCHAR> & out) const;
+		GLvoid filePrintf(_INOUT_(std::basic_ostream<TCHAR> & out)) const;
+		GLvoid fileScanf(_IN_(rapidxml::xml_node<TCHAR>* parentNode));
 
 		GLvoid render();
 

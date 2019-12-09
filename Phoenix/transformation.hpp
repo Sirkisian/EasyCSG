@@ -45,7 +45,8 @@ class Transformation
 			return this->translation;
 		}
 
-		friend std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Transformation & transformation));
+		friend std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(Transformation & transformation));
+		GLvoid operator<<(_IN_(rapidxml::xml_node<TCHAR>* parentNode));
 
 	private:
 		GLvoid transform(_INOUT_(glm::vec3 & transformation), _IN_(GLfloat & x), _IN_(GLfloat & y), _IN_(GLfloat & z), _IN_(Transformation::ACTION & action));

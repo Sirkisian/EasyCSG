@@ -24,6 +24,8 @@
 
 #pragma once
 
+#include <algorithm>
+
 namespace carve {
 namespace util {
 struct min_functor {

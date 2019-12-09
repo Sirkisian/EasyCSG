@@ -56,21 +56,48 @@ GLvoid GraphicObject::bindEbo()
 	}
 }
 
-std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(GraphicObject* object))
+std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(GraphicObject* object))
 {
 	object->filePrintf(out);
 
 	return out;
 }
 
-GLvoid GraphicObject::filePrintf(std::basic_ostream<TCHAR> & out) const
+GLvoid GraphicObject::filePrintf(_INOUT_(std::basic_ostream<TCHAR> & out)) const
 {
 	FileIO::Export::push(out, _T("id"));
-	out << this->id << FileIO::Export::pop;
+	out << this->id;
+	FileIO::Export::pop(out);
 
 	FileIO::Export::push(out, _T("name"));
-	out << this->objectName << FileIO::Export::pop;
+	out << this->objectName;
+	FileIO::Export::pop(out);
 
 	FileIO::Export::push(out, _T("transformation"));
-	out << this->transformation << FileIO::Export::pop;
+	out << this->transformation;
+	FileIO::Export::pop(out);
+}
+
+GLvoid GraphicObject::fileScanf(_IN_(rapidxml::xml_node<TCHAR>* parentNode))
+{
+	rapidxml::xml_node<TCHAR>* node = parentNode->first_node(_T("id"));
+
+	if(node != nullptr)
+	{
+		this->setObjectId(_ttoi(node->value()));
+	}
+
+	node = parentNode->first_node(_T("name"));
+
+	if(node != nullptr)
+	{
+		this->setObjectName(node->value());
+	}
+
+	node = parentNode->first_node(_T("transformation"));
+
+	if(node != nullptr)
+	{
+		this->transformation << node;
+	}
 }

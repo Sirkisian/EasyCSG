@@ -22,16 +22,57 @@ GLvoid Transformation::multModelMatrix(_INOUT_(glm::mat4 & matrix)) const
 	matrix *= model;
 }
 
-std::basic_ostream<TCHAR> & operator<<(std::basic_ostream<TCHAR> & out, _IN_(Transformation & transformation))
+std::basic_ostream<TCHAR> & operator<<(_INOUT_(std::basic_ostream<TCHAR> & out), _IN_(Transformation & transformation))
 {
+	FileIO::FormatNumArray4Out<GLfloat> formatedFloat(out);
+
 	FileIO::Export::push(out, _T("translation"));
-	out << transformation.translation.x << _T(" ") << transformation.translation.y << _T(" ") << transformation.translation.z << FileIO::Export::pop;
+	std::array<GLfloat, 3> translation{transformation.translation.x, transformation.translation.y, transformation.translation.z};
+	std::for_each(translation.begin(), translation.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
 	FileIO::Export::push(out, _T("scaling"));
-	out << transformation.scaling.x << _T(" ") << transformation.scaling.y << _T(" ") << transformation.scaling.z << FileIO::Export::pop;
+	std::array<GLfloat, 3> scaling{transformation.scaling.x, transformation.scaling.y, transformation.scaling.z};
+	std::for_each(scaling.begin(), scaling.end(), formatedFloat);
+	FileIO::Export::pop(out);
+
 	FileIO::Export::push(out, _T("rotation"));
-	out << transformation.rotation.x << _T(" ") << transformation.rotation.y << _T(" ") << transformation.rotation.z << FileIO::Export::pop;
+	std::array<GLfloat, 3> rotation{transformation.rotation.x, transformation.rotation.y, transformation.rotation.z};
+	std::for_each(rotation.begin(), rotation.end(), formatedFloat);
+	FileIO::Export::pop(out);
 
 	return out;
+}
+
+GLvoid Transformation::operator<<(_IN_(rapidxml::xml_node<TCHAR>* parentNode))
+{
+	if(parentNode != nullptr)
+	{
+		std::array<GLfloat, 3> values;
+
+		rapidxml::xml_node<TCHAR>* node = parentNode->first_node();
+
+		while(node != nullptr)
+		{
+			if(FileIO::Import::isTag(_T("translation"), node))
+			{
+				Input::list2NumArray(node->value(), ' ', values);
+				this->translation = glm::vec3(values[0], values[1], values[2]);
+			}
+			else if(FileIO::Import::isTag(_T("scaling"), node))
+			{
+				Input::list2NumArray(node->value(), ' ', values);
+				this->scaling = glm::vec3(values[0], values[1], values[2]);
+			}
+			else if(FileIO::Import::isTag(_T("rotation"), node))
+			{
+				Input::list2NumArray(node->value(), ' ', values);
+				this->rotation  = glm::vec3(values[0], values[1], values[2]);
+			}
+
+			node = node->next_sibling();
+		}
+	}
 }
 
 GLvoid Transformation::transform(_INOUT_(glm::vec3 & transformation), _IN_(GLfloat & x), _IN_(GLfloat & y), _IN_(GLfloat & z), _IN_(Transformation::ACTION & action))
