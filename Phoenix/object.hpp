@@ -7,6 +7,7 @@
 #include <math.h>
 #include "macros.hpp"
 #include "enumconverter.hpp"
+#include <string>
 //----
 //---
 typedef struct gvertex

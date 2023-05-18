@@ -5,6 +5,7 @@
 #include <tchar.h>
 #include "macros.hpp"
 #include "exceptionhandler.hpp"
+#include <string>
 //----
 //---
 //--

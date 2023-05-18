@@ -5,6 +5,7 @@
 #include <strsafe.h>
 #include <uiribbon.h>
 #include <uiribbonpropertyhelpers.h>
+#include <string>
 #include "macros.hpp"
 //----
 //value, which is sent from Ribbon controls to the WindowProcedure as wParam

@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <shobjidl.h>
 #include <tchar.h>
+#include<string>
 #include "resource.h"
 #include "macros.hpp"
 //----
