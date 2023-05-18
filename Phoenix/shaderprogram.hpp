@@ -1,6 +1,7 @@
 #pragma once
 //-----
 #include <vector>
+#include<string>
 #include <gl/glew.h>
 #include <tchar.h>
 #include "macros.hpp"

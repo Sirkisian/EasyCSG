@@ -9,6 +9,7 @@
 #include "resource.h"
 #include "macros.hpp"
 #include "exceptionhandler.hpp"
+#include <string>
 //----
 enum mWINDOW {MAIN = 1, STATUSBAR, CHILD};
 //---

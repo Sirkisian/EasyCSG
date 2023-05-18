@@ -10,6 +10,8 @@
 #include "rdropdowngalleryhandler.hpp"
 #include "rspinnerhandler.hpp"
 #include "rtogglebuttonhandler.hpp"
+#include <string>
+#include <iterator>
 //----
 enum mCONTROLGROUP {PROJECT, OBJECT, CSGNODE};
 //---

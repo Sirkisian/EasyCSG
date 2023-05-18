@@ -1,4 +1,5 @@
 #include "dialog.hpp"
+#include <string>
 
 HRESULT Dialog::open(_IN_(std::basic_string<TCHAR> & title), _IN_(std::vector<COMDLG_FILTERSPEC> & types), _OUT_(std::basic_string<TCHAR> & file))
 {
